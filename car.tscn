@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://cm7crbvjhddn7"]
+
+[ext_resource type="Script" path="res://car.gd" id="1_svuor"]
+
+[node name="Car" type="PathFollow3D"]
+loop = false
+script = ExtResource("1_svuor")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0405642, 0)
+size = Vector3(0.115234, 0.0861816, 0.235352)
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -0.1)
+target_position = Vector3(0, 0, -0.1)
+collision_mask = 2
+hit_from_inside = true
+collide_with_areas = true
+collide_with_bodies = false

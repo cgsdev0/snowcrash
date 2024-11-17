@@ -1,0 +1,139 @@
+[gd_scene load_steps=28 format=3 uid="uid://cwanptdhuf4gy"]
+
+[ext_resource type="PackedScene" uid="uid://bcau1bsfld32x" path="res://kenney/road_bend.glb" id="12_vc5tl"]
+[ext_resource type="PackedScene" uid="uid://baee25h7yhnnc" path="res://kenney/road_bendSquare.glb" id="15_a6i0r"]
+[ext_resource type="PackedScene" uid="uid://04mrbkik041f" path="res://kenney/road_crossing.glb" id="18_7ramq"]
+[ext_resource type="PackedScene" uid="uid://pfx0nta2jsl3" path="res://kenney/road_crossroad.glb" id="19_ntaj5"]
+[ext_resource type="PackedScene" uid="uid://c041al2jekcft" path="res://kenney/road_crossroadLine.glb" id="21_fnehh"]
+[ext_resource type="PackedScene" uid="uid://oqccqwh3smfq" path="res://kenney/road_crossroadPath.glb" id="22_qr7v7"]
+[ext_resource type="PackedScene" uid="uid://be0sde7err530" path="res://kenney/road_curve.glb" id="23_ah4is"]
+[ext_resource type="PackedScene" uid="uid://c1037lex8hsyx" path="res://kenney/road_curveIntersection.glb" id="25_c7wfo"]
+[ext_resource type="PackedScene" uid="uid://eln3gt4ohwn8" path="res://kenney/road_drivewayDouble.glb" id="28_0ymar"]
+[ext_resource type="PackedScene" uid="uid://cax6ykl4wd456" path="res://kenney/road_drivewaySingle.glb" id="30_if1rc"]
+[ext_resource type="PackedScene" uid="uid://b2y3o3bqh0onn" path="res://kenney/road_end.glb" id="32_u83ye"]
+[ext_resource type="PackedScene" uid="uid://cdg56obj8jgnn" path="res://kenney/road_endRound.glb" id="34_m737y"]
+[ext_resource type="PackedScene" uid="uid://mqrebcj1lx7k" path="res://kenney/road_intersection.glb" id="36_bmqvc"]
+[ext_resource type="PackedScene" uid="uid://cjqbsw68pshu8" path="res://kenney/road_intersectionLine.glb" id="38_e5i77"]
+[ext_resource type="PackedScene" uid="uid://ct8atn1kf6g1" path="res://kenney/road_intersectionPath.glb" id="39_5dlw0"]
+[ext_resource type="PackedScene" uid="uid://km6nke8wy4nq" path="res://kenney/road_roundabout.glb" id="40_7u412"]
+[ext_resource type="PackedScene" uid="uid://qoi2yn10uh3u" path="res://kenney/road_side.glb" id="42_husrl"]
+[ext_resource type="PackedScene" uid="uid://4c1n4nnhxcxo" path="res://kenney/road_sideEntry.glb" id="44_45g38"]
+[ext_resource type="PackedScene" uid="uid://b2vyvt0jpwnyo" path="res://kenney/road_sideExit.glb" id="46_ugg4y"]
+[ext_resource type="PackedScene" uid="uid://vh6pi5f8wjat" path="res://kenney/road_slant.glb" id="48_23pm7"]
+[ext_resource type="PackedScene" uid="uid://ds7xhkmeo22yr" path="res://kenney/road_slantCurve.glb" id="50_ofk44"]
+[ext_resource type="PackedScene" uid="uid://cgg0ajn82uqli" path="res://kenney/road_slantFlat.glb" id="52_oo6c3"]
+[ext_resource type="PackedScene" uid="uid://dgm68y1cnfiny" path="res://kenney/road_slantFlatCurve.glb" id="53_x0mmd"]
+[ext_resource type="PackedScene" uid="uid://flus2ttyoubr" path="res://kenney/road_slantFlatHigh.glb" id="54_5f54r"]
+[ext_resource type="PackedScene" uid="uid://npnf38532mi8" path="res://kenney/road_slantHigh.glb" id="55_p5xr0"]
+[ext_resource type="PackedScene" uid="uid://tqqlh44mq4nn" path="res://kenney/road_split.glb" id="57_sd8dr"]
+[ext_resource type="PackedScene" uid="uid://ctcva2w6f8ih6" path="res://kenney/road_straight.glb" id="61_7mwm4"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="road_bend2" parent="." instance=ExtResource("12_vc5tl")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_bendSquare2" parent="." instance=ExtResource("15_a6i0r")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_crossing2" parent="." instance=ExtResource("18_7ramq")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_crossroad2" parent="." instance=ExtResource("19_ntaj5")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_crossroadLine2" parent="." instance=ExtResource("21_fnehh")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_crossroadPath2" parent="." instance=ExtResource("22_qr7v7")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_curve2" parent="." instance=ExtResource("23_ah4is")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_curveIntersection2" parent="." instance=ExtResource("25_c7wfo")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_drivewayDouble2" parent="." instance=ExtResource("28_0ymar")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_drivewaySingle2" parent="." instance=ExtResource("30_if1rc")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_end2" parent="." instance=ExtResource("32_u83ye")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_endRound2" parent="." instance=ExtResource("34_m737y")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_intersection2" parent="." instance=ExtResource("36_bmqvc")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_intersectionLine2" parent="." instance=ExtResource("38_e5i77")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_intersectionPath2" parent="." instance=ExtResource("39_5dlw0")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_roundabout2" parent="." instance=ExtResource("40_7u412")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_side2" parent="." instance=ExtResource("42_husrl")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_sideEntry2" parent="." instance=ExtResource("44_45g38")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_sideExit2" parent="." instance=ExtResource("46_ugg4y")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_slant2" parent="." instance=ExtResource("48_23pm7")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_slantCurve2" parent="." instance=ExtResource("50_ofk44")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_slantFlat2" parent="." instance=ExtResource("52_oo6c3")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_slantFlatCurve2" parent="." instance=ExtResource("53_x0mmd")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_slantFlatHigh2" parent="." instance=ExtResource("54_5f54r")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_slantHigh2" parent="." instance=ExtResource("55_p5xr0")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_split2" parent="." instance=ExtResource("57_sd8dr")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false
+
+[node name="road_straight2" parent="." instance=ExtResource("61_7mwm4")]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
+visible = false

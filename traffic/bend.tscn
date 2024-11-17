@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://b2l3q3k6p73ey"]
+
+[ext_resource type="PackedScene" uid="uid://bcau1bsfld32x" path="res://kenney/road_bend.glb" id="1_6l2hg"]
+[ext_resource type="PackedScene" uid="uid://cm7crbvjhddn7" path="res://car.tscn" id="1_vfpf6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_25so1"]
+size = Vector3(0.35141, 0.279266, 0.0966797)
+
+[sub_resource type="Curve3D" id="Curve3D_82mwj"]
+_data = {
+"points": PackedVector3Array(0, 0, -0.375, 0, 0, 0.375, -0.1875, 0, -0.5, -0.375, 0, 0, 0.375, 0, 0, 0.5, 0, 0.1875),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_ncw6e"]
+_data = {
+"points": PackedVector3Array(0.1875, 0, 0, -0.1875, 0, 0, 0.5, 0, 0.234439, 0, 0, 0.1875, 0, 0, -0.1875, 0.1875, 0, -0.0780613),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[node name="Bend" type="Node3D"]
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.223862, 0.130783, -0.45166)
+shape = SubResource("BoxShape3D_25so1")
+
+[node name="Path3D" type="Path3D" parent="Area3D"]
+curve = SubResource("Curve3D_82mwj")
+
+[node name="Area3D2" type="Area3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.223862, 0.130783, -0.45166)
+shape = SubResource("BoxShape3D_25so1")
+
+[node name="Path3D" type="Path3D" parent="Area3D2"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.421939, 0, 1.84435e-08)
+curve = SubResource("Curve3D_ncw6e")
+
+[node name="Car" parent="Area3D2/Path3D" instance=ExtResource("1_vfpf6")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.5, 0, 0.234439)
+
+[node name="road_bend2" parent="." instance=ExtResource("1_6l2hg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -0.75)

@@ -1,0 +1,83 @@
+[gd_scene load_steps=8 format=3 uid="uid://b268fsoo6n1ue"]
+
+[ext_resource type="MeshLibrary" uid="uid://d0f1ebfpwilae" path="res://kenney/new_mesh_library.tres" id="1_yudw0"]
+[ext_resource type="Script" path="res://grid_map.gd" id="2_7jpu7"]
+[ext_resource type="Script" path="res://debug_cam.gd" id="2_xewp7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5tdj0"]
+
+[sub_resource type="Curve3D" id="Curve3D_o8scx"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.35052, 0, -1.86874, 0.112569, 0, -0.687764, -0.112569, 0, 0.687764, 2.85913, 0, 1.16083, -0.0990882, 0, -0.416644, 0.0990882, 0, 0.416644, 3.0741, 0, 2.70859, -0.309429, 0, -0.234349, 0.309429, 0, 0.234349, 3.96191, 0.193686, 3.84615, -0.393566, 0, 0.0601289, 0.393566, 0, -0.0601289, 5.18508, 0.0427191, 4.03445, 0, 0, 0, 0, 0, 0, 7.3229, -0.254107, 3.7364),
+"tilts": PackedFloat32Array(0, 0, 0, -0.180007, 0, 0)
+}
+point_count = 6
+
+[sub_resource type="Curve3D" id="Curve3D_ng5p1"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0.691996, 0, -0.630376, 0, 0, 0, 0, 0, 0, 4.87147, 0, -0.785171),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_temuu"]
+albedo_color = Color(1, 0, 1, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+visible = false
+material_override = SubResource("StandardMaterial3D_5tdj0")
+
+[node name="Path3D" type="Path3D" parent="CSGCombiner3D"]
+curve = SubResource("Curve3D_o8scx")
+
+[node name="Path3D2" type="Path3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.799848, 0)
+curve = SubResource("Curve3D_ng5p1")
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="CSGCombiner3D"]
+mode = 2
+path_node = NodePath("../Path3D2")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = false
+path_u_distance = 1.0
+path_joined = false
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0446752, 0)
+material_override = SubResource("StandardMaterial3D_temuu")
+polygon = PackedVector2Array(-1, 0, -1, 0.2, 1, 0.2, 1, 0)
+mode = 2
+path_node = NodePath("../Path3D")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = false
+path_u_distance = 1.0
+path_joined = false
+
+[node name="PathFollow3D" type="PathFollow3D" parent="CSGCombiner3D/CSGPolygon3D"]
+
+[node name="Marker3D" type="Marker3D" parent="CSGCombiner3D/CSGPolygon3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.07415)
+gizmo_extents = 1.15
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("1_yudw0")
+cell_size = Vector3(0.5, 0.25, 0.5)
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(65529, 13, 655388, 65527, 12, 655390, 65525, 12, 655390, 65523, 12, 655390, 65523, 14, 655390, 8, 16, 1048576, 8, 14, 1441792, 10, 14, 655360, 10, 16, 0, 6, 16, 1441792, 6, 18, 0, 8, 18, 655360, 10, 18, 1441792, 12, 18, 1048576, 12, 16, 655360, 8, 20, 1441818, 8, 22, 1441818, 10, 20, 1441818, 10, 22, 1441818, 8, 24, 1048576, 6, 24, 1441792, 6, 26, 0, 10, 26, 1048576, 10, 24, 1048578, 8, 26, 2)
+}
+script = ExtResource("2_7jpu7")
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+script = ExtResource("2_xewp7")
