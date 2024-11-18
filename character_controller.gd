@@ -66,9 +66,9 @@ func cap_correction(c: Vector3, delta):
 		return c.normalized() * 0.3 * delta
 	return c
 
-var drag = 15.0
+var drag = 8.0
 var drag_range = 0.2
-var spring_constant = 287.0
+var spring_constant = 200.0
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -93,7 +93,6 @@ func _physics_process(delta):
 	
 	
 	
-	
 	var tension = Vector3.ZERO
 	var drag_mult = 0.2
 	var pulled = false
@@ -101,24 +100,28 @@ func _physics_process(delta):
 		var rope = (hooked.global_position - global_position)
 		var dist = rope.length()
 		if dist > 6.0:
-			var moving = Vector2(rope.x, rope.z).angle()
+			var moving = Vector2(rope.x, -rope.z).angle()
 			pulled = true
-			global_rotation.y = rotate_toward(global_rotation.y, moving + PI / 2.0, delta)
+			global_rotation.y = rotate_toward(global_rotation.y, moving - PI / 2.0, delta)
 			var delta_x = dist - 6.0
-			tension = rope.normalized() * delta_x * spring_constant
+			tension = rope.normalized() * delta_x * spring_constant / 50.0
+			DebugDraw3D.draw_arrow(global_position, global_position + tension, Color.GREEN, 0.1)
 			drag_mult = abs(rope.dot(global_basis.z)) * drag_range + 0.2
 	if !pulled:
-		var moving = Vector2(velocity.x, velocity.z).angle()
-		rotate_toward(global_rotation.y, moving - PI / 2.0, delta)
+		var moving = Vector2(velocity.x, -velocity.z).angle()
+		global_rotation.y = rotate_toward(global_rotation.y, moving - PI / 2.0, delta)
 	var friction = -Vector2(velocity.x, velocity.z).normalized() * drag * drag_mult
 	if friction.length() > velocity.length():
 		friction = friction.normalized() * velocity.length()
-	acceleration += tension / 50.0
-	acceleration += Vector3(friction.x, 0.0, friction.y)
+	friction = Vector3(friction.x, 0.0, friction.y)
+	DebugDraw3D.draw_arrow(global_position, global_position + friction, Color.RED, 0.1)
+	acceleration += tension
+	acceleration += friction
 	velocity += acceleration * delta
 	var collision = move_and_collide(velocity * delta)
 	if collision:
 		velocity = velocity.bounce(collision.get_normal())
+		velocity.y = 0.0
 	# move_and_slide()
 			
 var Attach = preload("res://hook_attach.tscn")
