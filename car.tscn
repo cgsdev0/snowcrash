@@ -11,10 +11,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0405642, 0)
 use_collision = true
 collision_layer = 5
 collision_mask = 5
-size = Vector3(0.115234, 0.0861816, 0.235352)
+size = Vector3(0.06, 0.04, 0.15)
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -0.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -0.065)
 target_position = Vector3(0, 0, -0.1)
 collision_mask = 2
 hit_from_inside = true

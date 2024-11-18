@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://c0hyka70lp3ac"]
+
+[ext_resource type="Texture2D" uid="uid://wxjetfsxewdv" path="res://player/snowcrasher_with_animations_MainCharacterTexture.png" id="1_17ari"]
+[ext_resource type="Texture2D" uid="uid://ccmn3w85y675i" path="res://player/MainCharacter_Emission.png" id="2_i6xas"]
+[ext_resource type="Texture2D" uid="uid://bd0c65qr46jbc" path="res://player/MainCharacter_Roughness.png" id="3_gcimv"]
+
+[resource]
+resource_name = "M_MainCharacter"
+cull_mode = 2
+albedo_texture = ExtResource("1_17ari")
+roughness_texture = ExtResource("3_gcimv")
+emission_enabled = true
+emission_energy_multiplier = 6.69
+emission_texture = ExtResource("2_i6xas")

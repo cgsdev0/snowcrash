@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://b268fsoo6n1ue"]
+[gd_scene load_steps=16 format=3 uid="uid://b268fsoo6n1ue"]
 
 [ext_resource type="MeshLibrary" uid="uid://d0f1ebfpwilae" path="res://kenney/new_mesh_library.tres" id="1_yudw0"]
 [ext_resource type="Script" path="res://grid_map.gd" id="2_7jpu7"]
 [ext_resource type="Script" path="res://debug_cam.gd" id="2_xewp7"]
 [ext_resource type="Script" path="res://third_person_camera.gd" id="4_rof53"]
 [ext_resource type="Script" path="res://character_controller.gd" id="4_rs3po"]
+[ext_resource type="PackedScene" uid="uid://8vih1pju4gtw" path="res://player/character_model.tscn" id="6_lvnrd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5tdj0"]
 
@@ -39,8 +40,8 @@ radius = 0.02
 height = 0.1
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v03n4"]
-radius = 0.1
-height = 0.5
+radius = 0.18086
+height = 0.72082
 
 [node name="Node3D" type="Node3D"]
 
@@ -103,11 +104,13 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 environment = SubResource("Environment_l1ilk")
 
 [node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.954621, 0, -0.297825, 0, 1, 0, 0.297825, 0, -0.954621, 62.3856, 6.36938, 102.433)
 script = ExtResource("2_xewp7")
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+process_priority = 10
 process_physics_priority = 10
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.1465, 2.01533, 113.954)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.1465, 0.567664, 113.954)
 script = ExtResource("4_rs3po")
 
 [node name="Grapple" type="Node3D" parent="CharacterBody3D"]
@@ -140,17 +143,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.457565, 0.599766, 1.14046)
 [node name="CameraPos2" type="Marker3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.457565, 0.148173, -0.0859222)
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.126501, 0)
-radius = 0.1
+[node name="CSGBox3D" type="CSGBox3D" parent="CharacterBody3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -0.26, 0)
+size = Vector3(0.688232, 0.0611572, 0.297852)
 
-[node name="CSGSphere3D2" type="CSGSphere3D" parent="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.123046, 0)
-radius = 0.1
-
-[node name="CSGSphere3D3" type="CSGSphere3D" parent="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.000948489, 0)
-radius = 0.1
+[node name="snowcrasher_with_animations" parent="CharacterBody3D" instance=ExtResource("6_lvnrd")]
+transform = Transform3D(-0.42, 0, -3.67176e-08, 0, 0.42, 0, 3.67176e-08, 0, -0.42, 0.0338669, -0.228247, 0.1026)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.974004, 0.157894, -0.162439, 0, 0.717069, 0.697002, 0.226532, -0.678883, 0.698428, 0, 0, 0)

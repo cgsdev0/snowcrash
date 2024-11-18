@@ -65,48 +65,61 @@ func cap_correction(c: Vector3, delta):
 	if c.length() > 0.3 * delta:
 		return c.normalized() * 0.3 * delta
 	return c
-		
+
+var drag = 15.0
+var drag_range = 0.2
+var spring_constant = 287.0
+
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		# velocity += get_gravity() * delta
+		pass
 	else:
 		velocity.y = 0.0
+		pass
 
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y += JUMP_VELOCITY
 
 	var turn_dir = Input.get_vector("ui_left", "ui_right", "ui_left", "ui_right")
-	rotate_y(-turn_dir.x * delta * 4.0)
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
-	var skater_pos = global_position
+	var acceleration = Vector3.ZERO
 	
+	
+	
+	
+	var tension = Vector3.ZERO
+	var drag_mult = 0.2
+	var pulled = false
 	if hooked:
-		var car_pos = hooked.global_position
-		var d = car_pos - skater_pos
-		if d.length() > 6.0:
-			d = d.normalized() * (d.length() - 6.0)
-			velocity += d * delta * 5.0
-			var dot = velocity.dot(d.normalized())
-			if dot < 0.0:
-				velocity -= d.normalized() * dot * delta * 5.0
-			
-	
-	var forward = velocity
-	forward.y = 0.0
-	forward = forward.normalized()
-	look_at(global_position + forward)
-	velocity += direction * delta * SPEED
-	# friction
-	velocity = velocity.move_toward(Vector3.ZERO, delta * 0.4)
-	if velocity.length() > 7.0:
-		velocity = velocity.normalized() * 7.0
-	move_and_slide()
+		var rope = (hooked.global_position - global_position)
+		var dist = rope.length()
+		if dist > 6.0:
+			var moving = Vector2(rope.x, rope.z).angle()
+			pulled = true
+			global_rotation.y = rotate_toward(global_rotation.y, moving + PI / 2.0, delta)
+			var delta_x = dist - 6.0
+			tension = rope.normalized() * delta_x * spring_constant
+			drag_mult = abs(rope.dot(global_basis.z)) * drag_range + 0.2
+	if !pulled:
+		var moving = Vector2(velocity.x, velocity.z).angle()
+		rotate_toward(global_rotation.y, moving - PI / 2.0, delta)
+	var friction = -Vector2(velocity.x, velocity.z).normalized() * drag * drag_mult
+	if friction.length() > velocity.length():
+		friction = friction.normalized() * velocity.length()
+	acceleration += tension / 50.0
+	acceleration += Vector3(friction.x, 0.0, friction.y)
+	velocity += acceleration * delta
+	var collision = move_and_collide(velocity * delta)
+	if collision:
+		velocity = velocity.bounce(collision.get_normal())
+	# move_and_slide()
 			
 var Attach = preload("res://hook_attach.tscn")
 var hooked = null
