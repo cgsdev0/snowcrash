@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cwanptdhuf4gy"]
+[gd_scene load_steps=30 format=3 uid="uid://cwanptdhuf4gy"]
 
 [ext_resource type="PackedScene" uid="uid://bcau1bsfld32x" path="res://kenney/road_bend.glb" id="12_vc5tl"]
 [ext_resource type="PackedScene" uid="uid://baee25h7yhnnc" path="res://kenney/road_bendSquare.glb" id="15_a6i0r"]
@@ -28,11 +28,22 @@
 [ext_resource type="PackedScene" uid="uid://tqqlh44mq4nn" path="res://kenney/road_split.glb" id="57_sd8dr"]
 [ext_resource type="PackedScene" uid="uid://ctcva2w6f8ih6" path="res://kenney/road_straight.glb" id="61_7mwm4"]
 
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_stvmp"]
+points = PackedVector3Array(-0.111074, 0.0238095, 0.317411, -0.507937, -0.0079334, -0.507937, -0.507937, -0.0079334, -0.365042, 0.507937, -0.0079334, -0.507937, 0.507937, -0.0079334, 0.507937, 0.507937, 0.0238095, -0.507937, -0.507937, 0.0238095, -0.507937, 0.507937, 0.0238095, 0.507937, -0.0158109, -0.0079334, 0.380952, -0.380952, 0.0238095, 0.0158109, -0.317411, -0.0079334, 0.111074, 0.222148, 0.0238095, 0.476116, 0.365042, -0.0079334, 0.507937, -0.492026, 0.0238095, -0.285689, -0.428484, -0.0079334, -0.0793527, -0.222148, -0.0079334, 0.222148, -0.222148, 0.0238095, 0.222148, 0.0793527, 0.0238095, 0.428484, 0.174516, -0.0079334, 0.460305, 0.365042, 0.0238095, 0.507937, -0.428484, 0.0238095, -0.0793527, -0.476116, -0.0079334, -0.222148, -0.507937, 0.0238095, -0.365042, -0.317411, 0.0238095, 0.111074, -0.111074, -0.0079334, 0.317411, -0.380952, -0.0079334, 0.0158109, -0.0158109, 0.0238095, 0.380952, 0.0793527, -0.0079334, 0.428484, 0.285689, -0.0079334, 0.492026, -0.476116, 0.0238095, -0.222148, -0.492026, -0.0079334, -0.285689, 0.285689, 0.0238095, 0.492026)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_8x4aj"]
+points = PackedVector3Array(0.507937, 0.0238095, 0.507937, -0.507937, -0.0079334, -0.507937, -0.507937, 0.0238095, -0.507937, 0.507937, -0.0079334, -0.507937, -0.507937, -0.0079334, 0.507937, -0.507937, 0.0238095, 0.507937, 0.507937, 0.0238095, -0.507937, 0.507937, -0.0079334, 0.507937)
+
 [node name="Node3D" type="Node3D"]
 
 [node name="road_bend2" parent="." instance=ExtResource("12_vc5tl")]
 transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
 visible = false
+
+[node name="StaticBody3D" type="StaticBody3D" parent="road_bend2/tmpParent/road_bend" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="road_bend2/tmpParent/road_bend/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_stvmp")
 
 [node name="road_bendSquare2" parent="." instance=ExtResource("15_a6i0r")]
 transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
@@ -137,3 +148,11 @@ visible = false
 [node name="road_straight2" parent="." instance=ExtResource("61_7mwm4")]
 transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0.75)
 visible = false
+
+[node name="StaticBody3D" type="StaticBody3D" parent="road_straight2/tmpParent/road_straight" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="road_straight2/tmpParent/road_straight/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_8x4aj")
+
+[editable path="road_bend2"]
+[editable path="road_straight2"]

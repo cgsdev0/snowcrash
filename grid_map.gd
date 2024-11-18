@@ -11,7 +11,7 @@ func _ready():
 		match item:
 			0:
 				_add_traffic_nodes(pos, bend)
-			2, 16, 17, 18, 26:
+			2, 8, 9, 16, 17, 18, 26:
 				_add_traffic_nodes(pos, straight)
 
 func _add_traffic_nodes(pos, traffic_node):

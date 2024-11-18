@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cgp8y37wgoktg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7bmpm"]
+shading_mode = 0
+albedo_color = Color(1, 0, 1, 1)
+
+[node name="HookAttach" type="Node3D"]
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+radius = 0.01
+material = SubResource("StandardMaterial3D_7bmpm")
