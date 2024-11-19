@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://bw01eyjqb7tq"]
+
+[ext_resource type="PackedScene" uid="uid://cba3bhb14ocpo" path="res://cars/Cyberpunk_Car2.gltf" id="1_m0xyl"]
+
+[node name="blockbench_export" instance=ExtResource("1_m0xyl")]
