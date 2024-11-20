@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://8hmxxf5hctq4"]
+
+[ext_resource type="Script" path="res://proc/guards.gd" id="1_vah2w"]
+
+[node name="Guards" type="Node3D"]
+script = ExtResource("1_vah2w")
+
+[node name="GuardR" type="CSGPolygon3D" parent="."]
+use_collision = true
+polygon = PackedVector2Array(-1.1767, 1.02538, -2.17915, 1.07809, -2.75061, -0.4158, -0.768928, -0.489363)
+mode = 2
+path_node = NodePath("../../edge_R")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 5.0
+path_rotation = 2
+path_local = true
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+
+[node name="GuardF" type="CSGPolygon3D" parent="."]
+use_collision = true
+polygon = PackedVector2Array(1.92134, 0.98329, 0.897685, 1.00521, -0.135305, -0.373183, 3.00634, -0.519538)
+mode = 2
+path_node = NodePath("../../edge_F")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 5.0
+path_rotation = 2
+path_local = true
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+
+[node name="OffRamp" type="CSGBox3D" parent="."]
+transform = Transform3D(0.86982, -0.166336, -0.464483, 0.0292857, 0.9572, -0.287942, 0.492498, 0.236855, 0.837464, 5.77775, 0.239138, 33.539)
+visible = false
+use_collision = true
+size = Vector3(3.34058, 0.538086, 5.17236)

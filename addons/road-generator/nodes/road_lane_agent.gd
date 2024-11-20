@@ -43,7 +43,7 @@ func _ready() -> void:
 	assert(res == OK)
 	res = assign_manager()
 	assert(res == OK)
-	print("Finished setup for road lane agent with: ", road_manager, " and ", current_lane)
+	# print("Finished setup for road lane agent with: ", road_manager, " and ", current_lane)
 
 
 func assign_lane(new_lane:RoadLane):
@@ -120,7 +120,7 @@ func assign_nearest_lane() -> int:
 	var res = find_nearest_lane()
 	if is_instance_valid(res) and res is RoadLane:
 		assign_lane(res)
-		print("Assigned nearest lane: ", current_lane)
+		# print("Assigned nearest lane: ", current_lane)
 		return OK
 	else:
 		return FAILED
@@ -189,6 +189,7 @@ func _move_along_lane(move_distance: float, update_lane: bool = true) -> Vector3
 	var going_to_next:bool = dir > 0
 	var _update_lane
 	if check_next_offset > lane_length: # Target point is past the end of this curve
+		var remaining = check_next_offset - lane_length
 		if going_to_next:
 			_update_lane = current_lane.get_node_or_null(current_lane.lane_next) # not lane_next?
 			#print("Need to jump to next lane (overflow)")
@@ -198,10 +199,11 @@ func _move_along_lane(move_distance: float, update_lane: bool = true) -> Vector3
 		if not is_instance_valid(_update_lane):
 			#push_warning("No next node on path %s " % current_lane.name)
 			return new_point
-		# TODO: go the "rest of the way" onto the next RoadLane to get final position
 		if update_lane:
 			assign_lane(_update_lane)
+			new_point = _move_along_lane(remaining, false)
 	elif check_next_offset < 0: # Target point is before start of this curve
+		var remaining = -check_next_offset
 		if going_to_next:
 			_update_lane = current_lane.get_node_or_null(current_lane.lane_prior)
 			#print("Need to jump to prior lane (underflow)")
@@ -214,6 +216,7 @@ func _move_along_lane(move_distance: float, update_lane: bool = true) -> Vector3
 		# TODO: go the "rest of the way" onto the next RoadLane to get final position
 		if update_lane:
 			assign_lane(_update_lane)
+			new_point = _move_along_lane(remaining, false)
 	else: # Target point lies within the length of this curve
 		var ref_local = current_lane.curve.sample_baked(check_next_offset)
 		new_point = current_lane.to_global(ref_local)

@@ -110,9 +110,10 @@ func _physics_process(delta):
 	if !pulled:
 		var moving = Vector2(velocity.x, -velocity.z).angle()
 		global_rotation.y = rotate_toward(global_rotation.y, moving - PI / 2.0, delta)
-	var friction = -Vector2(velocity.x, velocity.z).normalized() * drag * drag_mult
-	if friction.length() > velocity.length():
-		friction = friction.normalized() * velocity.length()
+	var velocity_xz = Vector2(velocity.x, velocity.z)
+	var friction = -velocity_xz.normalized() * drag * drag_mult
+	if friction.length() > velocity_xz.length():
+		friction = friction.normalized() * velocity_xz.length()
 	friction = Vector3(friction.x, 0.0, friction.y)
 	DebugDraw3D.draw_arrow(global_position, global_position + friction, Color.RED, 0.1)
 	acceleration += tension
