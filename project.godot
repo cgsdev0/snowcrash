@@ -47,6 +47,16 @@ debug_camera={
 ]
 }
 
+[layer_names]
+
+3d_render/layer_1="base"
+3d_render/layer_6="road"
+3d_physics/layer_1="base"
+3d_physics/layer_2="player"
+3d_physics/layer_3="hookable"
+3d_physics/layer_5="guards"
+3d_physics/layer_6="roads"
+
 [physics]
 
 common/physics_jitter_fix=0.0

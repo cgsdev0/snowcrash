@@ -1,7 +1,5 @@
-[gd_scene load_steps=13 format=3 uid="uid://b268fsoo6n1ue"]
+[gd_scene load_steps=11 format=3 uid="uid://b268fsoo6n1ue"]
 
-[ext_resource type="MeshLibrary" uid="uid://d0f1ebfpwilae" path="res://kenney/new_mesh_library.tres" id="1_yudw0"]
-[ext_resource type="Script" path="res://grid_map.gd" id="2_7jpu7"]
 [ext_resource type="Script" path="res://debug_cam.gd" id="2_xewp7"]
 [ext_resource type="Script" path="res://third_person_camera.gd" id="4_rof53"]
 [ext_resource type="Script" path="res://character_controller.gd" id="4_rs3po"]
@@ -27,17 +25,6 @@ height = 0.72082
 
 [node name="Node3D" type="Node3D"]
 
-[node name="GridMap" type="GridMap" parent="."]
-transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0)
-mesh_library = ExtResource("1_yudw0")
-cell_size = Vector3(1, 0.25, 1)
-cell_center_y = false
-data = {
-"cells": PackedInt32Array(8, 16, 1048576, 8, 14, 1441792, 10, 14, 655360, 10, 16, 0, 6, 16, 1441792, 6, 18, 0, 8, 18, 655360, 10, 18, 1441792, 12, 18, 1048576, 12, 16, 655360, 10, 20, 1048602, 8, 24, 1048576, 6, 24, 1441792, 6, 26, 0, 10, 26, 1048576, 10, 24, 1048602, 8, 26, 655386, 7, 24, 26, 7, 26, 26, 9, 26, 26, 10, 25, 1441818, 6, 25, 1441818, 8, 23, 1441818, 10, 23, 1441818, 8, 21, 1441818, 8, 19, 1441818, 10, 19, 1441818, 11, 18, 655386, 12, 17, 1048602, 11, 16, 26, 10, 15, 1441818, 8, 15, 1441818, 9, 14, 655386, 7, 16, 655386, 6, 17, 1048602, 7, 18, 26, 10, 21, 1441818, 8, 20, 1441818, 12, 26, 6, 15, 26, 1441799, 17, 26, 655367, 17, 28, 1048583, 15, 28, 7, 8, 22, 1441818, 10, 22, 1441818)
-}
-script = ExtResource("2_7jpu7")
-metadata/_editor_floor_ = Vector3(0, 0, 0)
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_l1ilk")
 
@@ -49,7 +36,7 @@ script = ExtResource("2_xewp7")
 process_priority = 10
 process_physics_priority = 10
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 2.79491, 0.811146, 14.8302)
-collision_layer = 17
+collision_layer = 19
 collision_mask = 17
 script = ExtResource("4_rs3po")
 
@@ -91,9 +78,13 @@ size = Vector3(0.688232, 0.0611572, 0.297852)
 transform = Transform3D(5.50764e-08, 0, -0.42, 0, 0.42, 0, 0.42, 0, 5.50764e-08, 0.0745163, 0.03192, -0.0380321)
 
 [node name="Gravity" type="RayCast3D" parent="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.784868, -0.211026)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.784868, -0.0885482)
 target_position = Vector3(0, -1.5, 0)
 collision_mask = 32
+
+[node name="BoostTimer" type="Timer" parent="CharacterBody3D"]
+wait_time = 2.0
+one_shot = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.974004, 0.157894, -0.162439, 0, 0.717069, 0.697002, 0.226532, -0.678883, 0.698428, 0, 0, 0)
@@ -102,3 +93,4 @@ shadow_enabled = true
 [node name="Proc" parent="." instance=ExtResource("7_2fbom")]
 
 [connection signal="body_entered" from="CharacterBody3D/Grapple/Hook" to="CharacterBody3D" method="_on_hook_body_entered"]
+[connection signal="timeout" from="CharacterBody3D/BoostTimer" to="CharacterBody3D" method="_on_boost_timer_timeout"]

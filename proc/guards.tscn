@@ -7,9 +7,9 @@ script = ExtResource("1_vah2w")
 
 [node name="GuardR" type="CSGPolygon3D" parent="."]
 use_collision = true
-collision_layer = 17
-collision_mask = 17
-polygon = PackedVector2Array(-1.1767, 1.02538, -2.17915, 1.07809, -2.75061, -0.4158, -0.768928, -0.489363)
+collision_layer = 49
+collision_mask = 49
+polygon = PackedVector2Array(-2.30093, 1.16424, -2.80503, 1.17329, -3.09849, -0.364708, -2.12865, -0.367429)
 mode = 2
 path_node = NodePath("../../edge_R")
 path_interval_type = 0
@@ -23,9 +23,9 @@ path_joined = false
 
 [node name="GuardF" type="CSGPolygon3D" parent="."]
 use_collision = true
-collision_layer = 17
-collision_mask = 17
-polygon = PackedVector2Array(1.92134, 0.98329, 0.897685, 1.00521, -0.135305, -0.373183, 3.00634, -0.519538)
+collision_layer = 49
+collision_mask = 49
+polygon = PackedVector2Array(3.06112, 1.19528, 2.16892, 1.2041, 1.92952, -0.316277, 3.17155, -0.297192)
 mode = 2
 path_node = NodePath("../../edge_F")
 path_interval_type = 0

@@ -115,8 +115,6 @@ func add_next_rp(rp: RoadPoint, dir: int) -> void:
 		guards.enable_ramp(off_side)
 		next = Level.instantiate()
 		next.to_murder = self
-		if to_murder:
-			to_murder.queue_free()
 		get_parent().add_child(next)
 		next.global_rotation = global_rotation
 		next.global_rotation.y -= PI / 2.0 * off_side
@@ -146,7 +144,6 @@ var Level = preload("res://proc/level.tscn")
 var to_murder = null
 		
 func spawn_vehicles_on_lane(rp: RoadPoint, dir: int) -> void:
-	return
 	# Now spawn vehicles
 	var new_seg = rp.next_seg if dir == RoadPoint.PointInit.NEXT else rp.prior_seg
 	if not is_instance_valid(new_seg):
@@ -158,12 +155,12 @@ func spawn_vehicles_on_lane(rp: RoadPoint, dir: int) -> void:
 		vehicles.add_child(new_instance)
 		new_instance.agent.current_lane = _lane
 		var parts = _lane.name.split("_")
-		var lane_dir = 2 if parts[0][1] == "F" else 1
+		var lane_dir = 1 if parts[0][1] == "F" else 2
 		var lane_idx = int(parts[0].substr(2))
 		new_instance.lanes = rp.traffic_dir.count(lane_dir)
 		new_instance.my_lane = lane_idx
 		var rand_offset = randf() * _lane.curve.get_baked_length()
-		var rand_pos = _lane.curve.sample_baked(rand_offset)
+		var rand_pos = Vector3.ZERO # _lane.curve.sample_baked(rand_offset)
 		new_instance.global_transform.origin = _lane.to_global(rand_pos)
 		_lane.register_vehicle(new_instance)
 
@@ -190,3 +187,9 @@ func despawn_cars(road_point:RoadPoint) -> void:
 		for _vehicle in lane_vehicles:
 			print("Freeing vehicle ", _vehicle)
 			_vehicle.queue_free()
+
+
+func _on_murderer_body_entered(body):
+	if to_murder:
+		to_murder.queue_free()
+		to_murder = null

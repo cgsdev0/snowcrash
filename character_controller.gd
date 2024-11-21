@@ -9,13 +9,17 @@ const ray_length = 30.0
 
 const minimum_grapple = 5.0
 const boost_amt = 12.0
-const minimum_speed = 10.0
+const minimum_speed = 12.0
 const maximum_speed = 40.0
 const drag = 4.0
 const drag_range = 0.15
 const spring_constant = 200.0
 const input_ratio = 4.0
+const boost_turn_mod = 1.9
+const boost_speed_mod = 2.0
 
+var speed_mod = 1.0
+var boosting = false
 var extension = 0.0
 var grapple_len = 12.0
 var casting = false
@@ -74,8 +78,10 @@ func _unhandled_input(event):
 		if event.button_index == 1:
 			if hooked:
 				break_grapple()
-				var boost = boost_amt if forces.get("tension", Vector3.ZERO).length() > 0.0 else 0.0
-				var new_speed = velocity.length() + boost
+				if forces.get("tension", Vector3.ZERO).length() > 0.0:
+					boosting = true
+					$BoostTimer.start()
+				var new_speed = velocity.length()
 				var dir = (-global_basis.z.normalized() + velocity.normalized()).normalized()
 				velocity = new_speed * velocity.normalized()
 				return
@@ -96,13 +102,10 @@ var forces = {}
 var target_tilt = 0.0
 	
 func _physics_process(delta):
-	# Add the gravity.
-	if not is_on_floor():
-		# velocity += get_gravity() * delta
-		pass
+	if boosting:
+		speed_mod = move_toward(speed_mod, boost_speed_mod, delta * 5.0)
 	else:
-		velocity.y = 0.0
-		pass
+		speed_mod = move_toward(speed_mod, 1.0, delta)
 
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
@@ -126,7 +129,7 @@ func _physics_process(delta):
 		var rope = (hooked.global_position - global_position)
 		var dist = rope.length()
 		if dist > grapple_len:
-			forces["input"] = global_basis.x * input_faded * input_ratio
+			forces["input"] = global_basis.x * input_faded * input_ratio * 0.8
 			var moving = Vector2(rope.x, -rope.z).angle()
 			pulled = true
 			global_rotation.y = rotate_toward(global_rotation.y, moving - PI / 2.0, delta)
@@ -135,11 +138,13 @@ func _physics_process(delta):
 			if forces["tension"].length() > 50.0:
 				print("BREAKING! ", forces["tension"].length())
 				break_grapple()
-			drag_mult = abs(rope.dot(global_basis.z)) * drag_range + 0.05
+			drag_mult = abs(rope.dot(global_basis.z)) * drag_range + 0.2
 		else:
 			grapple_len = max(minimum_grapple, dist)
 	if !pulled:
 		forces["input"] = global_basis.x * input_faded * input_ratio
+		if boosting:
+			forces["input"] *= boost_turn_mod
 		var moving = Vector2(velocity.x, -velocity.z).angle()
 		global_rotation.y = rotate_toward(global_rotation.y, moving - PI / 2.0, delta)
 	var velocity_xz = Vector2(velocity.x, velocity.z)
@@ -175,7 +180,7 @@ func _physics_process(delta):
 	if velocity.length() < minimum_speed:
 		velocity = velocity.normalized() * minimum_speed
 	velocity = velocity.limit_length(maximum_speed)
-	var collision = move_and_collide(velocity * delta)
+	var collision = move_and_collide(velocity * speed_mod * delta)
 	if collision:
 		input_faded *= -1.0
 		var col_ang = collision.get_angle()
@@ -209,3 +214,7 @@ func _on_hook_body_entered(body):
 		attach.global_position = $Grapple/Hook.global_position
 		print("hooked!", body)
 	pass # Replace with function body.
+
+
+func _on_boost_timer_timeout():
+	boosting = false
