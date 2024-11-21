@@ -15,7 +15,7 @@ const drag = 4.0
 const drag_range = 0.15
 const spring_constant = 200.0
 const input_ratio = 4.0
-const boost_turn_mod = 1.4
+const boost_turn_mod = 1.1
 const boost_speed_mod = 2.0
 
 var speed_mod = 1.0
@@ -102,7 +102,7 @@ func _unhandled_input(event):
 			aim(a)
 
 func _ready():
-	velocity = minimum_speed * global_basis.z
+	velocity = minimum_speed * global_basis.z.normalized()
 
 
 
@@ -111,7 +111,7 @@ var input_faded = 0.0
 var forces = {}
 
 var target_tilt = 0.0
-	
+
 func _physics_process(delta):
 	if boosting:
 		speed_mod = move_toward(speed_mod, boost_speed_mod, delta * 5.0)
@@ -133,6 +133,28 @@ func _physics_process(delta):
 	forces["input"] = Vector3.ZERO
 	forces["tension"] = Vector3.ZERO
 	forces["friction"] = Vector3.ZERO
+	
+	# input limiters
+	var left_limit = -1.0
+	if $Left.is_colliding():
+		var how_deep = ($Left.global_position - $Left.get_collision_point()).length()
+		how_deep /= scale.x
+		how_deep /= $Left.target_position.length()
+		how_deep = -clampf(how_deep - 0.1, 0.0, 1.0)
+		left_limit = how_deep
+	var right_limit = 1.0
+	if $Right.is_colliding():
+		var how_deep = ($Right.global_position - $Right.get_collision_point()).length()
+		how_deep /= scale.x
+		how_deep /= $Right.target_position.length()
+		how_deep = clampf(how_deep - 0.1, 0.0, 1.0)
+		right_limit = how_deep
+	
+	var clamped_input = input_faded
+	if input_faded < 0.0:
+		clamped_input = max(left_limit, input_faded)
+	elif input_faded > 0.0:
+		clamped_input = min(right_limit, input_faded)
 		
 	var drag_mult = 0.2
 	var pulled = false
@@ -140,7 +162,7 @@ func _physics_process(delta):
 		var rope = (hooked.global_position - global_position)
 		var dist = rope.length()
 		if dist > grapple_len:
-			forces["input"] = global_basis.x * input_faded * input_ratio * 0.8 * grapple_len / 20.0
+			forces["input"] = global_basis.x * clamped_input * input_ratio * 0.8 * grapple_len / 20.0
 			var moving = Vector2(rope.x, -rope.z).angle()
 			pulled = true
 			global_rotation.y = rotate_toward(global_rotation.y, moving - PI / 2.0, delta)
@@ -153,7 +175,7 @@ func _physics_process(delta):
 		else:
 			grapple_len = max(minimum_grapple, dist)
 	if !pulled:
-		forces["input"] = global_basis.x * input_faded * input_ratio
+		forces["input"] = global_basis.x * clamped_input * input_ratio
 		if boosting:
 			forces["input"] *= boost_turn_mod * speed_mod
 		var moving = Vector2(velocity.x, -velocity.z).angle()
@@ -195,24 +217,26 @@ func _physics_process(delta):
 	var modded = Vector3(velocity.x * speed_mod, velocity.y, velocity.z * speed_mod)
 	var collision = move_and_collide(modded * delta)
 	if collision:
-		input_faded *= -1.0
 		var col_ang = collision.get_angle()
 		var col_vel = collision.get_collider_velocity()
 		var diff = rad_to_deg(angle_difference(velocity_xz.angle(), col_ang))
 		var col_normal = collision.get_normal()
 		var dot = velocity.normalized().dot(col_normal)
 		print({"ang": col_ang, "vel": col_vel, "diff": diff, "dot": dot})
+		var normal_xz = Vector3(col_normal.x, 0.0, col_normal.z).normalized()
 		if abs(diff) >= 90.0 || abs(dot) > 0.7:
 			set_collision_layer_value(1, false)
 			set_collision_mask_value(1, false)
-			var new_v = velocity.slide(collision.get_normal())
-			velocity.x = new_v.x
-			velocity.z = new_v.z
+			var new_v = velocity.slide(col_normal)
+			new_v.y = 0.0
+			velocity = new_v.normalized() * velocity.length()
+			move_and_collide(collision.get_remainder().length() * velocity * delta)
 			print("ded")
 		else:
-			var new_v = velocity.bounce(collision.get_normal())
-			velocity.x = new_v.x
-			velocity.z = new_v.z
+			var new_v = velocity.slide(col_normal)
+			new_v.y = 0.0
+			velocity = new_v.normalized() * velocity.length()
+			move_and_collide(collision.get_remainder().length() * velocity * delta)
 	# move_and_slide()
 			
 var Attach = preload("res://hook_attach.tscn")

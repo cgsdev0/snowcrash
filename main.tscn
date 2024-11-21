@@ -38,6 +38,8 @@ process_physics_priority = 10
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 2.79491, 0.811146, 14.8302)
 collision_layer = 19
 collision_mask = 17
+motion_mode = 1
+platform_on_leave = 2
 script = ExtResource("4_rs3po")
 
 [node name="Grapple" type="Node3D" parent="CharacterBody3D"]
@@ -81,6 +83,16 @@ transform = Transform3D(5.50764e-08, 0, -0.42, 0, 0.42, 0, 0.42, 0, 5.50764e-08,
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.784868, -0.0885482)
 target_position = Vector3(0, -1.5, 0)
 collision_mask = 32
+
+[node name="Left" type="RayCast3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.145135, -0.256022, -0.0885482)
+target_position = Vector3(-0.5, 0, 0)
+collision_mask = 16
+
+[node name="Right" type="RayCast3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.145, -0.256, -0.089)
+target_position = Vector3(0.5, 0, 0)
+collision_mask = 16
 
 [node name="BoostTimer" type="Timer" parent="CharacterBody3D"]
 wait_time = 1.6

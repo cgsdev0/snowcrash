@@ -21,7 +21,15 @@ const RoadActor:PackedScene = preload("res://proc/road_actor.tscn")
 var Guards = preload("res://proc/guards.tscn")
 
 func _ready() -> void:
-	pass
+	var rev = [0, 0, 1, 1, 1, 2, 3].pick_random()
+	var fwd = [2, 2, 2, 3, 3, 4].pick_random()
+	var traffic_dir:Array[RoadPoint.LaneDir] = []
+	for i in range(rev):
+		traffic_dir.push_back(RoadPoint.LaneDir.REVERSE)
+	for i in range(fwd):
+		traffic_dir.push_back(RoadPoint.LaneDir.FORWARD)
+	$RoadManager/Road_001/RP_001.traffic_dir = traffic_dir
+	$RoadManager/Road_001/RP_002.traffic_dir = traffic_dir
 	
 var initialized = false
 
@@ -113,7 +121,7 @@ func add_next_rp(rp: RoadPoint, dir: int) -> void:
 		random_angle = 0.0
 		var off_side = [-1.0, 1.0].pick_random()
 		guards.enable_ramp(off_side)
-		next = Level.instantiate()
+		next = Level.instantiate(1)
 		next.to_murder = self
 		get_parent().add_child(next)
 		next.global_rotation = global_rotation
