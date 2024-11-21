@@ -37,7 +37,7 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
 
-[node name="OffRamp" type="CSGBox3D" parent="."]
+[node name="OffRamp" type="CSGBox3D" parent="." groups=["ramp"]]
 transform = Transform3D(0.86982, -0.166336, -0.464483, 0.0292857, 0.9572, -0.287942, 0.492498, 0.236855, 0.837464, 5.77775, 0.239138, 33.539)
 visible = false
 use_collision = true
