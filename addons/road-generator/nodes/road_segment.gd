@@ -823,10 +823,8 @@ func _create_collisions() -> void:
 	for ch in road_mesh.get_children():
 		if not ch is StaticBody3D:
 			continue
-		if container.collider_group_name != "":
-			ch.add_to_group(container.collider_group_name)
-		if container.collider_meta_name != "":
-			ch.set_meta(container.collider_meta_name, true)
+		ch.set_collision_layer_value(1, false)
+		ch.set_collision_layer_value(6, true)
 		ch.set_meta("_edit_lock_", true)
 
 

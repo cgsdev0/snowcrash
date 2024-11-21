@@ -7,23 +7,23 @@
 [ext_resource type="Script" path="res://addons/road-generator/nodes/road_point.gd" id="5_lqjw5"]
 [ext_resource type="PackedScene" uid="uid://8hmxxf5hctq4" path="res://proc/guards.tscn" id="6_4nqpp"]
 
-[sub_resource type="Curve3D" id="Curve3D_6lxdx"]
+[sub_resource type="Curve3D" id="Curve3D_wvujc"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 16, -8, 0, 0, 0, 0, -5, -2.79753e-06, 0, -32, -8, 0, 32),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 16, -14.8, 0, 0, 0, 0, -5, -2.79753e-06, 0, -32, -14.8, 0, 32),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Curve3D" id="Curve3D_dgy2j"]
+[sub_resource type="Curve3D" id="Curve3D_2d8h5"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 16, 8, 0, 0, 0, 0, -5, -2.79753e-06, 0, -32, 8, 0, 32),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 16, 14.8, 0, 0, 0, 0, -5, -2.79753e-06, 0, -32, 14.8, 0, 32),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Curve3D" id="Curve3D_2y1pi"]
+[sub_resource type="Curve3D" id="Curve3D_wdmm4"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 16, -4, 0, 0, 0, 0, -5, -2.79753e-06, 0, -32, -4, 0, 32),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 16, -7.2, 0, 0, 0, 0, -5, -2.79753e-06, 0, -32, -7.2, 0, 32),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
@@ -52,16 +52,18 @@ edge_rp_local_dirs = Array[int]([0, 1])
 [node name="RP_001" type="Node3D" parent="RoadManager/Road_001"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("5_lqjw5")
-traffic_dir = Array[int]([1, 1])
-lanes = Array[int]([0, 2])
+traffic_dir = Array[int]([2, 1, 1, 1, 1, 1])
+lanes = Array[int]([5, 4, 3, 3, 3, 2])
+lane_width = 3.6
 prior_pt_init = NodePath("../RP_002")
 next_mag = 16.0
 
 [node name="RP_002" type="Node3D" parent="RoadManager/Road_001"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.79753e-06, 0, 32)
 script = ExtResource("5_lqjw5")
-traffic_dir = Array[int]([1, 1])
-lanes = Array[int]([0, 2])
+traffic_dir = Array[int]([2, 1, 1, 1, 1, 1])
+lanes = Array[int]([5, 4, 3, 3, 3, 2])
+lane_width = 3.6
 next_pt_init = NodePath("../RP_001")
 prior_mag = 16.0
 next_mag = 16.0
@@ -69,13 +71,13 @@ next_mag = 16.0
 [node name="Guards" parent="RoadManager/Road_001/RP_002" instance=ExtResource("6_4nqpp")]
 
 [node name="edge_R" type="Path3D" parent="RoadManager/Road_001/RP_002"]
-curve = SubResource("Curve3D_6lxdx")
+curve = SubResource("Curve3D_wvujc")
 metadata/_edit_lock_ = true
 
 [node name="edge_F" type="Path3D" parent="RoadManager/Road_001/RP_002"]
-curve = SubResource("Curve3D_dgy2j")
+curve = SubResource("Curve3D_2d8h5")
 metadata/_edit_lock_ = true
 
 [node name="edge_C" type="Path3D" parent="RoadManager/Road_001/RP_002"]
-curve = SubResource("Curve3D_2y1pi")
+curve = SubResource("Curve3D_wdmm4")
 metadata/_edit_lock_ = true

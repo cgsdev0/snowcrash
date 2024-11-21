@@ -48,9 +48,7 @@ script = ExtResource("2_xewp7")
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
 process_priority = 10
 process_physics_priority = 10
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 2.79491, 0.811146, 14.8302)
-collision_layer = 17
-collision_mask = 17
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 2.79491, 0.567664, 14.8302)
 script = ExtResource("4_rs3po")
 
 [node name="Grapple" type="Node3D" parent="CharacterBody3D"]
@@ -83,17 +81,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.457565, 0.599766, 1.14046)
 [node name="CameraPos2" type="Marker3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.457565, 0.148173, -0.0859222)
 
-[node name="Visual" type="CSGBox3D" parent="CharacterBody3D"]
+[node name="CSGBox3D" type="CSGBox3D" parent="CharacterBody3D"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -0.26, 0)
 size = Vector3(0.688232, 0.0611572, 0.297852)
 
-[node name="Visual" parent="CharacterBody3D/Visual" instance=ExtResource("6_lvnrd")]
-transform = Transform3D(5.50764e-08, 0, -0.42, 0, 0.42, 0, 0.42, 0, 5.50764e-08, 0.0745163, 0.03192, -0.0380321)
-
-[node name="Gravity" type="RayCast3D" parent="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.784868, -0.211026)
-target_position = Vector3(0, -1.5, 0)
-collision_mask = 32
+[node name="snowcrasher_with_animations" parent="CharacterBody3D" instance=ExtResource("6_lvnrd")]
+transform = Transform3D(-0.42, 0, -3.67176e-08, 0, 0.42, 0, 3.67176e-08, 0, -0.42, 0.0338669, -0.228247, 0.1026)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.974004, 0.157894, -0.162439, 0, 0.717069, 0.697002, 0.226532, -0.678883, 0.698428, 0, 0, 0)

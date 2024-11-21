@@ -109,13 +109,17 @@ func add_next_rp(rp: RoadPoint, dir: int) -> void:
 	var _transform := new_rp.transform
 	var random_angle: float = [0.0, 0.0, 0.0, 20.0, -20.0, 10.0, -10.0].pick_random()
 	var next = null
-	if pieces == 5:
+	if pieces == 5 && dir == 1:
 		random_angle = 0.0
-		guards.enable_ramp()
+		var off_side = [-1.0, 1.0].pick_random()
+		guards.enable_ramp(off_side)
 		next = Level.instantiate()
+		next.to_murder = self
+		if to_murder:
+			to_murder.queue_free()
 		get_parent().add_child(next)
 		next.global_rotation = global_rotation
-		next.global_rotation.y -= PI / 2.0
+		next.global_rotation.y -= PI / 2.0 * off_side
 		
 	var rotation_axis := Vector3(0, 1, 0)
 	_transform = _transform.rotated(rotation_axis, deg_to_rad(random_angle))
@@ -135,12 +139,14 @@ func add_next_rp(rp: RoadPoint, dir: int) -> void:
 		return
 
 	new_rp.add_child(guards)
+	guards.global_transform = new_rp.global_transform
 	spawn_vehicles_on_lane(rp, dir)
 
 var Level = preload("res://proc/level.tscn")
+var to_murder = null
 		
 func spawn_vehicles_on_lane(rp: RoadPoint, dir: int) -> void:
-	# print("Spawning", rp, dir)
+	return
 	# Now spawn vehicles
 	var new_seg = rp.next_seg if dir == RoadPoint.PointInit.NEXT else rp.prior_seg
 	if not is_instance_valid(new_seg):
@@ -148,23 +154,15 @@ func spawn_vehicles_on_lane(rp: RoadPoint, dir: int) -> void:
 		return
 	var new_lanes = new_seg.get_lanes()
 	for _lane in new_lanes:
-		# TODO: get random poing along this lane and spawn,
-		# for now just placing at the start point
-		#gd4
-		#var new_instance = RoadActor.instantiate()
 		var new_instance = RoadActor.instantiate()
 		vehicles.add_child(new_instance)
-
-		# We could let the agent auto-find the nearest road lane, but to save
-		# on some performance we can directly assign BEFORE entering the tree
-		# so that it skips the recusive find funciton.
-		# Must run after its ready function, but before its physics_process call
 		new_instance.agent.current_lane = _lane
-		# print("new_instance %s " % new_instance)
-
+		var parts = _lane.name.split("_")
+		var lane_dir = 2 if parts[0][1] == "F" else 1
+		var lane_idx = int(parts[0].substr(2))
+		new_instance.lanes = rp.traffic_dir.count(lane_dir)
+		new_instance.my_lane = lane_idx
 		var rand_offset = randf() * _lane.curve.get_baked_length()
-		#gd4
-		#var rand_pos = _lane.curve.sample_baked(rand_offset)
 		var rand_pos = _lane.curve.sample_baked(rand_offset)
 		new_instance.global_transform.origin = _lane.to_global(rand_pos)
 		_lane.register_vehicle(new_instance)
