@@ -28,8 +28,14 @@ func _ready() -> void:
 		traffic_dir.push_back(RoadPoint.LaneDir.REVERSE)
 	for i in range(fwd):
 		traffic_dir.push_back(RoadPoint.LaneDir.FORWARD)
-	$RoadManager/Road_001/RP_001.traffic_dir = traffic_dir
 	$RoadManager/Road_001/RP_002.traffic_dir = traffic_dir
+	$RoadManager/Road_001/RP_001.traffic_dir = traffic_dir
+	$RoadManager/Road_001.update_lane_seg_connections()
+	call_deferred("fuck")
+
+func fuck():
+	spawn_vehicles_on_lane($RoadManager/Road_001/RP_001, 0)
+	spawn_vehicles_on_lane($RoadManager/Road_001/RP_002, 0)
 	
 var initialized = false
 
@@ -121,7 +127,7 @@ func add_next_rp(rp: RoadPoint, dir: int) -> void:
 		random_angle = 0.0
 		var off_side = [-1.0, 1.0].pick_random()
 		guards.enable_ramp(off_side)
-		next = Level.instantiate(1)
+		next = Level.instantiate(0)
 		next.to_murder = self
 		get_parent().add_child(next)
 		next.global_rotation = global_rotation
@@ -159,19 +165,28 @@ func spawn_vehicles_on_lane(rp: RoadPoint, dir: int) -> void:
 		return
 	var new_lanes = new_seg.get_lanes()
 	for _lane in new_lanes:
-		var new_instance = RoadActor.instantiate()
-		vehicles.add_child(new_instance)
-		new_instance.agent.current_lane = _lane
-		var parts = _lane.name.split("_")
-		var lane_dir = 1 if parts[0][1] == "F" else 2
-		var lane_idx = int(parts[0].substr(2))
-		new_instance.lanes = rp.traffic_dir.count(lane_dir)
-		new_instance.my_lane = lane_idx
-		var rand_offset = randf() * _lane.curve.get_baked_length()
-		var rand_pos = Vector3.ZERO # _lane.curve.sample_baked(rand_offset)
-		new_instance.global_transform.origin = _lane.to_global(rand_pos)
-		_lane.register_vehicle(new_instance)
-
+		var spawn_car = func(rng: bool):
+			if !is_instance_valid($RoadManager/Road_001):
+				return
+			if !is_instance_valid(rp):
+				return
+			var new_instance = RoadActor.instantiate()
+			new_instance.container = $RoadManager/Road_001
+			vehicles.add_child(new_instance)
+			new_instance.agent.current_lane = _lane
+			var parts = _lane.name.split("_")
+			var lane_dir = 1 if parts[0][1] == "F" else 2
+			var lane_idx = int(parts[0].substr(2))
+			new_instance.lanes = rp.traffic_dir.count(lane_dir)
+			new_instance.my_lane = lane_idx
+			new_instance.total_lanes = rp.traffic_dir.size()
+			new_instance.lane_dir = lane_dir
+			var rand_offset = randf() * _lane.curve.get_baked_length()
+			var rand_pos = _lane.curve.sample_baked(rand_offset if rng else _lane.curve.get_baked_length())
+			new_instance.global_transform.origin = _lane.to_global(rand_pos)
+			_lane.register_vehicle(new_instance)
+		_lane.spawn_car = spawn_car
+		_lane.spawn_car.call(true)
 
 ## Manual way to emvoe all vehicles registered to lanes of this RoadPoint,
 ## if we didn't use RoadLane.auto_free_vehicles = true

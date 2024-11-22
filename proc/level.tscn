@@ -7,21 +7,21 @@
 [ext_resource type="Script" path="res://addons/road-generator/nodes/road_point.gd" id="5_lqjw5"]
 [ext_resource type="PackedScene" uid="uid://8hmxxf5hctq4" path="res://proc/guards.tscn" id="6_4nqpp"]
 
-[sub_resource type="Curve3D" id="Curve3D_kllcg"]
+[sub_resource type="Curve3D" id="Curve3D_jjs83"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 16, -7.365, 0, 0, 0, 0, -5, -2.79753e-06, 0, -32, -7.365, 0, 32),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Curve3D" id="Curve3D_le4qr"]
+[sub_resource type="Curve3D" id="Curve3D_638vg"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 16, 7.365, 0, 0, 0, 0, -5, -2.79753e-06, 0, -32, 7.365, 0, 32),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Curve3D" id="Curve3D_44c40"]
+[sub_resource type="Curve3D" id="Curve3D_8rvps"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 16, -3.365, 0, 0, 0, 0, -5, -2.79753e-06, 0, -32, -3.365, 0, 32),
 "tilts": PackedFloat32Array(0, 0)
@@ -49,18 +49,8 @@ generate_ai_lanes = true
 edge_containers = Array[NodePath]([NodePath(""), NodePath("")])
 edge_rp_targets = Array[NodePath]([NodePath(""), NodePath("")])
 edge_rp_target_dirs = Array[int]([-1, -1])
-edge_rp_locals = Array[NodePath]([NodePath("RP_001"), NodePath("RP_002")])
-edge_rp_local_dirs = Array[int]([0, 1])
-
-[node name="RP_001" type="Node3D" parent="RoadManager/Road_001"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-script = ExtResource("5_lqjw5")
-traffic_dir = Array[int]([1, 1])
-lanes = Array[int]([0, 2])
-lane_width = 3.365
-gutter_profile = Vector2(2, -2)
-prior_pt_init = NodePath("../RP_002")
-next_mag = 16.0
+edge_rp_locals = Array[NodePath]([NodePath("RP_002"), NodePath("RP_001")])
+edge_rp_local_dirs = Array[int]([1, 0])
 
 [node name="RP_002" type="Node3D" parent="RoadManager/Road_001"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.79753e-06, 0, 32)
@@ -76,19 +66,30 @@ next_mag = 16.0
 [node name="Guards" parent="RoadManager/Road_001/RP_002" instance=ExtResource("6_4nqpp")]
 
 [node name="edge_R" type="Path3D" parent="RoadManager/Road_001/RP_002"]
-curve = SubResource("Curve3D_kllcg")
+curve = SubResource("Curve3D_jjs83")
 metadata/_edit_lock_ = true
 
 [node name="edge_F" type="Path3D" parent="RoadManager/Road_001/RP_002"]
-curve = SubResource("Curve3D_le4qr")
+curve = SubResource("Curve3D_638vg")
 metadata/_edit_lock_ = true
 
 [node name="edge_C" type="Path3D" parent="RoadManager/Road_001/RP_002"]
-curve = SubResource("Curve3D_44c40")
+curve = SubResource("Curve3D_8rvps")
 metadata/_edit_lock_ = true
+
+[node name="RP_001" type="Node3D" parent="RoadManager/Road_001"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+script = ExtResource("5_lqjw5")
+traffic_dir = Array[int]([1, 1])
+lanes = Array[int]([0, 2])
+lane_width = 3.365
+gutter_profile = Vector2(2, -2)
+prior_pt_init = NodePath("../RP_002")
+next_mag = 16.0
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+visible = false
 use_collision = true
 collision_layer = 49
 collision_mask = 49

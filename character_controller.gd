@@ -224,9 +224,8 @@ func _physics_process(delta):
 		var dot = velocity.normalized().dot(col_normal)
 		print({"ang": col_ang, "vel": col_vel, "diff": diff, "dot": dot})
 		var normal_xz = Vector3(col_normal.x, 0.0, col_normal.z).normalized()
-		if abs(diff) >= 90.0 || abs(dot) > 0.7:
-			set_collision_layer_value(1, false)
-			set_collision_mask_value(1, false)
+		if abs(dot) > 0.5:
+			# if collision.get_collider().is_in_group("guard"):
 			var new_v = velocity.slide(col_normal)
 			new_v.y = 0.0
 			velocity = new_v.normalized() * velocity.length()
@@ -255,3 +254,8 @@ func _on_hook_body_entered(body):
 
 func _on_boost_timer_timeout():
 	boosting = false
+
+
+func _on_death_box_body_entered(body):
+	print("damage")
+	pass # Replace with function body.

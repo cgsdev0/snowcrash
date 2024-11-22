@@ -8,6 +8,10 @@ enum DriveState {
 
 var lanes = 1
 var my_lane = 0
+var total_lanes = 0
+var lane_dir = 1
+
+var container: RoadContainer = null
 
 @export var drive_state: DriveState = DriveState.AUTO
 
@@ -23,6 +27,11 @@ var my_lane = 0
 
 var velocity := Vector3.ZERO
 
+func get_lane_idx():
+	if lane_dir == 1:
+		return (total_lanes - lanes) + my_lane
+	return my_lane
+	
 func _ready() -> void:
 	agent.visualize_lane = visualize_lane
 	agent.auto_register = auto_register
@@ -43,11 +52,6 @@ func _physics_process(delta: float) -> void:
 	var target_velz = lerp(velocity.z, target_dir.z * adjusted_speed, delta * acceleration)
 	velocity.z = target_velz
 
-	if target_dir.x > 0:
-		agent.change_lane(1)
-	elif target_dir.x < 0:
-		agent.change_lane(-1)
-
 	if not is_instance_valid(agent.current_lane):
 		var res = agent.assign_nearest_lane()
 		if not res == OK:
@@ -67,3 +71,8 @@ func _physics_process(delta: float) -> void:
 	if next_pos != global_transform.origin:
 		look_at(next_pos)
 		global_transform.origin = next_pos
+	else:
+		queue_free()
+		# var lane = container.get_node(container.edge_rp_locals[0]).prior_seg.get_lanes()[get_lane_idx()]
+		# agent.assign_lane(lane)
+		# global_transform.origin = lane.to_global(Vector3.ZERO)

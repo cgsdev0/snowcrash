@@ -22,6 +22,7 @@ enabled=PackedStringArray("res://addons/road-generator/plugin.cfg")
 [global_group]
 
 ramp=""
+guard=""
 
 [input]
 
@@ -60,6 +61,7 @@ debug_camera={
 3d_physics/layer_3="hookable"
 3d_physics/layer_5="guards"
 3d_physics/layer_6="roads"
+3d_physics/layer_9="obstacle"
 
 [physics]
 

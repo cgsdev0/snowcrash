@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b268fsoo6n1ue"]
+[gd_scene load_steps=12 format=3 uid="uid://b268fsoo6n1ue"]
 
 [ext_resource type="Script" path="res://debug_cam.gd" id="2_xewp7"]
 [ext_resource type="Script" path="res://third_person_camera.gd" id="4_rof53"]
@@ -23,6 +23,10 @@ height = 0.1
 radius = 0.18086
 height = 0.72082
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uaoot"]
+radius = 0.07
+height = 0.5
+
 [node name="Node3D" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -36,8 +40,8 @@ script = ExtResource("2_xewp7")
 process_priority = 10
 process_physics_priority = 10
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 2.79491, 0.811146, 14.8302)
-collision_layer = 19
-collision_mask = 17
+collision_layer = 18
+collision_mask = 16
 motion_mode = 1
 platform_on_leave = 2
 script = ExtResource("4_rs3po")
@@ -98,6 +102,13 @@ collision_mask = 16
 wait_time = 1.6
 one_shot = true
 
+[node name="DeathBox" type="Area3D" parent="CharacterBody3D"]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D/DeathBox"]
+shape = SubResource("CapsuleShape3D_uaoot")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.974004, 0.157894, -0.162439, 0, 0.717069, 0.697002, 0.226532, -0.678883, 0.698428, 0, 0, 0)
 shadow_enabled = true
@@ -106,3 +117,4 @@ shadow_enabled = true
 
 [connection signal="body_entered" from="CharacterBody3D/Grapple/Hook" to="CharacterBody3D" method="_on_hook_body_entered"]
 [connection signal="timeout" from="CharacterBody3D/BoostTimer" to="CharacterBody3D" method="_on_boost_timer_timeout"]
+[connection signal="body_entered" from="CharacterBody3D/DeathBox" to="CharacterBody3D" method="_on_death_box_body_entered"]

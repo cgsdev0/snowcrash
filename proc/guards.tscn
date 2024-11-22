@@ -5,7 +5,7 @@
 [node name="Guards" type="Node3D"]
 script = ExtResource("1_vah2w")
 
-[node name="GuardR" type="CSGPolygon3D" parent="."]
+[node name="GuardR" type="CSGPolygon3D" parent="." groups=["guard"]]
 use_collision = true
 collision_layer = 49
 collision_mask = 49
@@ -21,7 +21,7 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
 
-[node name="GuardF" type="CSGPolygon3D" parent="."]
+[node name="GuardF" type="CSGPolygon3D" parent="." groups=["guard"]]
 use_collision = true
 collision_layer = 49
 collision_mask = 49

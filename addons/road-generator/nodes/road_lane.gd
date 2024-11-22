@@ -54,6 +54,8 @@ var _draw_in_editor: bool = false
 var _draw_override: bool = false
 var _display_fins: bool = false
 
+var spawn_car = null
+
 
 # ------------------------------------------------------------------------------
 # Setup and export setter/getters
@@ -119,9 +121,21 @@ func get_vehicles() -> Array:
 			continue
 	return _vehicles_in_lane
 
-
+var timer = 0.0
+func _process(delta):
+	if !reverse_direction:
+		return
+	timer += delta
+	var spawnpoint = to_global(curve.sample_baked(curve.get_baked_length()))
+	if get_parent().get_index() == 0:
+		if timer > 0.0 && spawn_car != null:
+			timer = -randf_range(2.0, 4.0)
+			spawn_car.call(false)
+		DebugDraw3D.draw_sphere(spawnpoint, 0.3, Color.GREEN)
+	else:
+		DebugDraw3D.draw_sphere(spawnpoint, 0.3, Color.RED)
+		
 func _instantiate_geom() -> void:
-
 	if Engine.is_editor_hint():
 		_display_fins = _draw_in_editor or _draw_override
 	else:
