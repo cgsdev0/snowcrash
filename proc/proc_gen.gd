@@ -103,6 +103,7 @@ func remove_rp(edge_rp: RoadPoint) -> void:
 	# Defer to allow time to free cars first, if using despawn_cars above
 	edge_rp.call_deferred("queue_free")
 
+@onready var how_long = randi_range(7, 15)
 
 ## Add a new roadpoint in a given direction
 func add_next_rp(rp: RoadPoint, dir: int) -> void:
@@ -123,7 +124,7 @@ func add_next_rp(rp: RoadPoint, dir: int) -> void:
 	var _transform := new_rp.transform
 	var random_angle: float = [0.0, 0.0, 0.0, 20.0, -20.0, 10.0, -10.0].pick_random()
 	var next = null
-	if pieces == 5 && dir == 1:
+	if pieces == how_long && dir == 1:
 		random_angle = 0.0
 		var off_side = [-1.0, 1.0].pick_random()
 		guards.enable_ramp(off_side)
