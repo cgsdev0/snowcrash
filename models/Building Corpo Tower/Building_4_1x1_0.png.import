@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b8ubjfvkj1x03"
-path.s3tc="res://.godot/imported/Building_4_1x1_0.png-b26564cc1afce0a756f2fb69543ea20a.s3tc.ctex"
+path="res://.godot/imported/Building_4_1x1_0.png-b26564cc1afce0a756f2fb69543ea20a.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "885aa543dcda14c0b4fc656cdbfdcca9"
@@ -15,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://models/Building Corpo Tower/Building_4_1x1_0.png"
-dest_files=["res://.godot/imported/Building_4_1x1_0.png-b26564cc1afce0a756f2fb69543ea20a.s3tc.ctex"]
+dest_files=["res://.godot/imported/Building_4_1x1_0.png-b26564cc1afce0a756f2fb69543ea20a.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

@@ -103,7 +103,7 @@ func remove_rp(edge_rp: RoadPoint) -> void:
 	# Defer to allow time to free cars first, if using despawn_cars above
 	edge_rp.call_deferred("queue_free")
 
-@onready var how_long = randi_range(7, 15)
+@onready var how_long = 5 # randi_range(7, 15)
 
 ## Add a new roadpoint in a given direction
 func add_next_rp(rp: RoadPoint, dir: int) -> void:

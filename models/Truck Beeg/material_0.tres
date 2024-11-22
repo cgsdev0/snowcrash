@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://c5h6uc8tr2w8p"]
+
+[ext_resource type="Texture2D" uid="uid://b6bsyi87hm75s" path="res://models/Truck Beeg/Cyberpunk_Truck_1_0.png" id="1_s81n4"]
+[ext_resource type="Texture2D" uid="uid://dva8ipql2kqwg" path="res://models/Truck Beeg/Cyberpunk_Truck1_Emission.png" id="2_t6fvf"]
+
+[resource]
+resource_name = "material_0"
+transparency = 2
+alpha_scissor_threshold = 0.05
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_texture = ExtResource("1_s81n4")
+emission_enabled = true
+emission_energy_multiplier = 1.7
+emission_texture = ExtResource("2_t6fvf")
+texture_filter = 0
+texture_repeat = false

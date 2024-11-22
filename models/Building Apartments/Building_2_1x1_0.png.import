@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ddsx0h037132t"
-path.s3tc="res://.godot/imported/Building_2_1x1_0.png-ce3d1527b120e11d4fda1e6697f5d96b.s3tc.ctex"
+path="res://.godot/imported/Building_2_1x1_0.png-ce3d1527b120e11d4fda1e6697f5d96b.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "79e66e086743d00b43bbac94224268c5"
@@ -15,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://models/Building Apartments/Building_2_1x1_0.png"
-dest_files=["res://.godot/imported/Building_2_1x1_0.png-ce3d1527b120e11d4fda1e6697f5d96b.s3tc.ctex"]
+dest_files=["res://.godot/imported/Building_2_1x1_0.png-ce3d1527b120e11d4fda1e6697f5d96b.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

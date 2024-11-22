@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://115yo63ttvkv"]
+
+[ext_resource type="Texture2D" uid="uid://c7lrbshqti4dq" path="res://models/Van Tiny/Cyberpunk_Car2_0.png" id="1_cdr24"]
+[ext_resource type="Texture2D" uid="uid://cymsf1wv0xmau" path="res://models/Van Tiny/Cyberpunk_Car2_Emission.png" id="2_ujjor"]
+
+[resource]
+resource_name = "material_0"
+albedo_texture = ExtResource("1_cdr24")
+emission_enabled = true
+emission_energy_multiplier = 2.0
+emission_texture = ExtResource("2_ujjor")
+texture_filter = 0
+texture_repeat = false

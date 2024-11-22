@@ -15,7 +15,7 @@ dest_files=["res://.godot/imported/Cyberpunk_Car1_Texture.png-7b70f03c7cbe877358
 
 [params]
 
-compress/mode=0
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

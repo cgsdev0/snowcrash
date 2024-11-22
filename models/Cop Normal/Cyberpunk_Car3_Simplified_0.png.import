@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cal3e4ssdtami"
-path.s3tc="res://.godot/imported/Cyberpunk_Car3_Simplified_0.png-e2b3a02c04bde59db212555319e8555b.s3tc.ctex"
+path="res://.godot/imported/Cyberpunk_Car3_Simplified_0.png-e2b3a02c04bde59db212555319e8555b.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "7f944f89df72656d67ae72f535f1fda1"
@@ -15,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://models/Cop Normal/Cyberpunk_Car3_Simplified_0.png"
-dest_files=["res://.godot/imported/Cyberpunk_Car3_Simplified_0.png-e2b3a02c04bde59db212555319e8555b.s3tc.ctex"]
+dest_files=["res://.godot/imported/Cyberpunk_Car3_Simplified_0.png-e2b3a02c04bde59db212555319e8555b.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

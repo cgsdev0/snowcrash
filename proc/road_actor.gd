@@ -31,10 +31,17 @@ func get_lane_idx():
 	if lane_dir == 1:
 		return (total_lanes - lanes) + my_lane
 	return my_lane
-	
+
+var variations = [
+	preload("res://models/car_prefabs/fast_car.tscn"),
+	preload("res://models/car_prefabs/flat_car.tscn"),
+	preload("res://models/car_prefabs/truck_beeg.tscn"),
+	preload("res://models/car_prefabs/tiny_van.tscn")
+]
 func _ready() -> void:
 	agent.visualize_lane = visualize_lane
 	agent.auto_register = auto_register
+	add_child(variations.pick_random().instantiate())
 	# print("Agent state: %s par, %s lane, %s manager" % [
 	# 	agent.actor, agent.current_lane, agent.road_manager
 	# ])

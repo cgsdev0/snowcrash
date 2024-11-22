@@ -1,13 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://osjk2807lxit"]
+[gd_scene load_steps=3 format=3 uid="uid://osjk2807lxit"]
 
 [ext_resource type="Script" path="res://proc/road_actor.gd" id="1_77n8h"]
 [ext_resource type="Script" path="res://addons/road-generator/nodes/road_lane_agent.gd" id="2_ljj7w"]
-[ext_resource type="PackedScene" uid="uid://bw01eyjqb7tq" path="res://cars/car2.tscn" id="3_bslsn"]
 
 [node name="RoadActor" type="Node3D"]
 script = ExtResource("1_77n8h")
 
 [node name="RoadLaneAgent" type="Node" parent="."]
 script = ExtResource("2_ljj7w")
-
-[node name="blockbench_export" parent="." instance=ExtResource("3_bslsn")]

@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://bi12tuanloddk"]
+
+[ext_resource type="Texture2D" uid="uid://cxm54u2sbii8v" path="res://models/Car Round/Car_Fast_0.png" id="1_br8lv"]
+[ext_resource type="Texture2D" uid="uid://d3p7jvckc5his" path="res://models/Car Round/Car_Fast_Emission.png" id="2_4yul2"]
+
+[resource]
+resource_name = "material_0"
+albedo_texture = ExtResource("1_br8lv")
+emission_enabled = true
+emission_energy_multiplier = 2.0
+emission_texture = ExtResource("2_4yul2")
+texture_filter = 0
+texture_repeat = false

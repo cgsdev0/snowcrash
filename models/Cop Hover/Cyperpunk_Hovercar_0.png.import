@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dlcgqnirkbaee"
-path.s3tc="res://.godot/imported/Cyperpunk_Hovercar_0.png-aa268d0b47c54c20fe9bbea74ba02964.s3tc.ctex"
+path="res://.godot/imported/Cyperpunk_Hovercar_0.png-aa268d0b47c54c20fe9bbea74ba02964.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "211795105819b3f200d86569654b7eb5"
@@ -15,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://models/Cop Hover/Cyperpunk_Hovercar_0.png"
-dest_files=["res://.godot/imported/Cyperpunk_Hovercar_0.png-aa268d0b47c54c20fe9bbea74ba02964.s3tc.ctex"]
+dest_files=["res://.godot/imported/Cyperpunk_Hovercar_0.png-aa268d0b47c54c20fe9bbea74ba02964.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

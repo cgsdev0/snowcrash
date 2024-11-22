@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://du4i0t5r0jr5i"]
+
+[ext_resource type="PackedScene" uid="uid://bhckg22x2rlmm" path="res://models/Cop Hover/Cyperpunk_Hovercar.gltf" id="1_xx2aj"]
+[ext_resource type="Script" path="res://models/Cop Hover/hover_cop.gd" id="2_7pb48"]
+
+[node name="blockbench_export" instance=ExtResource("1_xx2aj")]
+script = ExtResource("2_7pb48")

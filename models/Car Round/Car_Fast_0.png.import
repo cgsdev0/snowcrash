@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cxm54u2sbii8v"
-path.s3tc="res://.godot/imported/Car_Fast_0.png-50dad0a6cc68b60dfd7d78a52e3288a6.s3tc.ctex"
+path="res://.godot/imported/Car_Fast_0.png-50dad0a6cc68b60dfd7d78a52e3288a6.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "7e12b16010e07b6addefc7852fe2a921"
@@ -15,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://models/Car Round/Car_Fast_0.png"
-dest_files=["res://.godot/imported/Car_Fast_0.png-50dad0a6cc68b60dfd7d78a52e3288a6.s3tc.ctex"]
+dest_files=["res://.godot/imported/Car_Fast_0.png-50dad0a6cc68b60dfd7d78a52e3288a6.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

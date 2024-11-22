@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://0crhcnas32sn"]
+
+[ext_resource type="Texture2D" uid="uid://dlcgqnirkbaee" path="res://models/Cop Hover/Cyperpunk_Hovercar_0.png" id="1_lihaf"]
+[ext_resource type="Texture2D" uid="uid://2y0ievkvamal" path="res://models/Cop Hover/Cyberpunk_Hovercar_Emission.png" id="2_541gc"]
+
+[resource]
+resource_name = "material_0"
+transparency = 2
+alpha_scissor_threshold = 0.05
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_texture = ExtResource("1_lihaf")
+emission_enabled = true
+emission_energy_multiplier = 5.0
+emission_texture = ExtResource("2_541gc")
+texture_filter = 0
+texture_repeat = false
