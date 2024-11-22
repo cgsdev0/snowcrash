@@ -41,21 +41,29 @@ func fuck():
 
 var mall = preload("res://models/building_prefabs/supamall.tscn")
 var corpo = preload("res://models/building_prefabs/corpo.tscn")
+var apartments = preload("res://models/building_prefabs/apartments.tscn")
+var buildings = [
+	mall,
+	corpo,
+	apartments
+]
 func spawn_at_slot(rp, pos, rot):
-	if randi_range(0, 1) == 0:
-		var m = mall.instantiate()
+	var choice = randi_range(0, buildings.size() - 1)
+	if choice == 0:
+		var m = buildings[choice].instantiate()
 		add_child(m)
 		m.global_position = pos
 		m.global_position += Vector3.UP * randi_range(-3, 3)
 		m.rotate_y(rot)
 	else:
-		var m = corpo.instantiate()
+		var m = buildings[choice].instantiate()
 		add_child(m)
 		m.global_position = pos + rp.global_basis.z * 16.0
 		m.global_position += Vector3.UP * randi_range(-3, 3)
 		m.rotate_y(rot)
 		
-		m = corpo.instantiate()
+		choice = randi_range(0, buildings.size() - 1)
+		m = buildings[choice].instantiate()
 		add_child(m)
 		m.global_position = pos - rp.global_basis.z * 16.0
 		m.global_position += Vector3.UP * randi_range(-3, 3)

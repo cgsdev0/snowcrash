@@ -35,26 +35,42 @@ script = ExtResource("2_l033x")
 
 [node name="Building" parent="Node_7/Building2" index="0"]
 material_override = ExtResource("3_4miqe")
+visibility_range_begin_margin = 10.0
+visibility_range_end = 250.0
+visibility_range_end_margin = 10.0
+
+[node name="Road" parent="Node_7/Building2" index="1"]
+visibility_range_begin_margin = 10.0
+visibility_range_end = 250.0
+visibility_range_end_margin = 10.0
+
+[node name="Sign" parent="Node_7/Building2" index="2"]
+visibility_range_begin_margin = 10.0
+visibility_range_end = 250.0
+visibility_range_end_margin = 10.0
 
 [node name="Sprite3D" type="Sprite3D" parent="Node_7/Building2/Sign" index="0"]
-transform = Transform3D(-5.46392e-08, 1.25, 1.69407e-21, -1.25, -5.46392e-08, 0, 0, 8.47033e-22, 1.25, -0.0162454, -0.00791359, 24.2433)
+transform = Transform3D(-5.46392e-08, -1.25, 0, 1.25, -5.46392e-08, 0, 0, 0, 1.25, -0.0162454, -0.00791359, 24.2433)
 transparent = false
 double_sided = false
 texture_filter = 2
 texture = SubResource("AtlasTexture_jpeau")
 script = ExtResource("5_dm5hj")
-x = 8
-y = 2
+sign_type = 2
 
 [node name="Sprite3D2" type="Sprite3D" parent="Node_7/Building2/Sign" index="1"]
-transform = Transform3D(5.46392e-08, 1.25, -1.09278e-07, 1.25, -5.46392e-08, 0, 0, -1.09278e-07, -1.25, -0.0162454, -0.00791359, 23.897)
+transform = Transform3D(5.46392e-08, -1.25, 1.09278e-07, -1.25, -5.46392e-08, 0, 4.77671e-15, -1.09278e-07, -1.25, -0.0162454, -0.00791359, 23.897)
 transparent = false
 double_sided = false
 texture_filter = 2
 texture = SubResource("AtlasTexture_jpeau")
 script = ExtResource("5_dm5hj")
-x = 8
-y = 2
+sign_type = 2
+
+[node name="Sign_001" parent="Node_7/Building2" index="3"]
+visibility_range_begin_margin = 10.0
+visibility_range_end = 250.0
+visibility_range_end_margin = 10.0
 
 [node name="Sprite3D" type="Sprite3D" parent="Node_7/Building2/Sign_001" index="0"]
 transform = Transform3D(1.475, 0, 0, 0, 1.475, 0, 0, 0, 1.475, -0.0157792, -0.0388532, 0.0272765)
@@ -63,27 +79,41 @@ double_sided = false
 texture_filter = 2
 texture = SubResource("AtlasTexture_wf6oc")
 script = ExtResource("5_dm5hj")
-y = 4
+sign_type = 3
+
+[node name="Sign_002" parent="Node_7/Building2" index="4"]
+visibility_range_begin_margin = 10.0
+visibility_range_end = 250.0
+visibility_range_end_margin = 10.0
 
 [node name="Sprite3D" type="Sprite3D" parent="Node_7/Building2/Sign_002" index="0"]
-transform = Transform3D(-5.46392e-08, 1.25, 6.77626e-21, -1.25, -5.46392e-08, 0, 0, -8.47033e-22, 1.25, -0.0162454, 0.0104952, 24.2312)
+transform = Transform3D(-5.46392e-08, -1.25, 0, 1.25, -5.46392e-08, 0, 0, 0, 1.25, -0.0162454, 0.0104952, 24.2312)
+visibility_range_begin_margin = 10.0
+visibility_range_end = 250.0
+visibility_range_end_margin = 10.0
 transparent = false
 double_sided = false
 texture_filter = 2
 texture = SubResource("AtlasTexture_hnjwd")
 script = ExtResource("5_dm5hj")
-x = 8
-y = 2
+sign_type = 2
 
 [node name="Sprite3D2" type="Sprite3D" parent="Node_7/Building2/Sign_002" index="1"]
-transform = Transform3D(5.46392e-08, 1.25, -1.09278e-07, 1.25, -5.46392e-08, 0, 0, -1.09278e-07, -1.25, -0.0162454, 0.0104952, 23.8761)
+transform = Transform3D(5.46392e-08, -1.25, -1.09278e-07, -1.25, -5.46392e-08, 0, -4.77671e-15, 1.09278e-07, -1.25, -0.0162454, 0.0104952, 23.8761)
+visibility_range_begin_margin = 10.0
+visibility_range_end = 250.0
+visibility_range_end_margin = 10.0
 transparent = false
 double_sided = false
 texture_filter = 2
 texture = SubResource("AtlasTexture_hnjwd")
 script = ExtResource("5_dm5hj")
-x = 8
-y = 2
+sign_type = 2
+
+[node name="Sign_003" parent="Node_7/Building2" index="5"]
+visibility_range_begin_margin = 10.0
+visibility_range_end = 250.0
+visibility_range_end_margin = 10.0
 
 [node name="Sprite3D" type="Sprite3D" parent="Node_7/Building2/Sign_003" index="0"]
 transform = Transform3D(2.005, 0, 0, 0, 2.005, 0, 0, 0, 2.005, 17.7342, 0.265791, 19.0651)
@@ -92,7 +122,7 @@ double_sided = false
 texture_filter = 2
 texture = SubResource("AtlasTexture_3301b")
 script = ExtResource("5_dm5hj")
-y = 4
+sign_type = 3
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -31.0234, 0)
