@@ -46,6 +46,16 @@ script = ExtResource("5_dm5hj")
 x = 8
 y = 2
 
+[node name="Sprite3D2" type="Sprite3D" parent="Node_7/Building2/Sign" index="1"]
+transform = Transform3D(5.46392e-08, 1.25, -1.09278e-07, 1.25, -5.46392e-08, 0, 0, -1.09278e-07, -1.25, -0.0162454, -0.00791359, 23.897)
+transparent = false
+double_sided = false
+texture_filter = 2
+texture = SubResource("AtlasTexture_jpeau")
+script = ExtResource("5_dm5hj")
+x = 8
+y = 2
+
 [node name="Sprite3D" type="Sprite3D" parent="Node_7/Building2/Sign_001" index="0"]
 transform = Transform3D(1.475, 0, 0, 0, 1.475, 0, 0, 0, 1.475, -0.0157792, -0.0388532, 0.0272765)
 transparent = false
@@ -57,6 +67,16 @@ y = 4
 
 [node name="Sprite3D" type="Sprite3D" parent="Node_7/Building2/Sign_002" index="0"]
 transform = Transform3D(-5.46392e-08, 1.25, 6.77626e-21, -1.25, -5.46392e-08, 0, 0, -8.47033e-22, 1.25, -0.0162454, 0.0104952, 24.2312)
+transparent = false
+double_sided = false
+texture_filter = 2
+texture = SubResource("AtlasTexture_hnjwd")
+script = ExtResource("5_dm5hj")
+x = 8
+y = 2
+
+[node name="Sprite3D2" type="Sprite3D" parent="Node_7/Building2/Sign_002" index="1"]
+transform = Transform3D(5.46392e-08, 1.25, -1.09278e-07, 1.25, -5.46392e-08, 0, 0, -1.09278e-07, -1.25, -0.0162454, 0.0104952, 23.8761)
 transparent = false
 double_sided = false
 texture_filter = 2

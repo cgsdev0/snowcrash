@@ -7,7 +7,8 @@ func _ready():
 	for sign in signs:
 		sign.visible = randi_range(0, 1)
 		if sign.visible:
-			sign.get_node("Sprite3D").shuffle()
+			for c in sign.get_children():
+				c.shuffle()
 		
 func _physics_process(delta):
 	if $Area3D.is_colliding():
