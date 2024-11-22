@@ -1,17 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://cx15lnypo82gq"]
+[gd_scene load_steps=5 format=3 uid="uid://cx15lnypo82gq"]
 
 [ext_resource type="PackedScene" uid="uid://bx3xhdqv1wmom" path="res://models/Car Flat/Cyberpunk_Car1.gltf" id="1_v57fn"]
+[ext_resource type="Script" path="res://models/car_prefabs/alt_mat.gd" id="2_jnoe6"]
+[ext_resource type="Material" uid="uid://dpqdnnmbtn1ih" path="res://models/Car Flat/material_1.tres" id="3_3r5uo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a1x4g"]
 size = Vector3(0.94165, 0.477051, 1.74133)
 
 [node name="blockbench_export" instance=ExtResource("1_v57fn")]
+script = ExtResource("2_jnoe6")
+alt = ExtResource("3_3r5uo")
 
 [node name="Node" parent="." index="0"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 0, 0, 0)
 
 [node name="StaticBody3D" type="CharacterBody3D" parent="." index="1"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 0, 0, 0)
 collision_layer = 261
 collision_mask = 5
 

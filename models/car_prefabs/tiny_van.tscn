@@ -1,11 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://b02bd71ltwh0h"]
+[gd_scene load_steps=5 format=3 uid="uid://b02bd71ltwh0h"]
 
 [ext_resource type="PackedScene" uid="uid://cv7j3y7s3euu" path="res://models/Van Tiny/Cyberpunk_Car2.gltf" id="1_buib4"]
+[ext_resource type="Script" path="res://models/car_prefabs/alt_mat.gd" id="2_ekt86"]
+[ext_resource type="Material" uid="uid://e6gey5bdul5p" path="res://models/Van Tiny/material_1.tres" id="3_ht62h"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jh8vg"]
 size = Vector3(0.458984, 0.656982, 1.33521)
 
 [node name="TinyVan" instance=ExtResource("1_buib4")]
+script = ExtResource("2_ekt86")
+alt = ExtResource("3_ht62h")
 
 [node name="Node" parent="." index="0"]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)

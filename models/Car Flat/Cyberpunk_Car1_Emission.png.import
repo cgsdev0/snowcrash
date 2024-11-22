@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://tr7wv2wi8ovo"
-path.s3tc="res://.godot/imported/Cyberpunk_Car1_Emission.png-2a7210bff31607c3baa60d5e44191179.s3tc.ctex"
+path="res://.godot/imported/Cyberpunk_Car1_Emission.png-2a7210bff31607c3baa60d5e44191179.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://models/Car Flat/Cyberpunk_Car1_Emission.png"
-dest_files=["res://.godot/imported/Cyberpunk_Car1_Emission.png-2a7210bff31607c3baa60d5e44191179.s3tc.ctex"]
+dest_files=["res://.godot/imported/Cyberpunk_Car1_Emission.png-2a7210bff31607c3baa60d5e44191179.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

@@ -173,8 +173,7 @@ func spawn_vehicles_on_lane(rp: RoadPoint, dir: int) -> void:
 				return
 			var new_instance = RoadActor.instantiate()
 			new_instance.container = $RoadManager/Road_001
-			vehicles.add_child(new_instance)
-			new_instance.agent.current_lane = _lane
+			
 			var parts = _lane.name.split("_")
 			var lane_dir = 1 if parts[0][1] == "F" else 2
 			var lane_idx = int(parts[0].substr(2))
@@ -182,6 +181,8 @@ func spawn_vehicles_on_lane(rp: RoadPoint, dir: int) -> void:
 			new_instance.my_lane = lane_idx
 			new_instance.total_lanes = rp.traffic_dir.size()
 			new_instance.lane_dir = lane_dir
+			vehicles.add_child(new_instance)
+			new_instance.agent.current_lane = _lane
 			var rand_offset = randf() * _lane.curve.get_baked_length()
 			var rand_pos = _lane.curve.sample_baked(rand_offset if rng else _lane.curve.get_baked_length())
 			new_instance.global_transform.origin = _lane.to_global(rand_pos)

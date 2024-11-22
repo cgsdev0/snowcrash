@@ -73,7 +73,7 @@ func raycast_from_mouse(m_pos, collision_mask):
 		hooked = attach
 		result.collider.add_child(attach)
 		attach.global_position = result.position
-		grapple_len = (result.position - global_position).length() - 2.0
+		grapple_len = (result.position - global_position).length() - 1.0
 		grapple_len = max(minimum_grapple, grapple_len)
 		print("hooked!", result.collider)
 		return result.position

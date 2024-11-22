@@ -5,10 +5,6 @@
 
 [resource]
 resource_name = "material_0"
-transparency = 2
-alpha_scissor_threshold = 0.05
-alpha_antialiasing_mode = 0
-cull_mode = 2
 albedo_texture = ExtResource("1_s81n4")
 emission_enabled = true
 emission_energy_multiplier = 1.7

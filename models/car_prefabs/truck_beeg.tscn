@@ -1,18 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://cembmkwyvqcim"]
+[gd_scene load_steps=5 format=3 uid="uid://cembmkwyvqcim"]
 
 [ext_resource type="PackedScene" uid="uid://wnqcd80oj71y" path="res://models/Truck Beeg/Cyberpunk_Truck_1.gltf" id="1_cn6kh"]
+[ext_resource type="Script" path="res://models/car_prefabs/alt_mat.gd" id="2_yw8bd"]
+[ext_resource type="Material" uid="uid://dxw8ddenvyq3j" path="res://models/Truck Beeg/material_1.tres" id="3_t5no5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cgd7k"]
 size = Vector3(1.00977, 0.97644, 3.69809)
 
 [node name="blockbench_export" instance=ExtResource("1_cn6kh")]
+script = ExtResource("2_yw8bd")
+alt = ExtResource("3_t5no5")
 
 [node name="Node" parent="." index="0"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+transform = Transform3D(2.2, 0, 0, 0, 2.2, 0, 0, 0, 2.2, 0, 0, 0)
 
 [node name="StaticBody3D" type="CharacterBody3D" parent="." index="1"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-collision_layer = 261
+transform = Transform3D(2.2, 0, 0, 0, 2.2, 0, 0, 0, 2.2, 0, 0, 0)
+collision_layer = 773
 collision_mask = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]

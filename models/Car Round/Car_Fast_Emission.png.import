@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d3p7jvckc5his"
-path.s3tc="res://.godot/imported/Car_Fast_Emission.png-27b2efc7550a2d5605fb4010efdc5a0f.s3tc.ctex"
+path="res://.godot/imported/Car_Fast_Emission.png-27b2efc7550a2d5605fb4010efdc5a0f.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://models/Car Round/Car_Fast_Emission.png"
-dest_files=["res://.godot/imported/Car_Fast_Emission.png-27b2efc7550a2d5605fb4010efdc5a0f.s3tc.ctex"]
+dest_files=["res://.godot/imported/Car_Fast_Emission.png-27b2efc7550a2d5605fb4010efdc5a0f.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

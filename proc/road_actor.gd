@@ -38,10 +38,41 @@ var variations = [
 	preload("res://models/car_prefabs/truck_beeg.tscn"),
 	preload("res://models/car_prefabs/tiny_van.tscn")
 ]
+
+var main_weights = [
+	2,
+	2,
+	1,
+	3
+]
+
+var f0_weights = [
+	2,
+	2,
+	0,
+	3
+]
+
+func weighted_pick(array, weights):
+	weights
+	var total_weight = weights.reduce(func(sum, n = 0): return sum + n)
+	var random := randi_range(0, total_weight)
+	var accumulated_weight = 0
+	for i in weights.size():
+		accumulated_weight += weights[i]
+		if random < accumulated_weight: return array[i]
+	return array[-1]
+	
 func _ready() -> void:
 	agent.visualize_lane = visualize_lane
 	agent.auto_register = auto_register
-	add_child(variations.pick_random().instantiate())
+	var pick = null
+	if my_lane == 0 && lane_dir == 1:
+		pick = weighted_pick(variations, f0_weights)
+	else:
+		pick = weighted_pick(variations, main_weights)
+		
+	add_child(pick.instantiate())
 	# print("Agent state: %s par, %s lane, %s manager" % [
 	# 	agent.actor, agent.current_lane, agent.road_manager
 	# ])

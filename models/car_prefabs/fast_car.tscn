@@ -1,11 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://dbq8m7qqut2ce"]
+[gd_scene load_steps=5 format=3 uid="uid://dbq8m7qqut2ce"]
 
 [ext_resource type="PackedScene" uid="uid://qtfa2lrcqv0t" path="res://models/Car Round/Car_Fast.gltf" id="1_mum4k"]
+[ext_resource type="Script" path="res://models/car_prefabs/alt_mat.gd" id="2_rf7se"]
+[ext_resource type="Material" uid="uid://dofkm1ldoutcr" path="res://models/Car Round/material_1.tres" id="3_tgr0p"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0fnug"]
 size = Vector3(1.23608, 1.03973, 2.86078)
 
 [node name="blockbench_export" instance=ExtResource("1_mum4k")]
+script = ExtResource("2_rf7se")
+alt = ExtResource("3_tgr0p")
 
 [node name="Node" parent="." index="0"]
 transform = Transform3D(-1.5, 0, -1.31134e-07, 0, 1.5, 0, 1.31134e-07, 0, -1.5, 0, 0, 0)

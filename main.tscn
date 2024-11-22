@@ -71,7 +71,7 @@ script = ExtResource("4_rof53")
 shape = SubResource("CapsuleShape3D_v03n4")
 
 [node name="CameraPos" type="Marker3D" parent="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.457565, 0.599766, 1.14046)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.457565, 0.457749, 1.00516)
 
 [node name="CameraPos2" type="Marker3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.457565, 0.148173, -0.0859222)
