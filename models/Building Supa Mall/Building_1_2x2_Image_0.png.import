@@ -2,21 +2,23 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bv6x1dybqk7ie"
-path.s3tc="res://.godot/imported/Building_1_2x2.png-0f5efbffec8687d639a544316936318d.s3tc.ctex"
+uid="uid://bmqfua4mps7du"
+path="res://.godot/imported/Building_1_2x2_Image_0.png-25c4adeb31bd227597f92f78f8dafbb0.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
+}
+generator_parameters={
+"md5": "a8e160d91e69442b310becacf95ec4d1"
 }
 
 [deps]
 
-source_file="res://models/Building Supa Mall/Building_1_2x2.png"
-dest_files=["res://.godot/imported/Building_1_2x2.png-0f5efbffec8687d639a544316936318d.s3tc.ctex"]
+source_file="res://models/Building Supa Mall/Building_1_2x2_Image_0.png"
+dest_files=["res://.godot/imported/Building_1_2x2_Image_0.png-25c4adeb31bd227597f92f78f8dafbb0.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

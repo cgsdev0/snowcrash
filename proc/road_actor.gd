@@ -18,7 +18,7 @@ var container: RoadContainer = null
 # Target speed in meters per second
 @export var acceleration := 1 # in meters per sec squared
 @export var target_speed := 13  # in meters per sec
-@export var lane_adj := 0.8  # in meters per sec
+@export var lane_adj := 1.2  # in meters per sec
 @export var visualize_lane := false
 @export var seek_ahead := 1.0 # How many meters in front of agent to seek position
 @export var auto_register: bool = true

@@ -90,3 +90,7 @@ debug_camera={
 
 common/physics_jitter_fix=0.0
 common/physics_interpolation=true
+
+[rendering]
+
+anti_aliasing/screen_space_roughness_limiter/enabled=false

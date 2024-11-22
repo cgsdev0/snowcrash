@@ -2,21 +2,23 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bv6x1dybqk7ie"
-path.s3tc="res://.godot/imported/Building_1_2x2.png-0f5efbffec8687d639a544316936318d.s3tc.ctex"
+uid="uid://dxrohr6lm0n30"
+path="res://.godot/imported/Prop_Lamp_0.png-a373fe58bc2486a03a01f762b745e586.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
+}
+generator_parameters={
+"md5": "b386bffc7ef88c923e2e9776f14c9e95"
 }
 
 [deps]
 
-source_file="res://models/Building Supa Mall/Building_1_2x2.png"
-dest_files=["res://.godot/imported/Building_1_2x2.png-0f5efbffec8687d639a544316936318d.s3tc.ctex"]
+source_file="res://models/Lamp/Prop_Lamp_0.png"
+dest_files=["res://.godot/imported/Prop_Lamp_0.png-a373fe58bc2486a03a01f762b745e586.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
@@ -26,7 +28,7 @@ mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
-process/fix_alpha_border=true
+process/fix_alpha_border=false
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false

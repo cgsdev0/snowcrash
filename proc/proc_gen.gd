@@ -6,10 +6,10 @@ extends Node3D
 const RoadActor:PackedScene = preload("res://proc/road_actor.tscn")
 
 ## How far ahead of the camera will we let a new RoadPoint be added
-@export var max_rp_distance: int = 200
+@export var max_rp_distance: int = 250
 ## How much buffer around this max dist to avoid adding new RPs
 ## (this will also define spacing between RoadPoints)
-@export var buffer_distance: int = 50
+@export var buffer_distance: int = 70
 
 ## Node used to calcualte distances
 @export var target_node: NodePath
@@ -36,6 +36,62 @@ func _ready() -> void:
 func fuck():
 	spawn_vehicles_on_lane($RoadManager/Road_001/RP_001, 0)
 	spawn_vehicles_on_lane($RoadManager/Road_001/RP_002, 0)
+	spawn_buildings($RoadManager/Road_001/RP_001)
+	spawn_buildings($RoadManager/Road_001/RP_002)
+
+var mall = preload("res://models/building_prefabs/supamall.tscn")
+var corpo = preload("res://models/building_prefabs/corpo.tscn")
+func spawn_at_slot(rp, pos, rot):
+	if randi_range(0, 1) == 0:
+		var m = mall.instantiate()
+		add_child(m)
+		m.global_position = pos
+		m.global_position += Vector3.UP * randi_range(-3, 3)
+		m.rotate_y(rot)
+	else:
+		var m = corpo.instantiate()
+		add_child(m)
+		m.global_position = pos + rp.global_basis.z * 16.0
+		m.global_position += Vector3.UP * randi_range(-3, 3)
+		m.rotate_y(rot)
+		
+		m = corpo.instantiate()
+		add_child(m)
+		m.global_position = pos - rp.global_basis.z * 16.0
+		m.global_position += Vector3.UP * randi_range(-3, 3)
+		m.rotate_y(rot)
+	
+func spawn_buildings(rp):
+	
+	var push_back = randf_range(-3.0, 6.0)
+	var w = rp.get_total_width() + push_back
+	
+	#spawn_at_slot(rp, rp.global_position
+		#+ rp.global_basis.x * (12.0 + w)
+		#- rp.global_basis.z * 64.0,
+		#PI / 2)
+	
+	spawn_at_slot(rp, rp.global_position
+		+ rp.global_basis.x * (20.0 + w),
+		PI / 2)
+	spawn_at_slot(rp, rp.global_position
+	- rp.global_basis.z * 16.0
+		+ rp.global_basis.x * (32.0 + 20.0 + w),
+		PI / 2)
+	
+	#spawn_at_slot(rp, rp.global_position
+		#- rp.global_basis.x * (12.0 + w)
+		#- rp.global_basis.z * 64.0,
+		#-PI / 2)
+		
+	spawn_at_slot(rp, rp.global_position
+		- rp.global_basis.x * (20.0 + w),
+		-PI / 2)
+		
+	spawn_at_slot(rp, rp.global_position
+		- rp.global_basis.z * 16.0
+		- rp.global_basis.x * (32.0 + 20.0 + w),
+		-PI / 2)
 	
 var initialized = false
 
@@ -89,7 +145,9 @@ func update_road(backward: bool) -> void:
 				pieces += 1
 			if which_edge == 0 && backward:
 				continue
-			add_next_rp(edge_rp, which_edge)
+			var rp = add_next_rp(edge_rp, which_edge)
+			if rp != null:
+				spawn_buildings(rp)
 		elif rp_count > 20:
 			pass
 
@@ -106,7 +164,7 @@ func remove_rp(edge_rp: RoadPoint) -> void:
 @onready var how_long = 5 # randi_range(7, 15)
 
 ## Add a new roadpoint in a given direction
-func add_next_rp(rp: RoadPoint, dir: int) -> void:
+func add_next_rp(rp: RoadPoint, dir: int) -> RoadPoint:
 	var mag = 1 if dir == RoadPoint.PointInit.NEXT else -1
 	var flip_dir: int = RoadPoint.PointInit.NEXT if dir == RoadPoint.PointInit.PRIOR else RoadPoint.PointInit.PRIOR
 
@@ -149,11 +207,12 @@ func add_next_rp(rp: RoadPoint, dir: int) -> void:
 	var res = rp.connect_roadpoint(dir, new_rp, flip_dir)
 	if res != true:
 		print("Failed to connect RoadPoint")
-		return
+		return null
 
 	new_rp.add_child(guards)
 	guards.global_transform = new_rp.global_transform
 	spawn_vehicles_on_lane(rp, dir)
+	return new_rp
 
 var Level = preload("res://proc/level.tscn")
 var to_murder = null
@@ -213,8 +272,10 @@ func despawn_cars(road_point:RoadPoint) -> void:
 			print("Freeing vehicle ", _vehicle)
 			_vehicle.queue_free()
 
-
+var killed = false
 func _on_murderer_body_entered(body):
-	if to_murder:
+	if to_murder && !killed:
+		killed = true
+		await get_tree().create_timer(5.0).timeout
 		to_murder.queue_free()
 		to_murder = null

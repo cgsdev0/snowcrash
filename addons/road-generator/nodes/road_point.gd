@@ -197,7 +197,9 @@ func _set_dir(values):
 func _get_dir():
 	return traffic_dir
 
-
+func get_total_width():
+	return lanes.size() * lane_width + shoulder_width_l + shoulder_width_r
+	
 func _set_lane_width(value):
 	lane_width = value
 	if not is_instance_valid(container):

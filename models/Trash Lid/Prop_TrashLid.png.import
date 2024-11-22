@@ -2,21 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bv6x1dybqk7ie"
-path.s3tc="res://.godot/imported/Building_1_2x2.png-0f5efbffec8687d639a544316936318d.s3tc.ctex"
+uid="uid://4blsjo86ofs2"
+path="res://.godot/imported/Prop_TrashLid.png-4bd3287aab2cd9f2538e59536a3de620.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://models/Building Supa Mall/Building_1_2x2.png"
-dest_files=["res://.godot/imported/Building_1_2x2.png-0f5efbffec8687d639a544316936318d.s3tc.ctex"]
+source_file="res://models/Trash Lid/Prop_TrashLid.png"
+dest_files=["res://.godot/imported/Prop_TrashLid.png-4bd3287aab2cd9f2538e59536a3de620.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
@@ -26,7 +25,7 @@ mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
-process/fix_alpha_border=true
+process/fix_alpha_border=false
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
