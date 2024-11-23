@@ -62,16 +62,16 @@ autostart = true
 [node name="OmniLight3D2" type="OmniLight3D" parent="Police/Node3D"]
 transform = Transform3D(1, -4.99189e-07, -1.78814e-07, -1.49012e-08, 1, 2.5332e-07, 2.98023e-08, 2.98023e-08, 1, 3.91801, 0.133713, -1.66107)
 light_color = Color(0, 0.15, 1, 1)
-light_energy = 6.0
-light_volumetric_fog_energy = 10.0
+light_energy = 4.0
+light_volumetric_fog_energy = 16.0
 omni_range = 40.0
 omni_attenuation = 0.2
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Police/Node3D"]
 transform = Transform3D(1, -4.99189e-07, -1.78814e-07, -1.49012e-08, 1, 2.5332e-07, 2.98023e-08, 2.98023e-08, 1, -2.02086, 0.699856, 1.67136)
 light_color = Color(1, 0, 0, 1)
-light_energy = 7.0
-light_volumetric_fog_energy = 12.0
+light_energy = 5.0
+light_volumetric_fog_energy = 16.0
 omni_range = 40.0
 omni_attenuation = 0.2
 
