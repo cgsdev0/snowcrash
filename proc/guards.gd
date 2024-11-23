@@ -2,6 +2,8 @@ extends Node3D
 
 var ramp_enabled = false
 var off_side = 0.0
+var passed = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$OffRamp.use_collision = false
@@ -11,6 +13,8 @@ func _ready():
 	$OffRamp.hide()
 	if ramp_enabled:
 		_enable_ramp()
+	else:
+		$OffRamp.queue_free()
 
 func enable_ramp(a):
 	ramp_enabled = true

@@ -71,3 +71,10 @@ bones/23/rotation = Quaternion(0.309281, 0.0455412, -0.0148299, 0.949764)
 [node name="AnimationTree" type="AnimationTree" parent="." index="2"]
 tree_root = SubResource("AnimationNodeStateMachine_ql2wb")
 anim_player = NodePath("../AnimationPlayer")
+
+[node name="RightHand" type="BoneAttachment3D" parent="." index="3"]
+transform = Transform3D(1.20476e-08, -0.01, 2.59769e-07, 0.000263106, -2.59744e-07, -0.00999654, 0.00999654, 1.89942e-08, 0.000263106, -0.680855, 1.04569, -0.0070228)
+bone_name = "mixamorig_RightHand"
+bone_idx = 14
+use_external_skeleton = true
+external_skeleton = NodePath("../Armature/Skeleton3D")

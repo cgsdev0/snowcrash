@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://cyffg64dbcsoy"]
+
+[ext_resource type="Texture2D" uid="uid://debnb4exyqfcv" path="res://models/Building Supa Mall/Building_1_2x1_Texture2.png" id="1_kov1s"]
+[ext_resource type="Texture2D" uid="uid://mo886jtmfsob" path="res://models/Building Supa Mall/Building_1_2x1_Emission2.png" id="2_a2p08"]
+
+[resource]
+resource_name = "material_0"
+albedo_texture = ExtResource("1_kov1s")
+emission_enabled = true
+emission_energy_multiplier = 1.5
+emission_texture = ExtResource("2_a2p08")
+anisotropy = -1.0
+texture_filter = 0
+texture_repeat = false
+grow_amount = 3.257

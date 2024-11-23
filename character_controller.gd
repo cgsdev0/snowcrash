@@ -43,17 +43,24 @@ func start_boost():
 func break_grapple():
 	if hooked && is_instance_valid(hooked):
 		hooked.queue_free()
+		hook_target = null
 		hooked = null
 
 var whee = 0.0
 func _process(delta):
 	whee += delta
 	$Visual.position.y = sin(whee * 3.0) * 0.03 - 0.3
-	return
-	if casting:
-		extension += delta * 20.0
-		extension = clampf(extension, 0.0, 6.0)
-		extend(extension)
+	if hook_target || hooked:
+		extension += delta * 4.0
+		if extension > 1.0 && hook_target != null:
+			hook_target = null
+	else:
+		extension -= delta * 12.0
+		if extension < 0.0 && hook_was:
+			hook_target = null
+			hook_was = null
+		
+	extension = clampf(extension, 0.0, 1.0)
 	
 func raycast_from_mouse(m_pos, collision_mask):
 	var ray_start = cam.project_ray_origin(m_pos)
@@ -112,7 +119,53 @@ var forces = {}
 
 var target_tilt = 0.0
 
+func p(A, v, t, amp):
+	var n = v.normalized().cross(global_basis.x.normalized())
+	return A + t * v + A * n * sin(PI * t) * amp
+	
+func draw_arc(p1, p2, len, ext):
+	var rope = p2 - p1
+	if len <= rope.length():
+		DebugDraw3D.draw_line(p1, p2, Color.RED)
+		return
+	
+	var d = rope.length()
+	var amp = clampf(len - d, 0.0, 0.5)
+	for i in range(10):
+		var start = p(p1, rope, i / 10.0, amp)
+		var end = p(p1, rope, (i + 1) / 10.0, amp)
+		DebugDraw3D.draw_line(start, end, Color.RED)
+
+func draw_extended(a, b, l, e):
+	var d = b - a
+	DebugDraw3D.draw_line(a, a + d * e, Color.ORANGE_RED)
+	
 func _physics_process(delta):
+	# find closest ramp
+	var ramps = get_tree().get_nodes_in_group("ramp")
+	var min_ramp = null
+	var min_dist = 10000.0
+	for ramp in ramps:
+		var r = ramp.get_parent()
+		if r.passed:
+			continue
+		var dist = global_position.distance_to(r.global_position)
+		if dist < 50.0:
+			r.passed = true
+			continue
+		if dist < min_dist:
+			min_dist = dist
+			min_ramp = r
+	%WarnRight.hide()
+	%WarnLeft.hide()
+	if min_dist < 150.0:
+		if min_ramp.off_side > 0.0:
+			%WarnRight.show()
+		else:
+			%WarnLeft.show()
+	if extension > 0.0 && hooked:
+		var hand = $Visual/Visual.get_hand()
+		draw_extended(hand.global_position, hooked.global_position, grapple_len, extension)
 	if boosting:
 		speed_mod = move_toward(speed_mod, boost_speed_mod, delta * 5.0)
 	else:
@@ -186,7 +239,7 @@ func _physics_process(delta):
 		forces["friction"] = forces["friction"].normalized() * velocity_xz.length()
 	forces["friction"] = Vector3(forces["friction"].x, 0.0, forces["friction"].y)
 	for force in forces:
-		DebugDraw3D.draw_arrow(global_position, global_position + forces[force], Color.RED, 0.1)
+		#DebugDraw3D.draw_arrow(global_position, global_position + forces[force], Color.RED, 0.1)
 		acceleration += forces[force]
 	acceleration.y = 0.0
 	velocity += acceleration * delta
@@ -240,12 +293,16 @@ func _physics_process(delta):
 			
 var Attach = preload("res://hook_attach.tscn")
 var hooked = null
+var hook_target = null
+var hook_was = null
 func _on_hook_body_entered(body):
 	return
 	if !hooked && casting:
-		hooked = body
+		hook_target = body
 		casting = false
 		var attach = Attach.instantiate()
+		hook_target = attach
+		hook_was = attach
 		body.add_child(attach)
 		attach.global_position = $Grapple/Hook.global_position
 		print("hooked!", body)

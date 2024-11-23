@@ -4,3 +4,6 @@ extends Node3D
 
 func _ready():
 	state_machine.travel("idle")
+
+func get_hand():
+	return $RightHand

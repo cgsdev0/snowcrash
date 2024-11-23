@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://b3yfc7x83o4ly"]
+
+[ext_resource type="Texture2D" uid="uid://bfsn4sqgj3ml6" path="res://models/Building Corpo Tower/Building_4_1x1_Texture2.png" id="1_ukxg2"]
+[ext_resource type="Texture2D" uid="uid://cm21f26k2132t" path="res://models/Building Corpo Tower/Building_4_1x1_Emission2.png" id="2_j28kr"]
+
+[resource]
+resource_name = "material_0"
+albedo_texture = ExtResource("1_ukxg2")
+emission_enabled = true
+emission_energy_multiplier = 1.5
+emission_texture = ExtResource("2_j28kr")
+texture_filter = 0
+texture_repeat = false

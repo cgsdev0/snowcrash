@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyuni0mv36ali"
-path="res://.godot/imported/Building_3_1x1_Texture.png-74cffd783290eda53cf4b170c9f5bdb2.ctex"
+uid="uid://chahrcjvdw6vy"
+path="res://.godot/imported/road_texture_1.jpg-b19355546d05a92dd3cdca6d0695fd1d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://models/Building Science/Building_3_1x1_Texture.png"
-dest_files=["res://.godot/imported/Building_3_1x1_Texture.png-74cffd783290eda53cf4b170c9f5bdb2.ctex"]
+source_file="res://roads/road_texture_1.jpg"
+dest_files=["res://.godot/imported/road_texture_1.jpg-b19355546d05a92dd3cdca6d0695fd1d.ctex"]
 
 [params]
 

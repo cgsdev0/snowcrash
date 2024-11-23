@@ -36,43 +36,51 @@ func _ready() -> void:
 func fuck():
 	spawn_vehicles_on_lane($RoadManager/Road_001/RP_001, 0)
 	spawn_vehicles_on_lane($RoadManager/Road_001/RP_002, 0)
-	spawn_buildings($RoadManager/Road_001/RP_001)
-	spawn_buildings($RoadManager/Road_001/RP_002)
+	queue_spawn_buildings($RoadManager/Road_001/RP_001)
+	queue_spawn_buildings($RoadManager/Road_001/RP_002)
 
 var mall = preload("res://models/building_prefabs/supamall.tscn")
 var corpo = preload("res://models/building_prefabs/corpo.tscn")
 var apartments = preload("res://models/building_prefabs/apartments.tscn")
+var science = preload("res://models/building_prefabs/science.tscn")
+
 var buildings = [
 	mall,
 	corpo,
-	apartments
+	apartments,
+	science
 ]
-func spawn_at_slot(rp, pos, rot):
+func spawn_at_slot(rp, pos, rot, h):
 	var choice = randi_range(0, buildings.size() - 1)
 	if choice == 0:
 		var m = buildings[choice].instantiate()
 		add_child(m)
 		m.global_position = pos
-		m.global_position += Vector3.UP * randi_range(-3, 3)
+		m.global_position += Vector3.UP * (randi_range(-6, 3) + h)
 		m.rotate_y(rot)
 	else:
 		var m = buildings[choice].instantiate()
 		add_child(m)
 		m.global_position = pos + rp.global_basis.z * 16.0
-		m.global_position += Vector3.UP * randi_range(-3, 3)
+		m.global_position += Vector3.UP * (randi_range(-6, 3) + h)
 		m.rotate_y(rot)
 		
-		choice = randi_range(0, buildings.size() - 1)
+		choice = randi_range(1, buildings.size() - 1)
 		m = buildings[choice].instantiate()
 		add_child(m)
 		m.global_position = pos - rp.global_basis.z * 16.0
-		m.global_position += Vector3.UP * randi_range(-3, 3)
+		m.global_position += Vector3.UP * (randi_range(-6, 3) + h)
 		m.rotate_y(rot)
+
+var to_spawn = []
+func queue_spawn_buildings(rp):
+	to_spawn.push_back(rp)
 	
 func spawn_buildings(rp):
-	
+	if !is_instance_valid(rp):
+		return
 	var push_back = randf_range(-3.0, 6.0)
-	var w = rp.get_total_width() + push_back
+	var w = rp.get_total_width() + push_back - 5.0
 	
 	#spawn_at_slot(rp, rp.global_position
 		#+ rp.global_basis.x * (12.0 + w)
@@ -81,11 +89,13 @@ func spawn_buildings(rp):
 	
 	spawn_at_slot(rp, rp.global_position
 		+ rp.global_basis.x * (20.0 + w),
-		PI / 2)
+		PI / 2,
+		0.0)
 	spawn_at_slot(rp, rp.global_position
 	- rp.global_basis.z * 16.0
 		+ rp.global_basis.x * (32.0 + 20.0 + w),
-		PI / 2)
+		PI / 2,
+		randf_range(3.0, 10.0))
 	
 	#spawn_at_slot(rp, rp.global_position
 		#- rp.global_basis.x * (12.0 + w)
@@ -94,16 +104,22 @@ func spawn_buildings(rp):
 		
 	spawn_at_slot(rp, rp.global_position
 		- rp.global_basis.x * (20.0 + w),
-		-PI / 2)
+		-PI / 2,
+		0.0)
 		
 	spawn_at_slot(rp, rp.global_position
 		- rp.global_basis.z * 16.0
 		- rp.global_basis.x * (32.0 + 20.0 + w),
-		-PI / 2)
+		-PI / 2,
+		randf_range(3.0, 10.0))
 	
 var initialized = false
 
 func _physics_process(_delta: float) -> void:
+	if to_spawn.size():
+		var rp = to_spawn.pop_front()
+		spawn_buildings(rp)
+		
 	update_road(initialized)
 		#$RoadManager/Road_001/RP_002/CSGPolygon3D.path_node = $RoadManager/Road_001/RP_002.get_node("edge_R").get_path()
 	if !initialized:
@@ -256,6 +272,8 @@ func spawn_vehicles_on_lane(rp: RoadPoint, dir: int) -> void:
 			_lane.register_vehicle(new_instance)
 		_lane.spawn_car = spawn_car
 		_lane.spawn_car.call(true)
+		if randi_range(0, 1):
+			_lane.spawn_car.call(true)
 
 ## Manual way to emvoe all vehicles registered to lanes of this RoadPoint,
 ## if we didn't use RoadLane.auto_free_vehicles = true

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyuni0mv36ali"
-path="res://.godot/imported/Building_3_1x1_Texture.png-74cffd783290eda53cf4b170c9f5bdb2.ctex"
+uid="uid://b64433w0ikh8e"
+path="res://.godot/imported/left_warning.png-92a68194bc3d75756d9c4206f5f8124d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://models/Building Science/Building_3_1x1_Texture.png"
-dest_files=["res://.godot/imported/Building_3_1x1_Texture.png-74cffd783290eda53cf4b170c9f5bdb2.ctex"]
+source_file="res://ui/left_warning.png"
+dest_files=["res://.godot/imported/left_warning.png-92a68194bc3d75756d9c4206f5f8124d.ctex"]
 
 [params]
 

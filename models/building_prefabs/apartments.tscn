@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://0c5u8k7a5jf3"]
+[gd_scene load_steps=15 format=3 uid="uid://0c5u8k7a5jf3"]
 
 [ext_resource type="PackedScene" uid="uid://bslhnv5hn0ehb" path="res://models/Building Apartments/Building_2_1x1.gltf" id="1_ojfh7"]
 [ext_resource type="Material" uid="uid://caxiuo3vq77dq" path="res://models/Building Apartments/material_0.tres" id="2_b3rn6"]
 [ext_resource type="Script" path="res://models/building_prefabs/building.gd" id="2_e1ddb"]
+[ext_resource type="Material" uid="uid://dhsjnorbq3d1j" path="res://models/Building Apartments/material_1.tres" id="3_1mvxd"]
 [ext_resource type="Script" path="res://models/building_prefabs/sign.gd" id="3_pvsqn"]
 [ext_resource type="Texture2D" uid="uid://fiuwtqn2u1v4" path="res://SIGNS/2-6_signs_01.png" id="4_q5k5v"]
 [ext_resource type="Texture2D" uid="uid://c3t5ed7wbcs01" path="res://SIGNS/8-3_signs_01.png" id="5_x8q2p"]
@@ -28,11 +29,16 @@ resource_local_to_scene = true
 atlas = ExtResource("5_x8q2p")
 region = Rect2(0, 0, 391, 150)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_n5uer"]
+size = Vector3(26, 82.157, 26)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_2d16c"]
-size = Vector3(32, 50, 32)
+size = Vector3(31, 50, 31)
 
 [node name="Building_2_1x1" instance=ExtResource("1_ojfh7")]
 script = ExtResource("2_e1ddb")
+mesh = NodePath("Node_2/Building4/cuboid")
+alt = ExtResource("3_1mvxd")
 
 [node name="Node_2" parent="." index="0"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
@@ -138,11 +144,39 @@ script = ExtResource("3_pvsqn")
 sign_type = 3
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -31.0234, 0)
-size = Vector3(26, 62, 26)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30.8132, 0)
+collision_layer = 64
+collision_mask = 0
+size = Vector3(26, 62.4204, 26)
 
-[node name="Area3D" type="ShapeCast3D" parent="." index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.81248, 0)
+[node name="CSGBox3D2" type="CSGBox3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5518, -46.7097, 6.89427)
+collision_layer = 64
+collision_mask = 0
+size = Vector3(36.2173, 62.4204, 26)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.78433, -54.9868, 18.0275)
+collision_layer = 64
+collision_mask = 0
+size = Vector3(48.4532, 45.8663, 26)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.47078, -51.0052, -7.35174)
+collision_layer = 64
+collision_mask = 0
+size = Vector3(53.8261, 53.615, 47.7207)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="5"]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.76963, 0)
+shape = SubResource("BoxShape3D_n5uer")
+
+[node name="Area3D" type="ShapeCast3D" parent="StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.8125, 0)
 shape = SubResource("BoxShape3D_2d16c")
 target_position = Vector3(0, 0, 0)
 max_results = 1

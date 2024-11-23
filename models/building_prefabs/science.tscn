@@ -1,0 +1,210 @@
+[gd_scene load_steps=17 format=3 uid="uid://or1dswo8kcl0"]
+
+[ext_resource type="PackedScene" uid="uid://ykd5q1edueku" path="res://models/Building Science/Building_3_1x1.gltf" id="1_o6ubx"]
+[ext_resource type="Texture2D" uid="uid://c3t5ed7wbcs01" path="res://SIGNS/8-3_signs_01.png" id="2_evw12"]
+[ext_resource type="Script" path="res://models/building_prefabs/building.gd" id="2_i4062"]
+[ext_resource type="Texture2D" uid="uid://fiuwtqn2u1v4" path="res://SIGNS/2-6_signs_01.png" id="2_n0xxj"]
+[ext_resource type="Material" uid="uid://dntf2sbmpj1q" path="res://models/Building Science/Material_1.003.tres" id="3_5i8ac"]
+[ext_resource type="Script" path="res://models/building_prefabs/sign.gd" id="3_bhfbg"]
+[ext_resource type="Texture2D" uid="uid://b6opjyhdxoudx" path="res://SIGNS/2-3_signs_01.png" id="3_s3yq7"]
+[ext_resource type="Texture2D" uid="uid://diul0w5pyesjw" path="res://SIGNS/1-1_signs_01.png" id="5_wq4fw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nbqbk"]
+resource_local_to_scene = true
+atlas = ExtResource("3_s3yq7")
+region = Rect2(0, 0, 103, 151)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8sls"]
+resource_local_to_scene = true
+atlas = ExtResource("5_wq4fw")
+region = Rect2(0, 0, 199, 199)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vqv45"]
+resource_local_to_scene = true
+atlas = ExtResource("3_s3yq7")
+region = Rect2(0, 0, 103, 151)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7bek4"]
+resource_local_to_scene = true
+atlas = ExtResource("2_evw12")
+region = Rect2(0, 0, 391, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0mth"]
+resource_local_to_scene = true
+atlas = ExtResource("5_wq4fw")
+region = Rect2(0, 0, 199, 199)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wc8ln"]
+resource_local_to_scene = true
+atlas = ExtResource("2_n0xxj")
+region = Rect2(0, 0, 103, 295)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oyfkd"]
+size = Vector3(26, 82.157, 26)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lbg0u"]
+size = Vector3(31, 50, 31)
+
+[node name="Building_3_1x1" instance=ExtResource("1_o6ubx")]
+script = ExtResource("2_i4062")
+mesh = NodePath("Node_3/Group/Building")
+alt = ExtResource("3_5i8ac")
+
+[node name="Node_3" parent="." index="0"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="Building" parent="Node_3/Group" index="0"]
+visibility_range_begin_margin = 10.0
+visibility_range_end = 250.0
+visibility_range_end_margin = 10.0
+
+[node name="Signs_001" parent="Node_3/Group" index="2"]
+visibility_range_begin_margin = 10.0
+visibility_range_end = 250.0
+visibility_range_end_margin = 10.0
+
+[node name="Sprite3D3" type="Sprite3D" parent="Node_3/Group/Signs_001" index="0"]
+transform = Transform3D(2.505, 0, 0, 0, 2.505, 0, 0, 0, 2.505, 0.00652385, -0.0255289, 0.129182)
+visibility_range_begin_margin = 10.0
+visibility_range_end = 250.0
+visibility_range_end_margin = 10.0
+transparent = false
+double_sided = false
+texture_filter = 2
+texture = SubResource("AtlasTexture_nbqbk")
+script = ExtResource("3_bhfbg")
+sign_type = 1
+
+[node name="Signs_002" parent="Node_3/Group" index="3"]
+visibility_range_begin_margin = 10.0
+visibility_range_end = 250.0
+visibility_range_end_margin = 10.0
+
+[node name="Sprite3D5" type="Sprite3D" parent="Node_3/Group/Signs_002" index="0"]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, -3.92753, -2.5672, 0.305219)
+visibility_range_begin_margin = 10.0
+visibility_range_end = 250.0
+visibility_range_end_margin = 10.0
+transparent = false
+double_sided = false
+texture_filter = 2
+texture = SubResource("AtlasTexture_e8sls")
+script = ExtResource("3_bhfbg")
+
+[node name="Signs_003" parent="Node_3/Group" index="4"]
+visibility_range_begin_margin = 10.0
+visibility_range_end = 250.0
+visibility_range_end_margin = 10.0
+
+[node name="Sprite3D4" type="Sprite3D" parent="Node_3/Group/Signs_003" index="0"]
+transform = Transform3D(2.505, 0, 0, 0, 2.505, 0, 0, 0, 2.505, -4.74655, -7.88263, 0.129182)
+visibility_range_begin_margin = 10.0
+visibility_range_end = 250.0
+visibility_range_end_margin = 10.0
+transparent = false
+double_sided = false
+texture_filter = 2
+texture = SubResource("AtlasTexture_vqv45")
+script = ExtResource("3_bhfbg")
+sign_type = 1
+
+[node name="Signs_004" parent="Node_3/Group" index="5"]
+visibility_range_begin_margin = 10.0
+visibility_range_end = 250.0
+visibility_range_end_margin = 10.0
+
+[node name="Sprite3D2" type="Sprite3D" parent="Node_3/Group/Signs_004" index="0"]
+transform = Transform3D(1.42, 0, 0, 0, 1.42, 0, 0, 0, 1.42, 0.249047, -8.2691, 0.0929575)
+visibility_range_begin_margin = 10.0
+visibility_range_end = 250.0
+visibility_range_end_margin = 10.0
+transparent = false
+double_sided = false
+texture_filter = 2
+texture = SubResource("AtlasTexture_7bek4")
+script = ExtResource("3_bhfbg")
+sign_type = 3
+
+[node name="Signs_005" parent="Node_3/Group" index="6"]
+visibility_range_begin_margin = 10.0
+visibility_range_end = 250.0
+visibility_range_end_margin = 10.0
+
+[node name="Sprite3D6" type="Sprite3D" parent="Node_3/Group/Signs_005" index="0"]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0.00955987, -5.18305, 0.141304)
+visibility_range_begin_margin = 10.0
+visibility_range_end = 250.0
+visibility_range_end_margin = 10.0
+transparent = false
+double_sided = false
+texture_filter = 2
+texture = SubResource("AtlasTexture_j0mth")
+script = ExtResource("3_bhfbg")
+
+[node name="Signs_006" parent="Node_3/Group" index="7"]
+visibility_range_begin_margin = 10.0
+visibility_range_end = 250.0
+visibility_range_end_margin = 10.0
+
+[node name="Sprite3D" type="Sprite3D" parent="Node_3/Group/Signs_006" index="0"]
+transform = Transform3D(-5.46392e-08, 0, 1.25, 0, 1.25, 0, -1.25, 0, -5.46392e-08, 3.59784, -7.8775, -1.79184)
+visibility_range_begin_margin = 10.0
+visibility_range_end = 250.0
+visibility_range_end_margin = 10.0
+transparent = false
+double_sided = false
+texture_filter = 2
+texture = SubResource("AtlasTexture_wc8ln")
+script = ExtResource("3_bhfbg")
+sign_type = 2
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30.9721, 0)
+collision_layer = 64
+collision_mask = 0
+size = Vector3(26, 62.1027, 26)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.95021, -42.8729, 13.0219)
+collision_layer = 64
+collision_mask = 0
+size = Vector3(26, 62.1027, 26)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.97778, -54.9323, -9.26963)
+collision_layer = 64
+collision_mask = 0
+size = Vector3(26, 62.1027, 26)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.6598, -60.6006, -15.7375)
+collision_layer = 64
+collision_mask = 0
+size = Vector3(26, 50.7661, 29.8315)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.9755, -45.8044, 13.6826)
+collision_layer = 64
+collision_mask = 0
+size = Vector3(22.6313, 37.4031, 33.7512)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.60934, -62.7359, 18.4215)
+collision_layer = 64
+collision_mask = 0
+size = Vector3(51.801, 34.9032, 43.2291)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="7"]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.76963, 0)
+shape = SubResource("BoxShape3D_oyfkd")
+
+[node name="Area3D" type="ShapeCast3D" parent="StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.8124, 0)
+shape = SubResource("BoxShape3D_lbg0u")
+target_position = Vector3(0, 0, 0)
+max_results = 1
+collision_mask = 32

@@ -129,7 +129,7 @@ func _process(delta):
 	var spawnpoint = to_global(curve.sample_baked(curve.get_baked_length()))
 	if get_parent().get_index() == 0:
 		if timer > 0.0 && spawn_car != null:
-			timer = -randf_range(2.0, 4.0)
+			timer = -randf_range(1.5, 3.0)
 			spawn_car.call(false)
 		DebugDraw3D.draw_sphere(spawnpoint, 0.3, Color.GREEN)
 	else:

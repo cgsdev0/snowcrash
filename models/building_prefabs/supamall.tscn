@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://bs78m8jfcy70b"]
+[gd_scene load_steps=14 format=3 uid="uid://bs78m8jfcy70b"]
 
 [ext_resource type="PackedScene" uid="uid://c4mv06odc8gja" path="res://models/Building Supa Mall/Building_1_2x2.gltf" id="1_pe4ds"]
 [ext_resource type="Script" path="res://models/building_prefabs/building.gd" id="2_l033x"]
-[ext_resource type="Material" uid="uid://30jcuo4tdl2j" path="res://models/Building Supa Mall/material_0.tres" id="3_4miqe"]
+[ext_resource type="Material" uid="uid://cyffg64dbcsoy" path="res://models/Building Supa Mall/material_1.tres" id="3_p36pl"]
+[ext_resource type="Material" uid="uid://30jcuo4tdl2j" path="res://models/Building Supa Mall/material_0.tres" id="4_kqbb8"]
 [ext_resource type="Texture2D" uid="uid://fiuwtqn2u1v4" path="res://SIGNS/2-6_signs_01.png" id="4_rq2nx"]
 [ext_resource type="Script" path="res://models/building_prefabs/sign.gd" id="5_dm5hj"]
 [ext_resource type="Texture2D" uid="uid://c3t5ed7wbcs01" path="res://SIGNS/8-3_signs_01.png" id="5_evipv"]
@@ -28,18 +29,27 @@ atlas = ExtResource("5_evipv")
 region = Rect2(0, 0, 391, 150)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rmelg"]
-size = Vector3(32, 50, 16)
+size = Vector3(63, 50, 31)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_prvv6"]
+size = Vector3(64, 75.6638, 31)
 
 [node name="blockbench_export" instance=ExtResource("1_pe4ds")]
 script = ExtResource("2_l033x")
+mesh = NodePath("Node_7/Building2/Building")
+alt = ExtResource("3_p36pl")
+
+[node name="Node_7" parent="." index="0"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="Building" parent="Node_7/Building2" index="0"]
-material_override = ExtResource("3_4miqe")
 visibility_range_begin_margin = 10.0
 visibility_range_end = 250.0
 visibility_range_end_margin = 10.0
+surface_material_override/0 = ExtResource("4_kqbb8")
 
 [node name="Road" parent="Node_7/Building2" index="1"]
+visible = false
 visibility_range_begin_margin = 10.0
 visibility_range_end = 250.0
 visibility_range_end_margin = 10.0
@@ -125,12 +135,35 @@ script = ExtResource("5_dm5hj")
 sign_type = 3
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -31.0234, 0)
-size = Vector3(32, 62, 16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30.9719, 0)
+collision_layer = 64
+collision_mask = 0
+size = Vector3(64, 62.103, 32)
 
-[node name="Area3D" type="ShapeCast3D" parent="." index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.93534, 0)
+[node name="CSGBox3D2" type="CSGBox3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.4433, -45.072, 0)
+collision_layer = 64
+collision_mask = 0
+size = Vector3(62.7841, 48.3797, 51.9646)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.399, -55.7137, 0)
+collision_layer = 64
+collision_mask = 0
+size = Vector3(62.7841, 48.3797, 71.5881)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30.9719, 0)
+collision_layer = 64
+collision_mask = 0
+
+[node name="Area3D" type="ShapeCast3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 26.0365, 0)
 shape = SubResource("BoxShape3D_rmelg")
 target_position = Vector3(0, 0, 0)
 max_results = 1
 collision_mask = 32
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.1281, 0)
+shape = SubResource("BoxShape3D_prvv6")
