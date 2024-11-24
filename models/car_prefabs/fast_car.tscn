@@ -21,3 +21,6 @@ collision_mask = 5
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="0"]
 transform = Transform3D(-1.5, 0, -1.31134e-07, 0, 1.5, 0, 1.31134e-07, 0, -1.5, 0, 0.46875, 0)
 shape = SubResource("ConvexPolygonShape3D_87q8q")
+
+[node name="Marker3D" type="Marker3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.462664, -1.6018)

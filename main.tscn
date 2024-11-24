@@ -210,6 +210,7 @@ script = ExtResource("4_rof53")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Player/Camera3D"]
 transform = Transform3D(15.375, 0, 0, 0, 15.375, 0, 0, 0, 15.375, 0, 0, -1.14779)
+visible = false
 mesh = SubResource("QuadMesh_h8ruu")
 
 [node name="CameraPos2" type="Marker3D" parent="Player"]

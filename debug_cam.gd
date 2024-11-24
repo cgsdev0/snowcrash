@@ -28,6 +28,8 @@ var _e = false
 var _shift = false
 var _alt = false
 
+func _ready():
+	global_position = %Player.global_position
 func _input(event):
 	if event.is_action_pressed("debug_camera"):
 		current = !current

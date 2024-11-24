@@ -198,7 +198,7 @@ func _move_along_lane(move_distance: float, update_lane: bool = true) -> Vector3
 			#print("Need to jump to prior lane (overflow)")
 		if not is_instance_valid(_update_lane):
 			#push_warning("No next node on path %s " % current_lane.name)
-			return new_point
+			return Vector3.ZERO
 		if update_lane:
 			assign_lane(_update_lane)
 			new_point = _move_along_lane(remaining, false)
@@ -212,7 +212,7 @@ func _move_along_lane(move_distance: float, update_lane: bool = true) -> Vector3
 			#print("Need to jump to next lane (underflow)")
 		if not is_instance_valid(_update_lane):
 			#push_warning("No next node on path %s " % current_lane.name)
-			return new_point
+			return Vector3.ZERO
 		# TODO: go the "rest of the way" onto the next RoadLane to get final position
 		if update_lane:
 			assign_lane(_update_lane)

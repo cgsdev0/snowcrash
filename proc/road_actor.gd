@@ -16,7 +16,7 @@ var container: RoadContainer = null
 @export var drive_state: DriveState = DriveState.AUTO
 
 # Target speed in meters per second
-@export var acceleration := 1 # in meters per sec squared
+@export var acceleration := 4.0 # in meters per sec squared
 @export var target_speed := 13  # in meters per sec
 @export var lane_adj := 1.2  # in meters per sec
 @export var visualize_lane := false
@@ -71,8 +71,11 @@ func _ready() -> void:
 		pick = weighted_pick(variations, f0_weights)
 	else:
 		pick = weighted_pick(variations, main_weights)
-		
-	add_child(pick.instantiate())
+	
+	var n = pick.instantiate()
+	add_child(n)
+	$RayCast3D.position = n.get_node("Marker3D").position
+	$RayCast3D2.position = n.get_node("Marker3D").position
 	# print("Agent state: %s par, %s lane, %s manager" % [
 	# 	agent.actor, agent.current_lane, agent.road_manager
 	# ])
@@ -87,7 +90,11 @@ func _physics_process(delta: float) -> void:
 	velocity.y = 0
 	var target_dir = Vector3.FORWARD
 	var adjusted_speed = target_speed + (lanes - my_lane) * lane_adj
-	var target_velz = lerp(velocity.z, target_dir.z * adjusted_speed, delta * acceleration)
+	var target_velz = 0.0
+	if $RayCast3D.is_colliding() || $RayCast3D2.is_colliding():
+		target_velz = move_toward(velocity.z, 0.0, delta * acceleration)
+	else:
+		target_velz = move_toward(velocity.z, target_dir.z * adjusted_speed, delta * acceleration)
 	velocity.z = target_velz
 
 	if not is_instance_valid(agent.current_lane):
@@ -102,14 +109,19 @@ func _physics_process(delta: float) -> void:
 	# matches a positive move_along_lane call, while negative would be
 	# going in reverse in the lane's intended direction.
 	var move_dist = -velocity.z * delta
-	var next_pos:Vector3 = agent.move_along_lane(move_dist)
+	var next_pos:Vector3 = global_position
+	if move_dist > 0.0:
+		next_pos = agent.move_along_lane(move_dist)
+	else:
+		queue_free()
 	# Get another point a little further in front for orientation seeking,
 	# without actually moving the vehicle (ie don't update the assign lane
 	# if this margin puts us into the next lane in front)
-	if next_pos != global_transform.origin:
+	if next_pos != global_position:
 		look_at(next_pos)
-		global_transform.origin = next_pos
-	else:
+		global_position = next_pos
+		
+	if next_pos == Vector3.ZERO:
 		queue_free()
 		# var lane = container.get_node(container.edge_rp_locals[0]).prior_seg.get_lanes()[get_lane_idx()]
 		# agent.assign_lane(lane)

@@ -28,3 +28,6 @@ shape = SubResource("ConvexPolygonShape3D_2uhwm")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D2" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, 1.3125)
 shape = SubResource("ConvexPolygonShape3D_lwjbc")
+
+[node name="Marker3D" type="Marker3D" parent="." index="2"]
+transform = Transform3D(2.2, 0, 0, 0, 2.2, 0, 0, 0, 2.2, 0, 0.755831, -3.02386)
