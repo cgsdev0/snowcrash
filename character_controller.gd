@@ -26,6 +26,8 @@ var casting = false
 
 @export var rope_color: GradientTexture1D
 
+var dead = false
+
 func extend(f: float):
 	$Grapple/Rope.height = f
 	$Grapple/Rope.position.z = -f / 2.0
@@ -275,9 +277,11 @@ func _physics_process(delta):
 		$Visual.rotation.z = lerp_angle($Visual.rotation.z, target_tilt, delta)
 		velocity.y -= 9.8 * delta
 	
-	if velocity.length() < minimum_speed:
+	if velocity.length() < minimum_speed && !dead:
 		velocity = velocity.normalized() * minimum_speed
 	velocity = velocity.limit_length(maximum_speed)
+	
+	
 	var modded = Vector3(velocity.x * speed_mod, velocity.y, velocity.z * speed_mod)
 	var collision = move_and_collide(modded * delta)
 	if collision:
@@ -292,7 +296,11 @@ func _physics_process(delta):
 			# if collision.get_collider().is_in_group("guard"):
 			var new_v = velocity.slide(col_normal)
 			new_v.y = 0.0
-			velocity = new_v.normalized() * velocity.length()
+			$Visual/Visual.ragdoll(-col_normal)
+			velocity = new_v.normalized() * velocity.length() * 0.5
+			if !dead:
+				call_deferred("empty_jail")
+			dead = true
 			move_and_collide(collision.get_remainder().length() * velocity * delta)
 			print("ded")
 		else:
@@ -306,6 +314,10 @@ var Attach = preload("res://hook_attach.tscn")
 var hooked = null
 var hook_target = null
 var hook_was = null
+
+func empty_jail():
+	await get_tree().create_timer(3.0).timeout
+	EventBus.jail.emit(false)
 
 func _on_boost_timer_timeout():
 	boosting = false

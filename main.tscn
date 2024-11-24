@@ -225,7 +225,7 @@ shape = SubResource("CapsuleShape3D_v03n4")
 [node name="Visual" type="CSGBox3D" parent="Player"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.76837e-07, -0.155069, 0)
 use_collision = true
-collision_layer = 0
+collision_layer = 32768
 collision_mask = 0
 size = Vector3(1.2, 0.12, 0.6)
 
@@ -355,7 +355,7 @@ layers = 4
 size = Vector3(32.9426, 23.2847, 8.94427)
 material = SubResource("StandardMaterial3D_yrxex")
 
-[node name="snowcrasher_with_animations" parent="Jail" instance=ExtResource("12_cedjg")]
+[node name="char" parent="Jail" instance=ExtResource("12_cedjg")]
 transform = Transform3D(9.33, 0, 0, 0, 9.33, 0, 0, 0, 9.33, 4.54422, -8.98615, -37.9192)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Jail"]
@@ -396,6 +396,8 @@ light_color = Color(1, 0.67, 0.67, 1)
 light_energy = 4.0
 omni_range = 18.257
 omni_attenuation = 1.284
+
+[node name="Jukebox" type="Node" parent="."]
 
 [connection signal="body_entered" from="Player/Grapple/Hook" to="Player" method="_on_hook_body_entered"]
 [connection signal="timeout" from="Player/BoostTimer" to="Player" method="_on_boost_timer_timeout"]
