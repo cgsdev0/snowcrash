@@ -23,6 +23,7 @@ enabled=PackedStringArray("res://addons/road-generator/plugin.cfg")
 
 ramp=""
 guard=""
+HUD_target=""
 
 [importer_defaults]
 

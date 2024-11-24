@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://proc/road_actor.gd" id="1_77n8h"]
 [ext_resource type="Script" path="res://addons/road-generator/nodes/road_lane_agent.gd" id="2_ljj7w"]
 
-[node name="RoadActor" type="Node3D"]
+[node name="RoadActor" type="Node3D" groups=["HUD_target"]]
 script = ExtResource("1_77n8h")
 
 [node name="RoadLaneAgent" type="Node" parent="."]

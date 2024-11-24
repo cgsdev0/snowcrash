@@ -42,7 +42,6 @@ func start_boost():
 	
 func break_grapple():
 	if hooked && is_instance_valid(hooked):
-		hooked.queue_free()
 		hook_target = null
 		hooked = null
 
@@ -53,6 +52,7 @@ func _process(delta):
 	if hook_target || hooked:
 		extension += delta * 4.0
 		if extension > 1.0 && hook_target != null:
+			hooked = hook_target
 			hook_target = null
 	else:
 		extension -= delta * 12.0
@@ -77,7 +77,8 @@ func raycast_from_mouse(m_pos, collision_mask):
 	var result = space_state.intersect_ray(query)
 	if result && result.position:
 		var attach = Attach.instantiate()
-		hooked = attach
+		hook_target = attach
+		hook_was = attach
 		result.collider.add_child(attach)
 		attach.global_position = result.position
 		grapple_len = (result.position - global_position).length() - 1.0
@@ -85,6 +86,9 @@ func raycast_from_mouse(m_pos, collision_mask):
 		print("hooked!", result.collider)
 		return result.position
 	return ray_end
+
+func can_hook():
+	return !hooked && !hook_target && !boosting
 	
 func _unhandled_input(event):
 	if event is InputEventMouseButton && event.pressed:
@@ -163,9 +167,9 @@ func _physics_process(delta):
 			%WarnRight.show()
 		else:
 			%WarnLeft.show()
-	if extension > 0.0 && hooked:
+	if extension > 0.0 && hook_was:
 		var hand = $Visual/Visual.get_hand()
-		draw_extended(hand.global_position, hooked.global_position, grapple_len, extension)
+		draw_extended(hand.global_position, hook_was.global_position, grapple_len, extension)
 	if boosting:
 		speed_mod = move_toward(speed_mod, boost_speed_mod, delta * 5.0)
 	else:
@@ -295,19 +299,6 @@ var Attach = preload("res://hook_attach.tscn")
 var hooked = null
 var hook_target = null
 var hook_was = null
-func _on_hook_body_entered(body):
-	return
-	if !hooked && casting:
-		hook_target = body
-		casting = false
-		var attach = Attach.instantiate()
-		hook_target = attach
-		hook_was = attach
-		body.add_child(attach)
-		attach.global_position = $Grapple/Hook.global_position
-		print("hooked!", body)
-	pass # Replace with function body.
-
 
 func _on_boost_timer_timeout():
 	boosting = false

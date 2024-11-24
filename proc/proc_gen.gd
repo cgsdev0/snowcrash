@@ -156,6 +156,8 @@ func update_road(backward: bool) -> void:
 
 	for _idx in range(len(edge_list)):
 		var edge_rp:RoadPoint = container.get_node(edge_list[_idx])
+		if edge_rp == null || !is_instance_valid(edge_rp):
+			continue
 		var dist := xz_target_distance_to(edge_rp)
 		# print("Process loop %s with RoadPoint %s with dist %s" % [_idx, edge_rp, dist])
 		if dist > max_rp_distance + buffer_distance * 1.5:

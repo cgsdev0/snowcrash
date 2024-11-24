@@ -7,21 +7,21 @@
 [ext_resource type="Script" path="res://addons/road-generator/nodes/road_point.gd" id="5_lqjw5"]
 [ext_resource type="PackedScene" uid="uid://8hmxxf5hctq4" path="res://proc/guards.tscn" id="6_4nqpp"]
 
-[sub_resource type="Curve3D" id="Curve3D_o3qe6"]
+[sub_resource type="Curve3D" id="Curve3D_anrnt"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 16, -5.1, 0, 0, 0, 0, -5, -2.79753e-06, 0, -67.6229, -5.1, 0, 67.6229),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Curve3D" id="Curve3D_r4cdi"]
+[sub_resource type="Curve3D" id="Curve3D_nknng"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 16, 5.1, 0, 0, 0, 0, -5, -2.79753e-06, 0, -67.6229, 5.1, 0, 67.6229),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Curve3D" id="Curve3D_ft16p"]
+[sub_resource type="Curve3D" id="Curve3D_bt5an"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 16, -3.8, 0, 0, 0, 0, -5, -2.79753e-06, 0, -67.6229, -3.8, 0, 67.6229),
 "tilts": PackedFloat32Array(0, 0)
@@ -33,7 +33,7 @@ size = Vector3(31.4287, 2.9375, 115.865)
 
 [node name="Proc" type="Node3D"]
 script = ExtResource("1_jic8r")
-target_node = NodePath("../CharacterBody3D")
+target_node = NodePath("../Player")
 
 [node name="RoadManager" type="Node3D" parent="."]
 script = ExtResource("2_tvfv4")
@@ -68,15 +68,15 @@ next_mag = 16.0
 [node name="Guards" parent="RoadManager/Road_001/RP_002" instance=ExtResource("6_4nqpp")]
 
 [node name="edge_R" type="Path3D" parent="RoadManager/Road_001/RP_002"]
-curve = SubResource("Curve3D_o3qe6")
+curve = SubResource("Curve3D_anrnt")
 metadata/_edit_lock_ = true
 
 [node name="edge_F" type="Path3D" parent="RoadManager/Road_001/RP_002"]
-curve = SubResource("Curve3D_r4cdi")
+curve = SubResource("Curve3D_nknng")
 metadata/_edit_lock_ = true
 
 [node name="edge_C" type="Path3D" parent="RoadManager/Road_001/RP_002"]
-curve = SubResource("Curve3D_ft16p")
+curve = SubResource("Curve3D_bt5an")
 metadata/_edit_lock_ = true
 
 [node name="RP_001" type="Node3D" parent="RoadManager/Road_001"]
