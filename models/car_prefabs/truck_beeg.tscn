@@ -1,11 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://cembmkwyvqcim"]
+[gd_scene load_steps=6 format=3 uid="uid://cembmkwyvqcim"]
 
 [ext_resource type="PackedScene" uid="uid://wnqcd80oj71y" path="res://models/Truck Beeg/Cyberpunk_Truck_1.gltf" id="1_cn6kh"]
 [ext_resource type="Script" path="res://models/car_prefabs/alt_mat.gd" id="2_yw8bd"]
 [ext_resource type="Material" uid="uid://dxw8ddenvyq3j" path="res://models/Truck Beeg/material_1.tres" id="3_t5no5"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_cgd7k"]
-size = Vector3(1.00977, 0.97644, 3.69809)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_2uhwm"]
+points = PackedVector3Array(-0.42332, 0.512971, -0.482706, 0.436507, 0.872942, 0.5, 0.436507, 0.451251, 0.5, 0.436507, 0.466815, -0.5, -0.436223, 0.125, 0.497452, -0.4375, 0.872127, 0.498912, 0.434192, 0.125, -0.497452, -0.436223, 0.125, -0.497452, 0.413047, 0.852837, -0.029551, 0.434192, 0.125, 0.497452, -0.414992, 0.852837, -0.029551, 0.421216, 0.513107, -0.482525, 0.4375, 0.451145, -0.250568)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_lwjbc"]
+points = PackedVector3Array(-0.55948, -0.25, -0.71021, 0.5625, 0.742715, 2.05213, 0.550551, -0.25, 2.02271, 0.5625, 0.742715, -0.739628, -0.5625, 0.734815, 2.03015, -0.5625, 0.734815, -0.717645, 0.550551, -0.25, -0.71021, -0.55948, -0.25, 2.02271)
 
 [node name="blockbench_export" instance=ExtResource("1_cn6kh")]
 script = ExtResource("2_yw8bd")
@@ -14,11 +17,14 @@ alt = ExtResource("3_t5no5")
 [node name="Node" parent="." index="0"]
 transform = Transform3D(2.2, 0, 0, 0, 2.2, 0, 0, 0, 2.2, 0, 0, 0)
 
-[node name="StaticBody3D" type="CharacterBody3D" parent="." index="1"]
-transform = Transform3D(2.2, 0, 0, 0, 2.2, 0, 0, 0, 2.2, 0, 0, 0)
+[node name="StaticBody3D2" type="CharacterBody3D" parent="." index="1"]
+transform = Transform3D(2.2, 0, 0, 0, 2.2, 0, 0, 0, 2.2, 0, 0, -1.7875)
 collision_layer = 773
 collision_mask = 5
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.532184, 0.621596)
-shape = SubResource("BoxShape3D_cgd7k")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2" index="0"]
+shape = SubResource("ConvexPolygonShape3D_2uhwm")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D2" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, 1.3125)
+shape = SubResource("ConvexPolygonShape3D_lwjbc")

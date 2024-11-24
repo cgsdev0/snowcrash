@@ -4,8 +4,8 @@
 [ext_resource type="Script" path="res://models/car_prefabs/alt_mat.gd" id="2_jnoe6"]
 [ext_resource type="Material" uid="uid://dpqdnnmbtn1ih" path="res://models/Car Flat/material_1.tres" id="3_3r5uo"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_a1x4g"]
-size = Vector3(0.94165, 0.477051, 1.74133)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ym0wv"]
+points = PackedVector3Array(0.526786, 0.407657, 0.889881, 0.314905, 0.619814, -0.250533, 0.497851, 0.125, -0.821274, -0.493122, 0.14985, 0.764515, -0.303432, 0.566302, 0.798827, 0.497851, 0.125, 0.724449, -0.485946, 0.125, -0.821274, -0.357549, 0.566438, -0.412646, 0.437465, 0.407657, -0.955217, -0.490486, 0.377976, -0.885146, 0.313753, 0.565282, 0.794163, -0.469906, 0.405094, 0.807642, -0.336138, 0.407657, -1.01488, -0.29977, 0.617357, -0.301611, -0.497239, 0.234247, 0.857621, 0.333199, 0.178786, -0.944578, -0.485946, 0.125, 0.724449, 0.477604, 0.404854, -0.817058, 0.318371, 0.407657, -1.01488, -0.345252, 0.125, -0.905622, 0.5, 0.236858, 0.840901, 0.5, 0.265062, -0.852888, -0.296079, 0.614467, -0.0885093, 0.311623, 0.617246, -0.301499, 0.497012, 0.437494, 0.889881, -0.323262, 0.177529, -0.950146, -0.335484, 0.54192, 0.811954, 0.357253, 0.125, -0.905622, -0.49125, 0.207523, -0.857935, -0.330007, 0.593062, -0.0891146, -0.395685, 0.407657, -0.984863, 0.281787, 0.614467, -0.0885093)
 
 [node name="blockbench_export" instance=ExtResource("1_v57fn")]
 script = ExtResource("2_jnoe6")
@@ -16,9 +16,8 @@ transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 0, 0, 0)
 
 [node name="StaticBody3D" type="CharacterBody3D" parent="." index="1"]
 transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 0, 0, 0)
-collision_layer = 261
+collision_layer = 293
 collision_mask = 5
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.282489, -0.0159302)
-shape = SubResource("BoxShape3D_a1x4g")
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_ym0wv")

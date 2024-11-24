@@ -7,12 +7,20 @@ extends Camera3D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	look_at_from_position(from.global_position, to.global_position)
+	EventBus.restart.connect(on_restart)
 	pass # Replace with function body.
 
 var adjust = Vector3.ZERO
 
+func on_restart():
+	look_at_from_position(from.global_position, to.global_position)
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	if get_parent().ragdolling:
+		var target = get_parent().get_ragdoll_center().global_position
+		look_at(target)
+		return
 	var world3d : World3D = get_world_3d()
 	var space_state = world3d.direct_space_state
 	

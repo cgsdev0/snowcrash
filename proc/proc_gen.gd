@@ -23,8 +23,12 @@ var Guards = preload("res://proc/guards.tscn")
 func on_jail(_thing):
 	queue_free()
 	
+func on_restart():
+	queue_free()
+	
 func _ready() -> void:
 	EventBus.jail.connect(on_jail)
+	EventBus.restart.connect(on_restart)
 	var rev = [0, 0, 1, 1, 1, 2, 3].pick_random()
 	var fwd = [2, 2, 2, 3, 3, 4].pick_random()
 	var traffic_dir:Array[RoadPoint.LaneDir] = []

@@ -30,6 +30,10 @@ var hooked = null
 var hook_target = null
 var hook_was = null
 var arrested = false
+var ragdolling = false
+
+func get_ragdoll_center():
+	return $Visual/Visual/Center
 
 @export var rope_color: GradientTexture1D
 
@@ -147,6 +151,8 @@ func on_restart():
 	new_level.global_position = Vector3.ZERO
 	$Camera3D.current = true
 	$CameraPos2.top_level = false
+	$AnimationPlayer.play("RESET")
+	print("no longer top level")
 	
 	# copy pasta
 	speed_mod = 1.0
@@ -161,6 +167,7 @@ func on_restart():
 	hook_target = null
 	hook_was = null
 	arrested = false
+	ragdolling = false
 	velocity = minimum_speed * global_basis.z.normalized()
 
 
@@ -193,9 +200,13 @@ func draw_extended(a, b, l, e):
 	DebugDraw3D.draw_line(a, a + d * e, c)
 	
 func _physics_process(delta):
+	if Input.is_action_just_pressed("restart"):
+		EventBus.restart.emit()
+		return
 	if global_position.y < EventBus.progress - 8.0:
 		if !dead:
 			$CameraPos2.top_level = true
+			print("going top level")
 			call_deferred("empty_jail")
 			dead = true
 	if arrested:
@@ -275,7 +286,7 @@ func _physics_process(delta):
 		
 	var drag_mult = 0.2
 	var pulled = false
-	if hooked:
+	if is_instance_valid(hooked):
 		var rope = (hooked.global_position - global_position)
 		var dist = rope.length()
 		if dist > grapple_len:
@@ -348,6 +359,7 @@ func _physics_process(delta):
 			var new_v = velocity.slide(col_normal)
 			new_v.y = 0.0
 			$Visual/Visual.ragdoll(-col_normal)
+			ragdolling = true
 			velocity = new_v.normalized() * velocity.length() * 0.5
 			if !dead:
 				call_deferred("empty_jail")
@@ -366,7 +378,8 @@ var Attach = preload("res://hook_attach.tscn")
 
 func empty_jail():
 	await get_tree().create_timer(3.0).timeout
-	EventBus.jail.emit(false)
+	if dead:
+		EventBus.jail.emit(false)
 
 func _on_boost_timer_timeout():
 	boosting = false
