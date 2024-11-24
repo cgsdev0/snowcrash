@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://models/Cop Hover/lights.gd" id="3_2yobh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_35657"]
-size = Vector3(24.5854, 13.3898, 31.5173)
+size = Vector3(47.7832, 13.3898, 31.5173)
 
 [node name="Guards" type="Node3D"]
 script = ExtResource("1_vah2w")
@@ -83,7 +83,7 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Police/Area3D"]
-transform = Transform3D(0.869814, 0.0292852, 0.492498, -0.166336, 0.957201, 0.236855, -0.464483, -0.287942, 0.837463, -14.5762, 1.09222, -18.5977)
+transform = Transform3D(0.8698, 0.0292852, 0.492498, -0.166337, 0.957201, 0.236855, -0.464485, -0.287942, 0.837463, -14.5762, 1.09222, -18.5977)
 shape = SubResource("BoxShape3D_35657")
 
 [node name="OffRamp" type="CSGBox3D" parent="." groups=["ramp"]]

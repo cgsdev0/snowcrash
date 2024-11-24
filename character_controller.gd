@@ -58,7 +58,7 @@ func break_grapple():
 var whee = 0.0
 func _process(delta):
 	whee += delta
-	$Visual.position.y = sin(whee * 3.0) * 0.03 - 0.25
+	$Visual.position.y = sin(whee * 3.0) * 0.03 - 0.32
 	if hook_target || hooked:
 		extension += delta * 4.0
 	else:
@@ -226,9 +226,10 @@ func _physics_process(delta):
 			%WarnRight.show()
 		else:
 			%WarnLeft.show()
-	if extension > 0.0 && hook_was:
+	if extension > 0.0 && hook_was && !dead && !arrested:
 		var hand = $Visual/Visual.get_hand()
-		draw_extended(hand.global_position, hook_was.global_position, grapple_len, extension)
+		if is_instance_valid(hand) && is_instance_valid(hook_was):
+			draw_extended(hand.global_position, hook_was.global_position, grapple_len, extension)
 	if boosting:
 		speed_mod = move_toward(speed_mod, boost_speed_mod, delta * 5.0)
 	else:

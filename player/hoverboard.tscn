@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqpojmrvo3ysg"]
+
+[ext_resource type="PackedScene" uid="uid://cmxgj2m0h8lit" path="res://player/hoverboard.glb" id="1_wcctj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1i5qu"]
+albedo_color = Color(0.27, 0.21204, 0.1944, 1)
+
+[node name="hoverboard" instance=ExtResource("1_wcctj")]
+
+[node name="Cube_002" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_1i5qu")
