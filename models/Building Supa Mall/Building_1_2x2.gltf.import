@@ -33,7 +33,7 @@ animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
 "materials": {
-"material_0": {
+"Material_0": {
 "use_external/enabled": true,
 "use_external/path": "res://models/Building Supa Mall/material_0.tres"
 }

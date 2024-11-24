@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://c4mv06odc8gja" path="res://models/Building Supa Mall/Building_1_2x2.gltf" id="1_pe4ds"]
 [ext_resource type="Script" path="res://models/building_prefabs/building.gd" id="2_l033x"]
 [ext_resource type="Material" uid="uid://cyffg64dbcsoy" path="res://models/Building Supa Mall/material_1.tres" id="3_p36pl"]
-[ext_resource type="Material" uid="uid://30jcuo4tdl2j" path="res://models/Building Supa Mall/material_0.tres" id="4_kqbb8"]
+[ext_resource type="Material" uid="uid://pi8lddkljvm6" path="res://models/Building Supa Mall/material_0.tres" id="4_kqbb8"]
 [ext_resource type="Texture2D" uid="uid://fiuwtqn2u1v4" path="res://SIGNS/2-6_signs_01.png" id="4_rq2nx"]
 [ext_resource type="Script" path="res://models/building_prefabs/sign.gd" id="5_dm5hj"]
 [ext_resource type="Texture2D" uid="uid://c3t5ed7wbcs01" path="res://SIGNS/8-3_signs_01.png" id="5_evipv"]

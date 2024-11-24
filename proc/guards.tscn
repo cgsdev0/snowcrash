@@ -91,7 +91,7 @@ transform = Transform3D(0.86982, -0.166336, -0.464483, 0.0292857, 0.9572, -0.287
 use_collision = true
 collision_layer = 32800
 collision_mask = 32
-size = Vector3(3.34058, 0.538086, 5.17236)
+size = Vector3(4.13574, 0.538086, 5.17236)
 
 [connection signal="timeout" from="Police/Node3D/Timer" to="Police/Node3D" method="_on_timer_timeout"]
 [connection signal="body_entered" from="Police/Area3D" to="." method="_on_area_3d_body_entered"]

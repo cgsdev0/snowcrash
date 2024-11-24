@@ -15,7 +15,7 @@ region = Rect2(0, 0, 103, 295)
 size = Vector3(26, 95.9878, 26)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0h65f"]
-size = Vector3(31, 50, 31)
+size = Vector3(35, 80, 31)
 
 [node name="blockbench_export" instance=ExtResource("1_1lujp")]
 script = ExtResource("2_3h2fa")
@@ -40,6 +40,7 @@ double_sided = false
 texture_filter = 2
 texture = SubResource("AtlasTexture_yxt7h")
 script = ExtResource("3_xik16")
+sign_type = 2
 
 [node name="cuboid" parent="Node/bone" index="1"]
 visibility_range_begin_margin = 10.0
@@ -79,7 +80,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.854237, 0)
 shape = SubResource("BoxShape3D_mhgea")
 
 [node name="Area3D" type="ShapeCast3D" parent="StaticBody3D" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7827, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.97182, 0)
 shape = SubResource("BoxShape3D_0h65f")
 target_position = Vector3(0, 0, 0)
 max_results = 1

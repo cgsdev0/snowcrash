@@ -1,4 +1,4 @@
-[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://30jcuo4tdl2j"]
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://pi8lddkljvm6"]
 
 [ext_resource type="Texture2D" uid="uid://csqho8l8xll0q" path="res://models/Building Supa Mall/Building_1_2x2_0.png" id="1_cebro"]
 [ext_resource type="Texture2D" uid="uid://c5lqs14lcjs24" path="res://models/Building Supa Mall/Building_1_2x1_Emission.png" id="2_rtner"]

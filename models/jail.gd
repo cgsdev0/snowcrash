@@ -4,12 +4,14 @@ extends Node3D
 func slam():
 	EventBus.jail.emit(true)
 	
+func on_restart():
+	$AnimationPlayer.play("RESET")
 
 func _ready():
 	EventBus.jail.connect(on_jail)
+	EventBus.restart.connect(on_restart)
 	
 func on_jail(show):
-	$AnimationPlayer.play("RESET")
 	$"../char".visible = show
 	$"../dead".visible = !show
 	if !show:

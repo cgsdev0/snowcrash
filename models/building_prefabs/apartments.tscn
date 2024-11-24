@@ -94,6 +94,7 @@ double_sided = false
 texture_filter = 2
 texture = SubResource("AtlasTexture_bxyb4")
 script = ExtResource("3_pvsqn")
+sign_type = 2
 
 [node name="Sign2" parent="Node_2/Building4" index="3"]
 visibility_range_begin_margin = 10.0

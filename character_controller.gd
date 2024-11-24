@@ -43,10 +43,6 @@ func extend(f: float):
 	$Grapple/Rope.position.z = -f / 2.0
 	$Grapple/Hook.position.z = -f
 
-func aim(target: Vector3):
-	$Grapple.look_at(target)
-	$Grapple/Hook.monitoring = true
-	casting = true
 
 var boost_scalar = 0.0
 var hooked_timer = 0.0
@@ -67,7 +63,7 @@ func break_grapple():
 var whee = 0.0
 func _process(delta):
 	whee += delta
-	$Visual.position.y = sin(whee * 3.0) * 0.03 - 0.32
+	$Visual.position.y = 0.0 + sin(whee * 3.0) * 0.06 # 0.03
 	if hook_target || hooked:
 		extension += delta * 4.0
 	else:
@@ -138,8 +134,6 @@ func _unhandled_input(event):
 				return
 			extension = 0.0
 			var a = raycast_from_mouse(get_window().get_mouse_position(), 4)
-			var dist = global_position.distance_to(a)
-			aim(a)
 
 func _ready():
 	EventBus.restart.connect(on_restart)
@@ -329,15 +323,26 @@ func _physics_process(delta):
 	velocity += acceleration * delta
 	
 	# gravity and ground force
-	if $Gravity.is_colliding():
-		var how_deep = ($Gravity.global_position - $Gravity.get_collision_point()).y
-		how_deep /= scale.x
-		how_deep /= $Gravity.target_position.length()
-		velocity.y += (exp(1 - how_deep + 1) - 3.0) * delta * 100.0
+	var is_colliding = false
+	var deepest = 0.0
+	var normal = Vector3.UP
+	for gravity in $Gravity.get_children():
+		if gravity.is_colliding():
+			is_colliding = true
+			var how_deep = (gravity.global_position - gravity.get_collision_point()).y
+			how_deep /= scale.x
+			how_deep /= gravity.target_position.length()
+			deepest = max(how_deep, deepest)
+			if gravity.get_collider().is_in_group("ramp"):
+				print("starting boost!")
+				start_boost()
+				normal = gravity.get_collision_normal()
+	
+	if is_colliding:
+		velocity.y += (exp(1 - deepest + 1) - 3.0) * delta * 100.0
 		velocity.y -= 10.0 * velocity.y * delta
-		if $Gravity.get_collider().is_in_group("ramp"):
-			start_boost()
-		var n = $Gravity.get_collision_normal()
+
+		var n = normal
 		var g = n
 		g.y = 0.0
 		var angle = n.angle_to(g)
@@ -347,7 +352,7 @@ func _physics_process(delta):
 		target_tilt = move_toward(target_tilt, 0.0, delta * 2.0)
 		$Visual.rotation.z = lerp_angle($Visual.rotation.z, target_tilt, delta)
 		velocity.y -= 9.8 * delta
-	
+		
 	if velocity.length() < minimum_speed && !dead:
 		velocity = velocity.normalized() * minimum_speed
 	velocity = velocity.limit_length(maximum_speed)

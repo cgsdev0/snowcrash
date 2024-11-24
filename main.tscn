@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://b268fsoo6n1ue"]
+[gd_scene load_steps=33 format=3 uid="uid://b268fsoo6n1ue"]
 
 [ext_resource type="Environment" uid="uid://c5qeimb53plk0" path="res://environment.tres" id="1_5lfhd"]
 [ext_resource type="Script" path="res://debug_cam.gd" id="2_xewp7"]
@@ -35,10 +35,6 @@ shader_parameter/offset = 2.425
 [sub_resource type="QuadMesh" id="QuadMesh_h8ruu"]
 material = SubResource("ShaderMaterial_e8dob")
 size = Vector2(2, 2)
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_oh4xs"]
-radius = 0.02
-height = 0.1
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v03n4"]
 radius = 0.18086
@@ -96,7 +92,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(-0.91513, 0.296346, -0.171844)]
+"values": [Vector3(-0.91513, 1.10313, -0.171844)]
 }
 
 [sub_resource type="Animation" id="Animation_nnj1b"]
@@ -214,29 +210,13 @@ visible = false
 mesh = SubResource("QuadMesh_h8ruu")
 
 [node name="CameraPos2" type="Marker3D" parent="Player"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.91513, 0.296346, -0.171844)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.91513, 1.10313, -0.171844)
 
 [node name="CameraPos" type="Marker3D" parent="Player/CameraPos2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 2)
 
-[node name="Grapple" type="Node3D" parent="Player"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 4.76837e-07, -2.38419e-07, 0)
-
-[node name="Rope" type="CSGCylinder3D" parent="Player/Grapple"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
-radius = 0.02
-height = 0.001
-
-[node name="Hook" type="Area3D" parent="Player/Grapple"]
-collision_layer = 4
-collision_mask = 4
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/Grapple/Hook"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
-shape = SubResource("CapsuleShape3D_oh4xs")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 4.76837e-07, -2.38419e-07, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 4.76837e-07, 1.02238, 0)
 shape = SubResource("CapsuleShape3D_v03n4")
 
 [node name="Visual" type="Node3D" parent="Player"]
@@ -255,9 +235,37 @@ collision_layer = 32768
 collision_mask = 0
 size = Vector3(1.2, 0.12, 0.6)
 
-[node name="Gravity" type="RayCast3D" parent="Player"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 4.76837e-07, 0.795823, -0.177094)
-target_position = Vector3(0, -1.5, 0)
+[node name="Gravity" type="Node3D" parent="Player"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 4.76837e-07, 1.85931, -0.0114231)
+
+[node name="Gravity" type="RayCast3D" parent="Player/Gravity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.102123, 0, -0.335445)
+target_position = Vector3(0, -2, 0)
+collision_mask = 32
+
+[node name="Gravity2" type="RayCast3D" parent="Player/Gravity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0420971, 0, -0.335445)
+target_position = Vector3(0, -2, 0)
+collision_mask = 32
+
+[node name="Gravity3" type="RayCast3D" parent="Player/Gravity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.102123, 0, 0.299026)
+target_position = Vector3(0, -2, 0)
+collision_mask = 32
+
+[node name="Gravity4" type="RayCast3D" parent="Player/Gravity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0420971, 0, 0.299026)
+target_position = Vector3(0, -2, 0)
+collision_mask = 32
+
+[node name="Gravity5" type="RayCast3D" parent="Player/Gravity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.102123, 0, -0.0215926)
+target_position = Vector3(0, -2, 0)
+collision_mask = 32
+
+[node name="Gravity6" type="RayCast3D" parent="Player/Gravity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0420971, 0, -0.0215926)
+target_position = Vector3(0, -2, 0)
 collision_mask = 32
 
 [node name="Left" type="RayCast3D" parent="Player"]
@@ -456,7 +464,6 @@ transform = Transform3D(-2.876, 0, -8.87567, 0, 9.33, 0, 8.87567, 0, -2.876, -10
 
 [node name="Jukebox" type="Node" parent="."]
 
-[connection signal="body_entered" from="Player/Grapple/Hook" to="Player" method="_on_hook_body_entered"]
 [connection signal="timeout" from="Player/BoostTimer" to="Player" method="_on_boost_timer_timeout"]
 [connection signal="body_entered" from="Player/DeathBox" to="Player" method="_on_death_box_body_entered"]
 [connection signal="pressed" from="Control/JailOptions/HBoxContainer/TryAgain" to="Control/JailOptions" method="_on_try_again_pressed"]
