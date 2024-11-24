@@ -16,7 +16,7 @@ dest_files=["res://.godot/imported/snowcrasher_with_animations.glb-15dd1a8f8d8e3
 nodes/root_type=""
 nodes/root_name=""
 nodes/apply_root_scale=true
-nodes/root_scale=1.0
+nodes/root_scale=0.01
 nodes/import_as_skeleton_bones=false
 meshes/ensure_tangents=true
 meshes/generate_lods=true
@@ -21623,9 +21623,14 @@ _subresources={
 }
 },
 "materials": {
-"M_MainCharacter": {
+"M_MainCharacter.001": {
 "use_external/enabled": true,
 "use_external/path": "res://player/M_MainCharacter.tres"
+}
+},
+"nodes": {
+"PATH:Armature/Skeleton3D": {
+"rest_pose/external_animation_library": null
 }
 }
 }

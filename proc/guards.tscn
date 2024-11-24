@@ -12,7 +12,7 @@ script = ExtResource("1_vah2w")
 
 [node name="GuardR" type="CSGPolygon3D" parent="." groups=["guard"]]
 use_collision = true
-collision_layer = 49
+collision_layer = 32817
 collision_mask = 49
 polygon = PackedVector2Array(0.5, 1, -0.3, 1, -0.5, 0, 0.7, 0)
 mode = 2
@@ -28,7 +28,7 @@ path_joined = false
 
 [node name="GuardF" type="CSGPolygon3D" parent="." groups=["guard"]]
 use_collision = true
-collision_layer = 49
+collision_layer = 32817
 collision_mask = 49
 polygon = PackedVector2Array(-0.5, 1, 0.3, 1, 0.5, 0, -0.7, 0)
 mode = 2
@@ -89,7 +89,7 @@ shape = SubResource("BoxShape3D_35657")
 [node name="OffRamp" type="CSGBox3D" parent="." groups=["ramp"]]
 transform = Transform3D(0.86982, -0.166336, -0.464483, 0.0292857, 0.9572, -0.287942, 0.492498, 0.236855, 0.837464, 5.77775, 0.239138, 33.539)
 use_collision = true
-collision_layer = 32
+collision_layer = 32800
 collision_mask = 32
 size = Vector3(3.34058, 0.538086, 5.17236)
 

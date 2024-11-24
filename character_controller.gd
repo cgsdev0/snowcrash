@@ -14,7 +14,7 @@ const maximum_speed = 40.0
 const drag = 4.0
 const drag_range = 0.15
 const spring_constant = 200.0
-const input_ratio = 4.0
+const input_ratio = 8.0
 const boost_turn_mod = 1.1
 const boost_speed_mod = 2.0
 

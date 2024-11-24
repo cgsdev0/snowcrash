@@ -825,6 +825,7 @@ func _create_collisions() -> void:
 			continue
 		ch.set_collision_layer_value(1, false)
 		ch.set_collision_layer_value(6, true)
+		ch.set_collision_layer_value(16, true)
 		ch.set_meta("_edit_lock_", true)
 
 

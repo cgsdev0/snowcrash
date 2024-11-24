@@ -7,21 +7,21 @@
 [ext_resource type="Script" path="res://addons/road-generator/nodes/road_point.gd" id="5_lqjw5"]
 [ext_resource type="PackedScene" uid="uid://8hmxxf5hctq4" path="res://proc/guards.tscn" id="6_4nqpp"]
 
-[sub_resource type="Curve3D" id="Curve3D_bc6rx"]
+[sub_resource type="Curve3D" id="Curve3D_tra2c"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 16, -5.1, 0, 0, 0, 0, -5, -2.79753e-06, 0, -67.6229, -5.1, 0, 67.6229),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Curve3D" id="Curve3D_4xegg"]
+[sub_resource type="Curve3D" id="Curve3D_w1n0m"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 16, 5.1, 0, 0, 0, 0, -5, -2.79753e-06, 0, -67.6229, 5.1, 0, 67.6229),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Curve3D" id="Curve3D_0gj77"]
+[sub_resource type="Curve3D" id="Curve3D_mfq1a"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 16, -3.8, 0, 0, 0, 0, -5, -2.79753e-06, 0, -67.6229, -3.8, 0, 67.6229),
 "tilts": PackedFloat32Array(0, 0)
@@ -68,15 +68,15 @@ next_mag = 16.0
 [node name="Guards" parent="RoadManager/Road_001/RP_002" instance=ExtResource("6_4nqpp")]
 
 [node name="edge_R" type="Path3D" parent="RoadManager/Road_001/RP_002"]
-curve = SubResource("Curve3D_bc6rx")
+curve = SubResource("Curve3D_tra2c")
 metadata/_edit_lock_ = true
 
 [node name="edge_F" type="Path3D" parent="RoadManager/Road_001/RP_002"]
-curve = SubResource("Curve3D_4xegg")
+curve = SubResource("Curve3D_w1n0m")
 metadata/_edit_lock_ = true
 
 [node name="edge_C" type="Path3D" parent="RoadManager/Road_001/RP_002"]
-curve = SubResource("Curve3D_0gj77")
+curve = SubResource("Curve3D_mfq1a")
 metadata/_edit_lock_ = true
 
 [node name="RP_001" type="Node3D" parent="RoadManager/Road_001"]
