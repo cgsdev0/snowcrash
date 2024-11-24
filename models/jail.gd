@@ -1,5 +1,6 @@
 extends Node3D
 
 
-func _ready():
+func slam():
+	$LoseSlam.play()
 	$AnimationPlayer.play("slam")

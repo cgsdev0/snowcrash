@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://b268fsoo6n1ue"]
+[gd_scene load_steps=30 format=3 uid="uid://b268fsoo6n1ue"]
 
 [ext_resource type="Environment" uid="uid://c5qeimb53plk0" path="res://environment.tres" id="1_5lfhd"]
 [ext_resource type="Script" path="res://debug_cam.gd" id="2_xewp7"]
@@ -43,6 +43,105 @@ height = 0.72082
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uaoot"]
 radius = 0.07
 height = 0.5
+
+[sub_resource type="Animation" id="Animation_nnj1b"]
+resource_name = "zoom_out"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CameraPos2/CameraPos:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1.23114, 1),
+"update": 0,
+"values": [Vector3(0, 0.309576, 1.09108), Vector3(0, 1.22697, 2.4711)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CameraPos2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1.18921, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.785398, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%Player/../Jail/Camera3D:current")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("%Player/../Jail/Jail")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"slam"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_ptj3l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CameraPos2/CameraPos:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.309576, 1.09108)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CameraPos2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%Player/../Jail/Camera3D:current")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oxmgl"]
+_data = {
+"RESET": SubResource("Animation_ptj3l"),
+"zoom_out": SubResource("Animation_nnj1b")
+}
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3v1aa"]
 shader = ExtResource("8_v3con")
@@ -115,11 +214,11 @@ mesh = SubResource("QuadMesh_h8ruu")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 shape = SubResource("CapsuleShape3D_v03n4")
 
-[node name="CameraPos" type="Marker3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.457565, 0.457749, 1.00516)
-
 [node name="CameraPos2" type="Marker3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.457565, 0.148173, -0.0859222)
+
+[node name="CameraPos" type="Marker3D" parent="Player/CameraPos2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.309576, 1.09108)
 
 [node name="Visual" type="CSGBox3D" parent="Player"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -0.26, 0)
@@ -153,6 +252,11 @@ collision_mask = 256
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player/DeathBox"]
 shape = SubResource("CapsuleShape3D_uaoot")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
+libraries = {
+"": SubResource("AnimationLibrary_oxmgl")
+}
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.974004, 0.157894, -0.162439, 0, 0.717069, 0.697002, 0.226532, -0.678883, 0.698428, 0, 0, 0)

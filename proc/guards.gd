@@ -40,3 +40,7 @@ func _enable_ramp():
 		ramp.rotation.y *= -1.0
 		ramp.global_position += global_basis.x
 		$GuardR.queue_free()
+
+
+func _on_area_3d_body_entered(body):
+	body.arrest()

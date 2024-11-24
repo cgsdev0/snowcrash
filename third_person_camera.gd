@@ -2,7 +2,7 @@ extends Camera3D
 
 
 @onready var to = $"../CameraPos2"
-@onready var from = $"../CameraPos"
+@onready var from = $"../CameraPos2/CameraPos"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

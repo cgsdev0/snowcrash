@@ -86,6 +86,7 @@ debug_camera={
 3d_physics/layer_5="guards"
 3d_physics/layer_6="roads"
 3d_physics/layer_7="buildin"
+3d_physics/layer_8="arrested"
 3d_physics/layer_9="obstacle"
 3d_physics/layer_10="beeg"
 

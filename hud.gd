@@ -43,7 +43,7 @@ func _process(delta):
 	queue_redraw()
 
 func _draw():
-	if !player.can_hook():
+	if !player.can_hook() || player.arrested:
 		$DistLabel.hide()
 		targeting = null
 		return

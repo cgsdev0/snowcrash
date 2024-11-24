@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dfgnjjbeh7kcm"]
+[gd_scene load_steps=7 format=3 uid="uid://dfgnjjbeh7kcm"]
 
 [ext_resource type="PackedScene" uid="uid://dr450hbpm5rah" path="res://models/Jail.gltf" id="1_i6mx7"]
 [ext_resource type="Script" path="res://models/jail.gd" id="2_orxq3"]
+[ext_resource type="AudioStream" uid="uid://drqs3ase7p8xb" path="res://audio/sfx/lose_jail_altogether.wav" id="3_jwvu7"]
 
 [sub_resource type="Animation" id="Animation_pjs8n"]
 length = 0.001
@@ -44,3 +45,6 @@ layers = 4
 libraries = {
 "": SubResource("AnimationLibrary_bfln7")
 }
+
+[node name="LoseSlam" type="AudioStreamPlayer" parent="." index="3"]
+stream = ExtResource("3_jwvu7")

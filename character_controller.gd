@@ -146,6 +146,12 @@ func draw_extended(a, b, l, e):
 	DebugDraw3D.draw_line(a, a + d * e, c)
 	
 func _physics_process(delta):
+	if arrested:
+		%WarnRight.hide()
+		%WarnLeft.hide()
+		velocity = lerp(velocity, Vector3.ZERO, delta * 2.0)
+		global_position += velocity * delta
+		return
 	# find closest ramp
 	var ramps = get_tree().get_nodes_in_group("ramp")
 	var min_ramp = null
@@ -304,6 +310,10 @@ var hook_was = null
 func _on_boost_timer_timeout():
 	boosting = false
 
+var arrested = false
+func arrest():
+	$AnimationPlayer.play("zoom_out")
+	arrested = true
 
 func _on_death_box_body_entered(body):
 	print("damage")
