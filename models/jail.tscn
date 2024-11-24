@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://dfgnjjbeh7kcm"]
+
+[ext_resource type="PackedScene" uid="uid://dr450hbpm5rah" path="res://models/Jail.gltf" id="1_i6mx7"]
+[ext_resource type="Script" path="res://models/jail.gd" id="2_orxq3"]
+
+[sub_resource type="Animation" id="Animation_t6co4"]
+resource_name = "slam"
+length = 2.5
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Box001_001")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -100, 0, 0, 0.6, 1, -100, 0, 0, 2.5, 1, 0, 0, 0)
+
+[sub_resource type="Animation" id="Animation_pjs8n"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Box001_001")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -100, 0, 0)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bfln7"]
+_data = {
+"RESET": SubResource("Animation_pjs8n"),
+"slam": SubResource("Animation_t6co4")
+}
+
+[node name="Jail" instance=ExtResource("1_i6mx7")]
+script = ExtResource("2_orxq3")
+
+[node name="Box001" parent="." index="0"]
+layers = 4
+
+[node name="Box001_001" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, 0)
+layers = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
+libraries = {
+"": SubResource("AnimationLibrary_bfln7")
+}

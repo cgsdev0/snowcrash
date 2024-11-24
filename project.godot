@@ -77,6 +77,7 @@ debug_camera={
 [layer_names]
 
 3d_render/layer_1="base"
+3d_render/layer_3="jail"
 3d_render/layer_6="road"
 3d_physics/layer_1="base"
 3d_physics/layer_2="player"

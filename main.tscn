@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b268fsoo6n1ue"]
+[gd_scene load_steps=20 format=3 uid="uid://b268fsoo6n1ue"]
 
 [ext_resource type="Environment" uid="uid://c5qeimb53plk0" path="res://environment.tres" id="1_5lfhd"]
 [ext_resource type="Script" path="res://debug_cam.gd" id="2_xewp7"]
@@ -10,6 +10,8 @@
 [ext_resource type="Shader" path="res://ui/ramp_warning.gdshader" id="8_v3con"]
 [ext_resource type="Texture2D" uid="uid://b6vjksuqyadp1" path="res://ui/right_warning.png" id="9_2jmy1"]
 [ext_resource type="Texture2D" uid="uid://b64433w0ikh8e" path="res://ui/left_warning.png" id="10_lo8ka"]
+[ext_resource type="PackedScene" uid="uid://dfgnjjbeh7kcm" path="res://models/jail.tscn" id="11_j782p"]
+[ext_resource type="PackedScene" uid="uid://b5jgylworrq2c" path="res://models/sadcrasher.tscn" id="12_cedjg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_oh4xs"]
 radius = 0.02
@@ -48,9 +50,6 @@ shader_parameter/tex = ExtResource("10_lo8ka")
 
 [node name="Node3D" type="Node3D"]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("1_5lfhd")
-
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-0.954621, 0, -0.297825, 0, 1, 0, 0.297825, 0, -0.954621, 62.3856, 6.36938, 102.433)
 script = ExtResource("2_xewp7")
@@ -83,6 +82,7 @@ shape = SubResource("CapsuleShape3D_oh4xs")
 [node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.4297, 0, 102.184)
 top_level = true
+environment = ExtResource("1_5lfhd")
 current = true
 far = 200.0
 script = ExtResource("4_rof53")
@@ -178,6 +178,37 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="Jail" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 300, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Jail"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.28348, -5.26333)
+cull_mask = 4
+current = true
+fov = 60.0
+
+[node name="Jail" parent="Jail" instance=ExtResource("11_j782p")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -10.6737, -46.6579)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Jail"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.77182, -23.1096)
+layers = 4
+flip_faces = true
+size = Vector3(100, 23.2847, 57.3911)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Jail"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.5287, 2.77182, -33.1136)
+layers = 4
+size = Vector3(32.9426, 23.2847, 8.94427)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Jail"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.6217, 2.77182, -33.1136)
+layers = 4
+size = Vector3(32.9426, 23.2847, 8.94427)
+
+[node name="snowcrasher_with_animations" parent="Jail" instance=ExtResource("12_cedjg")]
+transform = Transform3D(9.33, 0, 0, 0, 9.33, 0, 0, 0, 9.33, 4.54422, -8.98615, -37.9192)
 
 [connection signal="body_entered" from="CharacterBody3D/Grapple/Hook" to="CharacterBody3D" method="_on_hook_body_entered"]
 [connection signal="timeout" from="CharacterBody3D/BoostTimer" to="CharacterBody3D" method="_on_boost_timer_timeout"]
