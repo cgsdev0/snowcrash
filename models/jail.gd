@@ -9,6 +9,7 @@ func _ready():
 	EventBus.jail.connect(on_jail)
 	
 func on_jail(show):
+	$AnimationPlayer.play("RESET")
 	$"../char".visible = show
 	$"../dead".visible = !show
 	if !show:

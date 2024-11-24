@@ -20,3 +20,4 @@ collision_mask = 2
 [node name="RayCast3D2" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, -5)
 collision_mask = 4
+hit_from_inside = true

@@ -48,9 +48,14 @@ func aim(target: Vector3):
 	$Grapple/Hook.monitoring = true
 	casting = true
 
+var boost_scalar = 0.0
+var hooked_timer = 0.0
+const fully_charged = 1.0
+
 func start_boost():
 	if boosting:
 		return
+	boost_scalar = clampf(hooked_timer, 0.0, 1.0)
 	$BoostTimer.start()
 	boosting = true
 	
@@ -102,6 +107,7 @@ func raycast_from_mouse(m_pos, collision_mask):
 		var attach = Attach.instantiate()
 		hook_target = result.collider
 		hooked = attach
+		hooked_timer = 0.0
 		hook_was = attach
 		result.collider.add_child(attach)
 		attach.global_position = result.position
@@ -116,18 +122,17 @@ func can_hook():
 	
 func _unhandled_input(event):
 	if event is InputEventMouseButton && event.pressed:
-		if event.button_index == 1:
+		if event.button_index == 2:
 			if hooked:
 				break_grapple()
-				var t = forces.get("tension", Vector3.ZERO)
-				if t.length() > 0.0:
-					var dot = t.normalized().dot(velocity.normalized())
-					print(dot)
+		if event.button_index == 1:
+			if hooked:
+				var rope = (hooked.global_position - global_position)
+				break_grapple()
+				if rope.length() > 0.0:
+					var dot = rope.normalized().dot(velocity.normalized())
 					if dot > 0.5:
 						start_boost()
-				var new_speed = velocity.length()
-				var dir = (-global_basis.z.normalized() + velocity.normalized()).normalized()
-				velocity = new_speed * velocity.normalized()
 				return
 			if boosting:
 				return
@@ -196,7 +201,7 @@ func draw_arc(p1, p2, len, ext):
 
 func draw_extended(a, b, l, e):
 	var d = b - a
-	var c = rope_color.gradient.sample(clampf((d.length() - l) * e, 0.0, 1.0))
+	var c = rope_color.gradient.sample(clampf(hooked_timer, 0.0, 1.0))
 	DebugDraw3D.draw_line(a, a + d * e, c)
 	
 func _physics_process(delta):
@@ -215,6 +220,10 @@ func _physics_process(delta):
 		velocity = lerp(velocity, Vector3.ZERO, delta * 2.0)
 		global_position += velocity * delta
 		return
+	
+	if hooked:
+		hooked_timer += delta / fully_charged
+		
 	# find closest ramp
 	var ramps = get_tree().get_nodes_in_group("ramp")
 	var min_ramp = null
@@ -242,7 +251,7 @@ func _physics_process(delta):
 		if is_instance_valid(hand) && is_instance_valid(hook_was):
 			draw_extended(hand.global_position, hook_was.global_position, grapple_len, extension)
 	if boosting:
-		speed_mod = move_toward(speed_mod, boost_speed_mod, delta * 5.0)
+		speed_mod = move_toward(speed_mod, (boost_speed_mod - 1.0) * boost_scalar + 1.0, delta * 5.0)
 	else:
 		speed_mod = move_toward(speed_mod, 1.0, delta * 0.5)
 
