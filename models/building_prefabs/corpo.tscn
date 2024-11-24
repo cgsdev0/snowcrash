@@ -53,22 +53,22 @@ collision_mask = 0
 size = Vector3(26, 62.1167, 26)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="." index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.933, -46.8372, 4.39655)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.95322, -47.1411, 0.08957)
 collision_layer = 64
 collision_mask = 0
-size = Vector3(36.3744, 55.1391, 34.7931)
+size = Vector3(32.9553, 55.1391, 34.7931)
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="." index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.4718, -66.1622, 9.92436)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.82565, -66.1622, 9.92436)
 collision_layer = 64
 collision_mask = 0
-size = Vector3(33.8044, 55.1391, 32.6509)
+size = Vector3(29.6532, 55.1391, 32.6509)
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="." index="4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.99678, -55.2048, -17.7958)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.63231, -55.2048, -14.622)
 collision_layer = 64
 collision_mask = 0
-size = Vector3(41.4442, 55.1391, 34.4333)
+size = Vector3(36.7153, 55.1391, 28.0858)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="5"]
 collision_layer = 64

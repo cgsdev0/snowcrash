@@ -24,6 +24,8 @@ var extension = 0.0
 var grapple_len = 12.0
 var casting = false
 
+@export var rope_color: GradientTexture1D
+
 func extend(f: float):
 	$Grapple/Rope.height = f
 	$Grapple/Rope.position.z = -f / 2.0
@@ -51,9 +53,6 @@ func _process(delta):
 	$Visual.position.y = sin(whee * 3.0) * 0.03 - 0.3
 	if hook_target || hooked:
 		extension += delta * 4.0
-		if extension > 1.0 && hook_target != null:
-			hooked = hook_target
-			hook_target = null
 	else:
 		extension -= delta * 12.0
 		if extension < 0.0 && hook_was:
@@ -77,7 +76,8 @@ func raycast_from_mouse(m_pos, collision_mask):
 	var result = space_state.intersect_ray(query)
 	if result && result.position:
 		var attach = Attach.instantiate()
-		hook_target = attach
+		hook_target = result.collider
+		hooked = attach
 		hook_was = attach
 		result.collider.add_child(attach)
 		attach.global_position = result.position
@@ -142,7 +142,8 @@ func draw_arc(p1, p2, len, ext):
 
 func draw_extended(a, b, l, e):
 	var d = b - a
-	DebugDraw3D.draw_line(a, a + d * e, Color.ORANGE_RED)
+	var c = rope_color.gradient.sample(clampf((d.length() - l) * e, 0.0, 1.0))
+	DebugDraw3D.draw_line(a, a + d * e, c)
 	
 func _physics_process(delta):
 	# find closest ramp
