@@ -4,12 +4,19 @@ extends Node3D
 
 func _ready():
 	state_machine.travel("idle")
+	EventBus.restart.connect(on_reset)
+
+func on_reset():
+	$Armature/Skeleton3D/PhysicalBoneSimulator3D.physical_bones_stop_simulation()
+	$AnimationTree.active = true
+	state_machine.travel("idle")
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		ragdoll(Vector3.ZERO)
 		
 func ragdoll(impulse):
+	$AnimationTree.active = false
 	$Armature/Skeleton3D/PhysicalBoneSimulator3D.physical_bones_start_simulation()
 	var v = Vector3.ZERO
 	if get_parent() && get_parent().get_parent():

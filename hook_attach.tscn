@@ -7,5 +7,6 @@ albedo_color = Color(1, 0, 1, 1)
 [node name="HookAttach" type="Node3D"]
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="."]
-radius = 0.01
+visible = false
+radius = 0.1
 material = SubResource("StandardMaterial3D_7bmpm")

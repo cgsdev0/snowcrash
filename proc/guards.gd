@@ -15,6 +15,7 @@ func _ready():
 		_enable_ramp()
 	else:
 		$OffRamp.queue_free()
+		$Police.queue_free()
 
 func enable_ramp(a):
 	ramp_enabled = true

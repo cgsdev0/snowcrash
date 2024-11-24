@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://b268fsoo6n1ue"]
+[gd_scene load_steps=33 format=3 uid="uid://b268fsoo6n1ue"]
 
 [ext_resource type="Environment" uid="uid://c5qeimb53plk0" path="res://environment.tres" id="1_5lfhd"]
 [ext_resource type="Script" path="res://debug_cam.gd" id="2_xewp7"]
@@ -10,10 +10,12 @@
 [ext_resource type="Shader" path="res://ui/ramp_warning.gdshader" id="8_v3con"]
 [ext_resource type="Texture2D" uid="uid://b6vjksuqyadp1" path="res://ui/right_warning.png" id="9_2jmy1"]
 [ext_resource type="Texture2D" uid="uid://b64433w0ikh8e" path="res://ui/left_warning.png" id="10_lo8ka"]
+[ext_resource type="Theme" uid="uid://c3437c7g4j2cu" path="res://ui/theme.tres" id="11_bovvj"]
 [ext_resource type="FontFile" uid="uid://dgwjwldablfit" path="res://ui/m5x7.ttf" id="11_f5oji"]
 [ext_resource type="PackedScene" uid="uid://dfgnjjbeh7kcm" path="res://models/jail.tscn" id="11_j782p"]
 [ext_resource type="Script" path="res://hud.gd" id="11_q51qj"]
 [ext_resource type="PackedScene" uid="uid://b5jgylworrq2c" path="res://models/sadcrasher.tscn" id="12_cedjg"]
+[ext_resource type="Script" path="res://ui/jail_options.gd" id="12_v2h51"]
 [ext_resource type="PackedScene" uid="uid://cnql5duopmaxs" path="res://models/deadcrasher.tscn" id="15_lptlu"]
 
 [sub_resource type="Gradient" id="Gradient_vmj8o"]
@@ -224,7 +226,7 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 4.76837e-07, -2.38419e-07, 0)
 shape = SubResource("CapsuleShape3D_v03n4")
 
 [node name="Visual" type="CSGBox3D" parent="Player"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.76837e-07, -0.155069, 0)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.76837e-07, 0.426289, 0)
 use_collision = true
 collision_layer = 32768
 collision_mask = 0
@@ -312,7 +314,38 @@ grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
+[node name="JailOptions" type="Control" parent="Control"]
+layout_mode = 1
+anchor_left = 0.325521
+anchor_top = 0.802469
+anchor_right = 0.674479
+anchor_bottom = 0.99537
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("11_bovvj")
+script = ExtResource("12_v2h51")
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/JailOptions"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 56.0
+grow_horizontal = 2
+theme_override_constants/separation = 16
+
+[node name="TryAgain" type="Button" parent="Control/JailOptions/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Try Again"
+
+[node name="Quit" type="Button" parent="Control/JailOptions/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quit"
+
 [node name="HUD" type="Node2D" parent="."]
+unique_name_in_owner = true
 script = ExtResource("11_q51qj")
 draw_color = Color(1, 1, 0, 0.815686)
 warn_color = Color(1, 0, 0, 0.752941)
@@ -406,3 +439,5 @@ transform = Transform3D(-2.876, 0, -8.87567, 0, 9.33, 0, 8.87567, 0, -2.876, -10
 [connection signal="body_entered" from="Player/Grapple/Hook" to="Player" method="_on_hook_body_entered"]
 [connection signal="timeout" from="Player/BoostTimer" to="Player" method="_on_boost_timer_timeout"]
 [connection signal="body_entered" from="Player/DeathBox" to="Player" method="_on_death_box_body_entered"]
+[connection signal="pressed" from="Control/JailOptions/HBoxContainer/TryAgain" to="Control/JailOptions" method="_on_try_again_pressed"]
+[connection signal="pressed" from="Control/JailOptions/HBoxContainer/Quit" to="Control/JailOptions" method="_on_quit_pressed"]

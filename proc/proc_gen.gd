@@ -20,7 +20,11 @@ const RoadActor:PackedScene = preload("res://proc/road_actor.tscn")
 
 var Guards = preload("res://proc/guards.tscn")
 
+func on_jail(_thing):
+	queue_free()
+	
 func _ready() -> void:
+	EventBus.jail.connect(on_jail)
 	var rev = [0, 0, 1, 1, 1, 2, 3].pick_random()
 	var fwd = [2, 2, 2, 3, 3, 4].pick_random()
 	var traffic_dir:Array[RoadPoint.LaneDir] = []
@@ -304,6 +308,7 @@ var killed = false
 func _on_murderer_body_entered(body):
 	if to_murder && !killed:
 		killed = true
+		EventBus.progress -= 5.0
 		await get_tree().create_timer(5.0).timeout
 		to_murder.queue_free()
 		to_murder = null

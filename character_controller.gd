@@ -23,10 +23,16 @@ var boosting = false
 var extension = 0.0
 var grapple_len = 12.0
 var casting = false
+var dead = false
+var input_faded = 0.0
+var target_tilt = 0.0
+var hooked = null
+var hook_target = null
+var hook_was = null
+var arrested = false
 
 @export var rope_color: GradientTexture1D
 
-var dead = false
 
 func extend(f: float):
 	$Grapple/Rope.height = f
@@ -52,7 +58,7 @@ func break_grapple():
 var whee = 0.0
 func _process(delta):
 	whee += delta
-	$Visual.position.y = sin(whee * 3.0) * 0.03 - 0.3
+	$Visual.position.y = sin(whee * 3.0) * 0.03 - 0.25
 	if hook_target || hooked:
 		extension += delta * 4.0
 	else:
@@ -76,6 +82,18 @@ func raycast_from_mouse(m_pos, collision_mask):
 	query.collide_with_areas = true
 	
 	var result = space_state.intersect_ray(query)
+	if !result:
+		# fire secondary laser
+		if %HUD.targeting:
+			ray_end = %HUD.targeting.global_position + Vector3.UP * 0.6
+			var vec = ray_end - ray_start
+			vec = vec.limit_length(ray_length)
+			query = PhysicsRayQueryParameters3D.create(ray_start, ray_start + vec, collision_mask)
+			query.collide_with_areas = true
+			result = space_state.intersect_ray(query)
+			if result && result.collider != %HUD.targeting:
+				result = {}
+	
 	if result && result.position:
 		var attach = Attach.instantiate()
 		hook_target = result.collider
@@ -115,15 +133,42 @@ func _unhandled_input(event):
 			aim(a)
 
 func _ready():
+	EventBus.restart.connect(on_restart)
+	velocity = minimum_speed * global_basis.z.normalized()
+
+@onready var start_transform = global_transform
+
+var Level = preload("res://proc/level.tscn")
+
+func on_restart():
+	global_transform = start_transform
+	var new_level = Level.instantiate()
+	get_parent().add_child(new_level)
+	new_level.global_position = Vector3.ZERO
+	$Camera3D.current = true
+	$CameraPos2.top_level = false
+	
+	# copy pasta
+	speed_mod = 1.0
+	boosting = false
+	extension = 0.0
+	grapple_len = 12.0
+	casting = false
+	dead = false
+	input_faded = 0.0
+	target_tilt = 0.0
+	hooked = null
+	hook_target = null
+	hook_was = null
+	arrested = false
 	velocity = minimum_speed * global_basis.z.normalized()
 
 
 
-var input_faded = 0.0
 
 var forces = {}
 
-var target_tilt = 0.0
+
 
 func p(A, v, t, amp):
 	var n = v.normalized().cross(global_basis.x.normalized())
@@ -148,6 +193,11 @@ func draw_extended(a, b, l, e):
 	DebugDraw3D.draw_line(a, a + d * e, c)
 	
 func _physics_process(delta):
+	if global_position.y < EventBus.progress - 8.0:
+		if !dead:
+			$CameraPos2.top_level = true
+			call_deferred("empty_jail")
+			dead = true
 	if arrested:
 		%WarnRight.hide()
 		%WarnLeft.hide()
@@ -311,9 +361,7 @@ func _physics_process(delta):
 	# move_and_slide()
 			
 var Attach = preload("res://hook_attach.tscn")
-var hooked = null
-var hook_target = null
-var hook_was = null
+
 
 func empty_jail():
 	await get_tree().create_timer(3.0).timeout
@@ -322,7 +370,6 @@ func empty_jail():
 func _on_boost_timer_timeout():
 	boosting = false
 
-var arrested = false
 func arrest():
 	$AnimationPlayer.play("zoom_out")
 	arrested = true

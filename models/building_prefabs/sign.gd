@@ -26,11 +26,11 @@ var meta = {
 	},
 	SignType.SIGN_2x6: {
 		"x": 8,
-		"count": 16
+		"count": 24
 	},
 	SignType.SIGN_8x3: {
 		"x": 3,
-		"count": 15
+		"count": 18
 	}
 }
 
