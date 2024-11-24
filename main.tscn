@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://b268fsoo6n1ue"]
+[gd_scene load_steps=31 format=3 uid="uid://b268fsoo6n1ue"]
 
 [ext_resource type="Environment" uid="uid://c5qeimb53plk0" path="res://environment.tres" id="1_5lfhd"]
 [ext_resource type="Script" path="res://debug_cam.gd" id="2_xewp7"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dfgnjjbeh7kcm" path="res://models/jail.tscn" id="11_j782p"]
 [ext_resource type="Script" path="res://hud.gd" id="11_q51qj"]
 [ext_resource type="PackedScene" uid="uid://b5jgylworrq2c" path="res://models/sadcrasher.tscn" id="12_cedjg"]
+[ext_resource type="PackedScene" uid="uid://cnql5duopmaxs" path="res://models/deadcrasher.tscn" id="15_lptlu"]
 
 [sub_resource type="Gradient" id="Gradient_vmj8o"]
 colors = PackedColorArray(0.959095, 0.911125, 7.70092e-07, 1, 1, 0, 0, 1)
@@ -396,6 +397,9 @@ light_color = Color(1, 0.67, 0.67, 1)
 light_energy = 4.0
 omni_range = 18.257
 omni_attenuation = 1.284
+
+[node name="dead" parent="Jail" instance=ExtResource("15_lptlu")]
+transform = Transform3D(-2.876, 0, -8.87567, 0, 9.33, 0, 8.87567, 0, -2.876, -10.8917, -5.49905, -40.6193)
 
 [node name="Jukebox" type="Node" parent="."]
 

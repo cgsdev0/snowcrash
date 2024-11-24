@@ -13,11 +13,11 @@ func ragdoll(impulse):
 	$Armature/Skeleton3D/PhysicalBoneSimulator3D.physical_bones_start_simulation()
 	var v = Vector3.ZERO
 	if get_parent() && get_parent().get_parent():
-		v = get_parent().get_parent().velocity * 0.0
+		v = get_parent().get_parent().velocity
 		print(v)
-	# for physical_bone: PhysicalBone3D in $Armature/Skeleton3D/PhysicalBoneSimulator3D.get_children():
-	$"Armature/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone mixamorig_Hips".apply_central_impulse(impulse)
-		# PhysicsServer3D.body_set_state(physical_bone.get_rid(), PhysicsServer3D.BODY_STATE_LINEAR_VELOCITY, v)
+	for physical_bone: PhysicalBone3D in $Armature/Skeleton3D/PhysicalBoneSimulator3D.get_children():
+	#$"Armature/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone mixamorig_Hips".apply_central_impulse(impulse)
+		PhysicsServer3D.body_set_state(physical_bone.get_rid(), PhysicsServer3D.BODY_STATE_LINEAR_VELOCITY, v)
 
 func get_hand():
 	return $RightHand
