@@ -254,11 +254,13 @@ func draw_extended(a, b, l, e, delta):
 func intro_process(delta):
 	pass
 func _physics_process(delta):
+	
 	if EventBus.phase != EventBus.GamePhase.PLAYING:
 		%WarnRight.hide()
 		%WarnLeft.hide()
 		$LineRenderer3D.hide()
 		return
+	EventBus.speed = Vector3(velocity.x * speed_mod, velocity.y, velocity.z * speed_mod).length()
 		
 	if Input.is_action_just_pressed("restart"):
 		EventBus.restart.emit()
@@ -432,7 +434,8 @@ func _physics_process(delta):
 	velocity = velocity.limit_length(maximum_speed)
 	
 	var modded = Vector3(velocity.x * speed_mod, velocity.y, velocity.z * speed_mod)
-	EventBus.top_stat("top_speed", modded.length())
+	if !dead && !arrested:
+		EventBus.top_stat("top_speed", modded.length())
 	# DebugDraw3D.draw_arrow(global_position + Vector3.UP, global_position + modded  + Vector3.UP, Color.RED, 0.1)
 	var collisions = move_and_collide(modded * delta, true)
 	if !collisions:

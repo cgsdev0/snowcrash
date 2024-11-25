@@ -11,7 +11,8 @@ enum GamePhase {
 	MAIN_MENU,
 	CREDITS,
 	INTRO,
-	PLAYING
+	PLAYING,
+	DEAD
 }
 
 var easter_egg = false
@@ -19,11 +20,16 @@ var sad = false
 var progress = 0.0
 var phase = GamePhase.MAIN_MENU
 var stats
+var speed = 0.0
 
 func _ready():
 	self.restart.connect(on_restart)
+	self.jail.connect(on_jail)
 	reset_stats()
-
+	
+func on_jail(f):
+	phase = GamePhase.DEAD
+	
 func add_to_stat(key, val):
 	if typeof(val) == TYPE_VECTOR3:
 		val = val.length()
@@ -33,6 +39,7 @@ func top_stat(key, val):
 	stats[key] = max(val, stats[key])
 
 func reset_stats():
+	speed = 0.0
 	progress = 0.0
 	stats = {
 		"distance": 0.0,

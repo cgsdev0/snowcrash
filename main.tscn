@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=4 uid="uid://b268fsoo6n1ue"]
+[gd_scene load_steps=92 format=4 uid="uid://b268fsoo6n1ue"]
 
 [ext_resource type="Environment" uid="uid://c5qeimb53plk0" path="res://environment.tres" id="1_5lfhd"]
 [ext_resource type="Script" path="res://debug_cam.gd" id="2_xewp7"]
@@ -34,6 +34,10 @@
 [ext_resource type="AudioStream" uid="uid://b6j60ld1vf6o0" path="res://audio/music/cyberfunk3.mp3" id="24_lj6n5"]
 [ext_resource type="Script" path="res://main_menu.gd" id="24_n74wx"]
 [ext_resource type="Script" path="res://credits.gd" id="25_p4cjt"]
+[ext_resource type="Texture2D" uid="uid://bppuk5qs6m5gi" path="res://ui/SPEEB_bg.png" id="27_3fmfe"]
+[ext_resource type="Script" path="res://ui/speedometer.gd" id="27_rbia0"]
+[ext_resource type="Texture2D" uid="uid://cn3d0m0q2r50t" path="res://ui/SPEEB_inside.png" id="28_kju2q"]
+[ext_resource type="Texture2D" uid="uid://cok6og81pyefm" path="res://ui/SPEEB_clip.png" id="30_gr0re"]
 [ext_resource type="AudioStream" uid="uid://kolo46c7ase7" path="res://audio/music/cyberfunk2.mp3" id="31_o64wb"]
 [ext_resource type="PackedScene" uid="uid://ntpmaas1ndco" path="res://models/Cop Normal/copper.tscn" id="32_dc35b"]
 [ext_resource type="Script" path="res://intro.gd" id="32_y2sr7"]
@@ -464,7 +468,7 @@ cull_mode = 2
 shading_mode = 0
 albedo_texture = ExtResource("8_jndwq")
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_oiedf"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_ssdg6"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_iv5rv"]
 random_pitch = 1.4
@@ -497,6 +501,26 @@ shader = ExtResource("8_v3con")
 shader_parameter/scale = 0.4
 shader_parameter/speed = -0.75
 shader_parameter/tex = ExtResource("10_lo8ka")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5wiys"]
+atlas = ExtResource("27_3fmfe")
+region = Rect2(0, 0, 364, 380)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kx3vq"]
+atlas = ExtResource("28_kju2q")
+region = Rect2(10, 4, 364, 380)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_35e27"]
+atlas = ExtResource("27_3fmfe")
+region = Rect2(364, 0, 0, 380)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2hkf2"]
+atlas = ExtResource("30_gr0re")
+region = Rect2(364, 0, 0, 380)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_705bh"]
+atlas = ExtResource("28_kju2q")
+region = Rect2(373, 5, 0, 380)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_17v3e"]
 albedo_color = Color(0.2, 0.2, 0.2, 1)
@@ -690,7 +714,7 @@ libraries = {
 [node name="LineRenderer3D" type="MeshInstance3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.49738, 0)
 material_override = SubResource("StandardMaterial3D_e8g7k")
-mesh = SubResource("ImmediateMesh_oiedf")
+mesh = SubResource("ImmediateMesh_ssdg6")
 script = ExtResource("8_2afqm")
 points = Array[Vector3]([Vector3(0, 0, 0), Vector3(0, 0, -5)])
 
@@ -770,6 +794,7 @@ mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="JailOptions" type="Control" parent="Control"]
+visible = false
 layout_mode = 1
 anchor_left = 0.325521
 anchor_top = 0.83179
@@ -958,6 +983,73 @@ funbasealpha - hosting the F.U.N. jam"
 [node name="Back" type="Button" parent="Control/Credits/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Back"
+
+[node name="Speedometer" type="Control" parent="Control"]
+layout_mode = 1
+anchor_left = 0.0625
+anchor_top = 0.925926
+anchor_right = 0.0625
+anchor_bottom = 0.925926
+offset_top = -75.0
+offset_right = 215.0
+grow_vertical = 0
+script = ExtResource("27_rbia0")
+start = 808.0
+end = 364.0
+metadata/_edit_use_anchors_ = true
+
+[node name="RealBar" type="TextureProgressBar" parent="Control/Speedometer"]
+layout_mode = 2
+offset_left = -6.0
+offset_top = -16.5
+offset_right = 358.0
+offset_bottom = 363.5
+scale = Vector2(0.25, 0.25)
+max_value = 50.0
+step = 0.1
+value = 50.0
+fill_mode = 4
+radial_initial_angle = 109.7
+texture_under = SubResource("AtlasTexture_5wiys")
+texture_progress = SubResource("AtlasTexture_kx3vq")
+
+[node name="Label" type="Label" parent="Control/Speedometer/RealBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.913725, 0.556863, 0.0470588, 1)
+theme_override_fonts/font = ExtResource("11_f5oji")
+theme_override_font_sizes/font_size = 128
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureProgressBar2" type="TextureRect" parent="Control/Speedometer"]
+layout_mode = 2
+offset_left = 85.0
+offset_top = -16.5
+offset_right = 1132.0
+offset_bottom = 363.5
+scale = Vector2(0.25, 0.25)
+texture = SubResource("AtlasTexture_35e27")
+
+[node name="ColorRect" type="TextureRect" parent="Control/Speedometer/TextureProgressBar2"]
+clip_children = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_2hkf2")
+
+[node name="TextureRect" type="TextureRect" parent="Control/Speedometer/TextureProgressBar2/ColorRect"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_705bh")
 
 [node name="HUD" type="Node2D" parent="."]
 unique_name_in_owner = true
