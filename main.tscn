@@ -468,7 +468,7 @@ cull_mode = 2
 shading_mode = 0
 albedo_texture = ExtResource("8_jndwq")
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_ssdg6"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_tqya0"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_iv5rv"]
 random_pitch = 1.4
@@ -714,7 +714,7 @@ libraries = {
 [node name="LineRenderer3D" type="MeshInstance3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.49738, 0)
 material_override = SubResource("StandardMaterial3D_e8g7k")
-mesh = SubResource("ImmediateMesh_ssdg6")
+mesh = SubResource("ImmediateMesh_tqya0")
 script = ExtResource("8_2afqm")
 points = Array[Vector3]([Vector3(0, 0, 0), Vector3(0, 0, -5)])
 

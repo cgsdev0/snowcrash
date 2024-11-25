@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://8hmxxf5hctq4"]
+[gd_scene load_steps=9 format=3 uid="uid://8hmxxf5hctq4"]
 
 [ext_resource type="Script" path="res://proc/guards.gd" id="1_vah2w"]
 [ext_resource type="PackedScene" uid="uid://du4i0t5r0jr5i" path="res://models/Cop Hover/hover_cop.tscn" id="2_kvctg"]
 [ext_resource type="Script" path="res://models/Cop Hover/lights.gd" id="3_2yobh"]
 [ext_resource type="AudioStream" uid="uid://dib6ipb88amja" path="res://audio/sfx/police_sirens.wav" id="4_22kll"]
+[ext_resource type="PackedScene" uid="uid://l1newnhdvute" path="res://models/props/lamp.tscn" id="6_5xcap"]
 [ext_resource type="PackedScene" uid="uid://dqgabcdo64fon" path="res://models/props/arrow.tscn" id="6_p8yyy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_35657"]
@@ -122,6 +123,10 @@ transform = Transform3D(-5.24537e-08, -1.2, 0, 1.2, -5.24537e-08, 0, 0, 0, 1.2, 
 
 [node name="blockbench_export3" parent="OffRamp" instance=ExtResource("6_p8yyy")]
 transform = Transform3D(-5.24537e-08, -1.2, 0, 1.2, -5.24537e-08, 0, 0, 0, 1.2, -2.34486e-15, 0.269, -1.4542)
+
+[node name="LampR" parent="." instance=ExtResource("6_5xcap")]
+
+[node name="LampF" parent="." instance=ExtResource("6_5xcap")]
 
 [connection signal="timeout" from="Police/Node3D/Timer" to="Police/Node3D" method="_on_timer_timeout"]
 [connection signal="body_entered" from="Police/Area3D" to="." method="_on_area_3d_body_entered"]

@@ -185,6 +185,7 @@ func update_road(backward: bool) -> void:
 		elif rp_count > 20:
 			pass
 
+var spawn_idx = 0
 
 ## Manually clear prior/next points to ensure it gets fully disconnected
 func remove_rp(edge_rp: RoadPoint) -> void:
@@ -204,6 +205,9 @@ func add_next_rp(rp: RoadPoint, dir: int) -> RoadPoint:
 
 	var new_rp := RoadPoint.new()
 	var guards = Guards.instantiate()
+	if spawn_idx > 0:
+		guards.spawned = true
+	spawn_idx += 1
 	container.add_child(new_rp)
 
 	# Copy initial things like lane counts and orientation
