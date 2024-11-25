@@ -1,11 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://b02bd71ltwh0h"]
+[gd_scene load_steps=8 format=3 uid="uid://b02bd71ltwh0h"]
 
 [ext_resource type="PackedScene" uid="uid://cv7j3y7s3euu" path="res://models/Van Tiny/Cyberpunk_Car2.gltf" id="1_buib4"]
 [ext_resource type="Script" path="res://models/car_prefabs/alt_mat.gd" id="2_ekt86"]
 [ext_resource type="Material" uid="uid://e6gey5bdul5p" path="res://models/Van Tiny/material_1.tres" id="3_ht62h"]
+[ext_resource type="AudioStream" uid="uid://cgwnwukve3qrt" path="res://audio/sfx/car_honk_short.wav" id="4_1g2pp"]
+[ext_resource type="AudioStream" uid="uid://bpyy4d7emr6bp" path="res://audio/sfx/car_honk_long.wav" id="5_71y7h"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0ltj2"]
 points = PackedVector3Array(0.215425, 0.625, 0.658068, -0.2188, 0.00473948, -0.665025, -0.217938, 0.2751, -0.6624, 0.2188, 0.00317957, -0.668352, -0.2188, 0.00473948, 0.665025, 0.2188, 0.00317957, 0.668352, -0.216517, 0.625, 0.658068, 0.215425, 0.625, -0.308421, -0.216517, 0.625, -0.308421, 0.216846, 0.2751, -0.6624)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_qby4i"]
+random_pitch = 1.1
+random_volume_offset_db = 1.0
+streams_count = 2
+stream_0/stream = ExtResource("4_1g2pp")
+stream_0/weight = 2.0
+stream_1/stream = ExtResource("5_71y7h")
 
 [node name="TinyVan" instance=ExtResource("1_buib4")]
 script = ExtResource("2_ekt86")
@@ -24,3 +34,8 @@ shape = SubResource("ConvexPolygonShape3D_0ltj2")
 
 [node name="Marker3D" type="Marker3D" parent="." index="2"]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0.703374, -1.80981)
+
+[node name="Honk" type="AudioStreamPlayer3D" parent="." index="3"]
+stream = SubResource("AudioStreamRandomizer_qby4i")
+max_db = -5.0
+pitch_scale = 0.9

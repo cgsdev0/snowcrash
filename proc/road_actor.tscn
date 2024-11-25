@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://osjk2807lxit"]
+[gd_scene load_steps=5 format=3 uid="uid://osjk2807lxit"]
 
 [ext_resource type="Script" path="res://proc/road_actor.gd" id="1_77n8h"]
 [ext_resource type="Script" path="res://addons/road-generator/nodes/road_lane_agent.gd" id="2_ljj7w"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6cus7"]
 size = Vector3(2, 1, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bswin"]
+size = Vector3(1.8, 1, 1.5)
 
 [node name="RoadActor" type="Node3D" groups=["HUD_target"]]
 script = ExtResource("1_77n8h")
@@ -15,6 +18,11 @@ script = ExtResource("2_ljj7w")
 [node name="RayCast3D" type="ShapeCast3D" parent="."]
 shape = SubResource("BoxShape3D_6cus7")
 target_position = Vector3(0, 0, -2)
+collision_mask = 2
+
+[node name="HonkCast" type="ShapeCast3D" parent="."]
+shape = SubResource("BoxShape3D_bswin")
+target_position = Vector3(0, 0, -0.515)
 collision_mask = 2
 
 [node name="RayCast3D2" type="RayCast3D" parent="."]

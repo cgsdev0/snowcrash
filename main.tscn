@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://b268fsoo6n1ue"]
+[gd_scene load_steps=52 format=3 uid="uid://b268fsoo6n1ue"]
 
 [ext_resource type="Environment" uid="uid://c5qeimb53plk0" path="res://environment.tres" id="1_5lfhd"]
 [ext_resource type="Script" path="res://debug_cam.gd" id="2_xewp7"]
@@ -23,6 +23,7 @@
 [ext_resource type="Script" path="res://ui/jail_options.gd" id="12_v2h51"]
 [ext_resource type="AudioStream" uid="uid://dv2fwg6wbnowf" path="res://audio/sfx/grapple_release.wav" id="13_vgo2o"]
 [ext_resource type="AudioStream" uid="uid://gq4fsnp8jjvt" path="res://audio/sfx/generic_impact.wav" id="13_x4gsh"]
+[ext_resource type="AudioStream" uid="uid://d2l20xiclftkh" path="res://audio/sfx/boost.mp3" id="13_ycsmc"]
 [ext_resource type="PackedScene" uid="uid://cnql5duopmaxs" path="res://models/deadcrasher.tscn" id="15_lptlu"]
 [ext_resource type="Script" path="res://jukebox.gd" id="21_ikpfe"]
 [ext_resource type="AudioStream" uid="uid://c73kdpwr62615" path="res://audio/sfx/traffic_ambient.wav" id="22_d43d6"]
@@ -173,7 +174,7 @@ cull_mode = 2
 shading_mode = 0
 albedo_texture = ExtResource("8_jndwq")
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_4vghj"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_4u2t5"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_iv5rv"]
 random_pitch = 1.4
@@ -184,6 +185,11 @@ stream_0/stream = ExtResource("12_0s8m5")
 random_pitch = 1.4
 streams_count = 1
 stream_0/stream = ExtResource("13_x4gsh")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_lspr8"]
+random_pitch = 1.4
+streams_count = 1
+stream_0/stream = ExtResource("13_ycsmc")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_aynqv"]
 random_pitch = 1.4
@@ -248,7 +254,6 @@ script = ExtResource("4_rof53")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Player/Camera3D"]
 transform = Transform3D(15.375, 0, 0, 0, 15.375, 0, 0, 0, 15.375, 0, 0, -1.14779)
-visible = false
 mesh = SubResource("QuadMesh_h8ruu")
 
 [node name="CameraPos2" type="Marker3D" parent="Player"]
@@ -332,7 +337,7 @@ libraries = {
 [node name="LineRenderer3D" type="MeshInstance3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.49738, 0)
 material_override = SubResource("StandardMaterial3D_e8g7k")
-mesh = SubResource("ImmediateMesh_4vghj")
+mesh = SubResource("ImmediateMesh_4u2t5")
 script = ExtResource("8_2afqm")
 points = Array[Vector3]([Vector3(0, 0, 0), Vector3(0, 0, -5)])
 
@@ -349,6 +354,10 @@ volume_db = -8.0
 [node name="Ded" type="AudioStreamPlayer" parent="Player"]
 stream = SubResource("AudioStreamRandomizer_2fakf")
 volume_db = -4.0
+
+[node name="Boost" type="AudioStreamPlayer" parent="Player"]
+stream = SubResource("AudioStreamRandomizer_lspr8")
+volume_db = -14.0
 
 [node name="GrappleRelease" type="AudioStreamPlayer" parent="Player"]
 stream = SubResource("AudioStreamRandomizer_aynqv")
@@ -436,7 +445,7 @@ unique_name_in_owner = true
 script = ExtResource("11_q51qj")
 draw_color = Color(1, 1, 0, 0.815686)
 warn_color = Color(1, 0, 0, 0.752941)
-cooldown_color = Color(1, 0.533333, 0, 0.807843)
+cooldown_color = Color(0.42, 0.42, 0.42, 0.807843)
 
 [node name="DistLabel" type="Label" parent="HUD"]
 visible = false

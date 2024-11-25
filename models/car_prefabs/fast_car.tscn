@@ -1,11 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://dbq8m7qqut2ce"]
+[gd_scene load_steps=8 format=3 uid="uid://dbq8m7qqut2ce"]
 
 [ext_resource type="PackedScene" uid="uid://qtfa2lrcqv0t" path="res://models/Car Round/Car_Fast.gltf" id="1_mum4k"]
 [ext_resource type="Script" path="res://models/car_prefabs/alt_mat.gd" id="2_rf7se"]
 [ext_resource type="Material" uid="uid://dofkm1ldoutcr" path="res://models/Car Round/material_1.tres" id="3_tgr0p"]
+[ext_resource type="AudioStream" uid="uid://cgwnwukve3qrt" path="res://audio/sfx/car_honk_short.wav" id="4_3dab1"]
+[ext_resource type="AudioStream" uid="uid://bpyy4d7emr6bp" path="res://audio/sfx/car_honk_long.wav" id="5_o8k4f"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_87q8q"]
 points = PackedVector3Array(-0.416452, 0.292418, -0.468484, 0.531746, -0.140814, 0.666642, 0.383882, -0.125, -0.962595, -0.488401, -0.125, 0.661642, 0.372134, 0.4375, 0.320392, -0.398034, -0.125, -0.932443, -0.366304, 0.0858598, 0.958476, 0.376171, 0.411093, -0.471426, -0.356167, 0.4375, 0.320392, -0.367522, 0.145739, -0.961596, 0.375, 0.0873142, 0.939852, -0.356167, 0.4375, -0.407838, 0.531746, -0.140814, -0.666642, 0.377355, 0.145984, -0.945881, -0.367912, -0.125, 0.962595, -0.488401, -0.125, -0.661642, 0.383882, -0.125, 0.962595, -0.476331, 0.0580599, 0.55748, 0.372134, 0.4375, -0.407838, -0.47498, 0.087571, -0.526772, 0.491766, 0.0288181, -0.527768, -0.388183, 0.38077, 0.352122, 0.37494, 0.410256, 0.38173, -0.367912, -0.125, -0.962595, -0.36266, 0.412764, -0.474571, 0.491766, 0.0288181, 0.527768, 0.373572, 0.175294, -0.90687, 0.372022, 0.117053, 0.903026, -0.358972, 0.410256, 0.38173, -0.390794, 0.382221, -0.4431, -0.391798, 0.0571174, 0.918119, -0.398034, -0.125, 0.932443)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_pxlqq"]
+random_pitch = 1.3
+random_volume_offset_db = 1.0
+streams_count = 2
+stream_0/stream = ExtResource("4_3dab1")
+stream_0/weight = 2.0
+stream_1/stream = ExtResource("5_o8k4f")
 
 [node name="blockbench_export" instance=ExtResource("1_mum4k")]
 script = ExtResource("2_rf7se")
@@ -24,3 +34,7 @@ shape = SubResource("ConvexPolygonShape3D_87q8q")
 
 [node name="Marker3D" type="Marker3D" parent="." index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.462664, -1.6018)
+
+[node name="Honk" type="AudioStreamPlayer3D" parent="." index="3"]
+stream = SubResource("AudioStreamRandomizer_pxlqq")
+max_db = -5.0

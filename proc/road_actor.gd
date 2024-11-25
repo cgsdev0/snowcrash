@@ -62,8 +62,12 @@ func weighted_pick(array, weights):
 		accumulated_weight += weights[i]
 		if random < accumulated_weight: return array[i]
 	return array[-1]
-	
+
+var audio
+var honked = false
 func _ready() -> void:
+	if randi_range(0, 2) == 0: # polite driver rng
+		honked = true
 	agent.visualize_lane = visualize_lane
 	agent.auto_register = auto_register
 	var pick = null
@@ -74,8 +78,10 @@ func _ready() -> void:
 	
 	var n = pick.instantiate()
 	add_child(n)
+	audio = n.get_node("Honk")
 	$RayCast3D.position = n.get_node("Marker3D").position
 	$RayCast3D2.position = n.get_node("Marker3D").position
+	$HonkCast.position = n.get_node("Marker3D").position
 	# print("Agent state: %s par, %s lane, %s manager" % [
 	# 	agent.actor, agent.current_lane, agent.road_manager
 	# ])
@@ -91,6 +97,11 @@ func _physics_process(delta: float) -> void:
 	var target_dir = Vector3.FORWARD
 	var adjusted_speed = target_speed + (lanes - my_lane) * lane_adj
 	var target_velz = 0.0
+	
+	if $HonkCast.is_colliding() && !honked:
+		honked = true
+		audio.play()
+		
 	if $RayCast3D.is_colliding() || $RayCast3D2.is_colliding():
 		target_velz = move_toward(velocity.z, 0.0, delta * acceleration)
 	else:

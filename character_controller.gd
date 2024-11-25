@@ -53,6 +53,10 @@ func start_boost(force = false):
 	if boosting && !force:
 		return
 	boost_scalar = clampf(hooked_timer, 0.0, 1.0)
+	if !$Boost.is_playing() && !force:
+		var volume = (velocity.length() - minimum_speed) / (minimum_speed - maximum_speed)
+		$Boost.volume_db = -15 + volume * 15.0 * boost_scalar
+		$Boost.play()
 	if force:
 		boost_scalar = 1.0
 	$BoostTimer.start()
@@ -62,6 +66,9 @@ func start_boost(force = false):
 func start_ramping():
 	if ramping:
 		return
+	var volume = (velocity.length() - minimum_speed) / (minimum_speed - maximum_speed)
+	$Boost.volume_db = -10 + volume * 15.0 * boost_scalar
+	$Boost.play()
 	ramping = true
 	$RampTimer.start()
 	
