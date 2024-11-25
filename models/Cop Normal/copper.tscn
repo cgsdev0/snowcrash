@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ntpmaas1ndco"]
+
+[ext_resource type="PackedScene" uid="uid://ww8pm0fdkqsk" path="res://models/Cop Normal/Cyberpunk_Car3_Simplified.gltf" id="1_6rs4b"]
+
+[node name="blockbench_export" instance=ExtResource("1_6rs4b")]
+
+[node name="Node" parent="." index="0"]
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 0, 0, 0)

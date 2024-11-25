@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://sa31fasgxspc"]
+
+[ext_resource type="Texture2D" uid="uid://wjfg8bvogutj" path="res://models/Cone/Prop_Cone_0.png" id="1_fkegp"]
+[ext_resource type="Texture2D" uid="uid://cyqdel3k4t21i" path="res://models/Cone/Prop_Cone_Emission.png" id="2_y5sfo"]
+
+[resource]
+resource_name = "material_0"
+albedo_texture = ExtResource("1_fkegp")
+emission_enabled = true
+emission_energy_multiplier = 2.26
+emission_texture = ExtResource("2_y5sfo")
+texture_filter = 0
+texture_repeat = false

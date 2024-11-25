@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqgabcdo64fon"]
+
+[ext_resource type="PackedScene" uid="uid://boe2cvn728iw5" path="res://models/Arrow/Prop_Arrow.gltf" id="1_va3q2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l72m7"]
+shading_mode = 0
+
+[node name="blockbench_export" instance=ExtResource("1_va3q2")]
+
+[node name="cuboid" parent="Node" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_l72m7")

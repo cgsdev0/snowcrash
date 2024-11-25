@@ -3,9 +3,12 @@ extends Node3D
 
 @export var mesh: NodePath
 @export var alt: StandardMaterial3D
+
+@export var immune = false
+
 var signs = []
 func _ready():
-	if !mesh.is_empty() && randi_range(0, 1) == 0:
+	if !immune && !mesh.is_empty() && randi_range(0, 1) == 0:
 		get_node(mesh).set_surface_override_material(0, alt)
 	signs = find_children("Sign*")
 	for sign in signs:
@@ -16,6 +19,8 @@ func _ready():
 
 var dead = false	
 func _physics_process(delta):
+	if immune:
+		return
 	if $StaticBody3D/Area3D.is_colliding():
 		var who = $StaticBody3D/Area3D.get_collider(0)
 		if is_instance_valid(who):

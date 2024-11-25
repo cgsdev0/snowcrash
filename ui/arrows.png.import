@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgv1qk8whcb87"
-path="res://.godot/imported/Cyberpunk_Car3_Emission.png-1930329c7bef5ff17154b4ac3d5588a9.ctex"
+uid="uid://msn1jkjhb2ok"
+path="res://.godot/imported/arrows.png-94a9b57b9feb0b39eb2be219191c080c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://models/Cop Normal/Cyberpunk_Car3_Emission.png"
-dest_files=["res://.godot/imported/Cyberpunk_Car3_Emission.png-1930329c7bef5ff17154b4ac3d5588a9.ctex"]
+source_file="res://ui/arrows.png"
+dest_files=["res://.godot/imported/arrows.png-94a9b57b9feb0b39eb2be219191c080c.ctex"]
 
 [params]
 
@@ -25,7 +25,7 @@ mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
-process/fix_alpha_border=true
+process/fix_alpha_border=false
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false

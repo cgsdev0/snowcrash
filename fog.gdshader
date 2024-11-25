@@ -3,9 +3,9 @@
 // This shader is a part of my tutorial/learning Github repository: https://github.com/absentSpaghetti/Shader-Basics-With-Spaghetti
 // Feel free to use, edit and share this shader according to your needs
 //
-// MIT License 
+// MIT License
 //
-// prerequisites: 
+// prerequisites:
 
 shader_type spatial;
 render_mode unshaded, cull_disabled;
@@ -22,7 +22,7 @@ void vertex() {
 }
 
 void fragment() {
-	
+
 	vec3 screen_color = texture(screen_texture, SCREEN_UV).rgb;
 	// Depth texture magic
 	float depth = texture(depth_texture, SCREEN_UV, 0.0).r;
@@ -31,7 +31,7 @@ void fragment() {
 	float depth_texture_y = world.y / world.w;
 	float vertex_y = (INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).y;
 	float vertical_depth = vertex_y - depth_texture_y - offset;
-	
+
 	// Changes the color of geometry behind it as the water gets deeper
 	float depth_fade_blend = exp(-vertical_depth / depth_fade_distance);
 	depth_fade_blend = clamp(depth_fade_blend, 0.0, 1.0);

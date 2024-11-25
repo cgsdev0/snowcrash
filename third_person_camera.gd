@@ -35,5 +35,8 @@ func _physics_process(delta):
 		adjust = adjust.move_toward(Vector3.UP, delta * 2.0)
 	else:
 		adjust = adjust.move_toward(Vector3.ZERO, delta * 2.0)
-	global_position = global_position.lerp(from.global_position + adjust, delta * 10.0)
+	if EventBus.phase == EventBus.GamePhase.PLAYING:
+		global_position = global_position.lerp(from.global_position + adjust, delta * 10.0)
+	else:
+		global_position = from.global_position + adjust
 	look_at(to.global_position)

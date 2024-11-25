@@ -1,12 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://8hmxxf5hctq4"]
+[gd_scene load_steps=8 format=3 uid="uid://8hmxxf5hctq4"]
 
 [ext_resource type="Script" path="res://proc/guards.gd" id="1_vah2w"]
 [ext_resource type="PackedScene" uid="uid://du4i0t5r0jr5i" path="res://models/Cop Hover/hover_cop.tscn" id="2_kvctg"]
 [ext_resource type="Script" path="res://models/Cop Hover/lights.gd" id="3_2yobh"]
 [ext_resource type="AudioStream" uid="uid://dib6ipb88amja" path="res://audio/sfx/police_sirens.wav" id="4_22kll"]
+[ext_resource type="PackedScene" uid="uid://dqgabcdo64fon" path="res://models/props/arrow.tscn" id="6_p8yyy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_35657"]
 size = Vector3(47.7832, 19.1726, 33.2407)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wg653"]
+albedo_color = Color(0, 0.517647, 0.788235, 1)
+emission_enabled = true
+emission = Color(0, 0.65098, 1, 1)
+emission_energy_multiplier = 0.35
+uv1_scale = Vector3(0.24, 0.24, 0.16)
+uv1_offset = Vector3(0.51, -0.04, 0.055)
+uv1_triplanar = true
 
 [node name="Guards" type="Node3D"]
 script = ExtResource("1_vah2w")
@@ -97,11 +107,21 @@ autoplay = true
 max_distance = 150.0
 
 [node name="OffRamp" type="CSGBox3D" parent="." groups=["ramp"]]
-transform = Transform3D(0.86982, -0.166336, -0.464483, 0.0292857, 0.9572, -0.287942, 0.492498, 0.236855, 0.837464, 5.77775, 0.239138, 33.539)
+transform = Transform3D(0.874619, -0.139315, -0.464362, 0, 0.957822, -0.287361, 0.484809, 0.251331, 0.837731, 6.29435, 0.55939, 32.6076)
 use_collision = true
 collision_layer = 32800
 collision_mask = 32
-size = Vector3(4.13574, 0.538086, 5.17236)
+size = Vector3(3.48022, 0.538086, 5.17236)
+material = SubResource("StandardMaterial3D_wg653")
+
+[node name="blockbench_export" parent="OffRamp" instance=ExtResource("6_p8yyy")]
+transform = Transform3D(-5.24537e-08, -1.2, 0, 1.2, -5.24537e-08, 0, 0, 0, 1.2, 0, 0.269, 1.513)
+
+[node name="blockbench_export2" parent="OffRamp" instance=ExtResource("6_p8yyy")]
+transform = Transform3D(-5.24537e-08, -1.2, 0, 1.2, -5.24537e-08, 0, 0, 0, 1.2, -7.81621e-16, 0.269, 0.0560529)
+
+[node name="blockbench_export3" parent="OffRamp" instance=ExtResource("6_p8yyy")]
+transform = Transform3D(-5.24537e-08, -1.2, 0, 1.2, -5.24537e-08, 0, 0, 0, 1.2, -2.34486e-15, 0.269, -1.4542)
 
 [connection signal="timeout" from="Police/Node3D/Timer" to="Police/Node3D" method="_on_timer_timeout"]
 [connection signal="body_entered" from="Police/Area3D" to="." method="_on_area_3d_body_entered"]

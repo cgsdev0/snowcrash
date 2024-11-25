@@ -69,6 +69,7 @@ func start_ramping():
 	var volume = (velocity.length() - minimum_speed) / (minimum_speed - maximum_speed)
 	$Boost.volume_db = -10 + volume * 15.0 * boost_scalar
 	$Boost.play()
+	$Ramp.play()
 	ramping = true
 	$RampTimer.start()
 	
@@ -81,8 +82,12 @@ func break_grapple():
 
 var whee = 0.0
 func _process(delta):
-	whee += delta
 	$Visual.position.y = 0.0 + sin(whee * 3.0) * 0.06 # 0.03
+	if EventBus.phase != EventBus.GamePhase.PLAYING:
+		intro_process(delta)
+		return
+		
+	whee += delta
 	if hook_target || hooked:
 		extension += delta * 4.0
 	else:
@@ -138,6 +143,8 @@ func can_hook():
 	return !hooked && !hook_target && !boosting
 	
 func _unhandled_input(event):
+	if EventBus.phase != EventBus.GamePhase.PLAYING:
+		return
 	if event is InputEventMouseButton && event.pressed:
 		if event.button_index == 2:
 			if hooked && is_instance_valid(hooked):
@@ -156,9 +163,18 @@ func _unhandled_input(event):
 			extension = 0.0
 			var a = raycast_from_mouse(get_window().get_mouse_position(), 4)
 
+func end_intro():
+	EventBus.phase = EventBus.GamePhase.PLAYING
+	
 func _ready():
+	$AnimationPlayer.play("menu")
 	EventBus.restart.connect(on_restart)
-	velocity = minimum_speed * global_basis.z.normalized()
+	velocity = -minimum_speed * global_basis.z.normalized()
+	
+	# TEMP
+	await get_tree().create_timer(3.0).timeout
+	$AnimationPlayer.play("intro")
+	EventBus.phase = EventBus.GamePhase.INTRO
 
 @onready var start_transform = global_transform
 
@@ -172,7 +188,6 @@ func on_restart():
 	new_level.global_position = Vector3.ZERO
 	$Camera3D.current = true
 	$CameraPos2.top_level = false
-	$AnimationPlayer.play("RESET")
 	print("no longer top level")
 	
 	# copy pasta
@@ -189,8 +204,10 @@ func on_restart():
 	hook_was = null
 	arrested = false
 	ragdolling = false
-	velocity = minimum_speed * global_basis.z.normalized()
-
+	velocity = -minimum_speed * global_basis.z.normalized()
+	$AnimationPlayer.stop()
+	$AnimationPlayer.play("intro")
+	EventBus.phase = EventBus.GamePhase.INTRO
 
 
 
@@ -227,8 +244,16 @@ func draw_extended(a, b, l, e, delta):
 	m.albedo_color = c
 	$LineRenderer3D.visible = true
 	# DebugDraw3D.draw_line(a, a + d * e, c)
-	
+
+func intro_process(delta):
+	pass
 func _physics_process(delta):
+	if EventBus.phase != EventBus.GamePhase.PLAYING:
+		%WarnRight.hide()
+		%WarnLeft.hide()
+		$LineRenderer3D.hide()
+		return
+		
 	if Input.is_action_just_pressed("restart"):
 		EventBus.restart.emit()
 		return

@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bkjmuu6p2nfbg"]
+[gd_scene load_steps=10 format=3 uid="uid://bkjmuu6p2nfbg"]
 
 [ext_resource type="PackedScene" uid="uid://dr5we2heynp3v" path="res://models/Building Corpo Tower/Building_4_1x1.gltf" id="1_1lujp"]
 [ext_resource type="Script" path="res://models/building_prefabs/building.gd" id="2_3h2fa"]
 [ext_resource type="Texture2D" uid="uid://fiuwtqn2u1v4" path="res://SIGNS/2-6_signs_01.png" id="2_57fuk"]
 [ext_resource type="Material" uid="uid://b3yfc7x83o4ly" path="res://models/Building Corpo Tower/material_1.tres" id="3_f1bjv"]
 [ext_resource type="Script" path="res://models/building_prefabs/sign.gd" id="3_xik16"]
+[ext_resource type="Material" uid="uid://ca1glnx8rq31q" path="res://models/slate.tres" id="6_jkfe6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yxt7h"]
 resource_local_to_scene = true
@@ -52,24 +53,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30.965, 0)
 collision_layer = 64
 collision_mask = 0
 size = Vector3(26, 62.1167, 26)
+material = ExtResource("6_jkfe6")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="." index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.95322, -47.1411, 0.08957)
 collision_layer = 64
 collision_mask = 0
 size = Vector3(32.9553, 55.1391, 34.7931)
+material = ExtResource("6_jkfe6")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.82565, -66.1622, 9.92436)
 collision_layer = 64
 collision_mask = 0
 size = Vector3(29.6532, 55.1391, 32.6509)
+material = ExtResource("6_jkfe6")
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="." index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.63231, -55.2048, -14.622)
 collision_layer = 64
 collision_mask = 0
 size = Vector3(36.7153, 55.1391, 28.0858)
+material = ExtResource("6_jkfe6")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="5"]
 collision_layer = 64

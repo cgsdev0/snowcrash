@@ -311,6 +311,7 @@ func despawn_cars(road_point:RoadPoint) -> void:
 var killed = false
 func _on_murderer_body_entered(body):
 	if to_murder && !killed:
+		EventBus.hide_intro.emit()
 		killed = true
 		EventBus.progress -= 5.0
 		await get_tree().create_timer(5.0).timeout

@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://bdtnexslg2jew"]
+
+[ext_resource type="Texture2D" uid="uid://cc1h5shs4j7d1" path="res://models/Trash Can/Prop_Trashcan_0.png" id="1_g10eu"]
+[ext_resource type="Texture2D" uid="uid://bp3kg3sw53jsj" path="res://models/Trash Can/Prop_Trashcan_Emission.png" id="2_xl1xo"]
+
+[resource]
+resource_name = "material_0"
+cull_mode = 2
+albedo_texture = ExtResource("1_g10eu")
+emission_enabled = true
+emission_energy_multiplier = 2.26
+emission_texture = ExtResource("2_xl1xo")
+texture_filter = 0
+texture_repeat = false

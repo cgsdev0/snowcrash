@@ -38,11 +38,18 @@ func raycast_from_mouse(m_pos, collision_mask):
 var targets = []
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if EventBus.phase != EventBus.GamePhase.PLAYING:
+		queue_redraw()
+		return
 	raycast_from_mouse(get_window().get_mouse_position(), 4)
 	targets = get_tree().get_nodes_in_group("HUD_target")
 	queue_redraw()
 
 func _draw():
+	if EventBus.phase != EventBus.GamePhase.PLAYING:
+		$DistLabel.hide()
+		targeting = null
+		return
 	if player.hooked || player.arrested:
 		$DistLabel.hide()
 		targeting = null
@@ -65,6 +72,8 @@ func _draw():
 	else:
 		eligible = true
 		for target in targets:
+			if !is_instance_valid(target):
+				continue
 			var dist = target.global_position.distance_to(cam.global_position)
 			if dist > 32.0:
 				continue

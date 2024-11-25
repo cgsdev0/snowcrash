@@ -30,7 +30,7 @@ func _enable_ramp():
 	var ramp = $OffRamp
 	var pos =  edge.global_position + edge.curve.sample_baked(0.7 * edge.curve.get_baked_length()).rotated( Vector3.UP, global_rotation.y)
 	var cpos =  center.global_position + center.curve.sample_baked(0.0).rotated( Vector3.UP, global_rotation.y)
-	ramp.global_position = pos
+	ramp.global_position = pos + Vector3.UP * 0.2
 	$Police.global_position = cpos
 	ramp.use_collision = true
 	ramp.show()

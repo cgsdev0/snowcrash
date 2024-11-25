@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://bo6sjdo52oh21"]
+
+[ext_resource type="Texture2D" uid="uid://cal3e4ssdtami" path="res://models/Cop Normal/Cyberpunk_Car3_Simplified_0.png" id="1_l8ef7"]
+[ext_resource type="Texture2D" uid="uid://bgv1qk8whcb87" path="res://models/Cop Normal/Cyberpunk_Car3_Emission.png" id="2_se0f7"]
+
+[resource]
+resource_name = "material_0"
+albedo_texture = ExtResource("1_l8ef7")
+emission_enabled = true
+emission_energy_multiplier = 5.0
+emission_texture = ExtResource("2_se0f7")
+texture_filter = 0
+texture_repeat = false

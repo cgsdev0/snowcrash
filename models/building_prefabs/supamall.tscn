@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bs78m8jfcy70b"]
+[gd_scene load_steps=15 format=3 uid="uid://bs78m8jfcy70b"]
 
 [ext_resource type="PackedScene" uid="uid://c4mv06odc8gja" path="res://models/Building Supa Mall/Building_1_2x2.gltf" id="1_pe4ds"]
 [ext_resource type="Script" path="res://models/building_prefabs/building.gd" id="2_l033x"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://fiuwtqn2u1v4" path="res://SIGNS/2-6_signs_01.png" id="4_rq2nx"]
 [ext_resource type="Script" path="res://models/building_prefabs/sign.gd" id="5_dm5hj"]
 [ext_resource type="Texture2D" uid="uid://c3t5ed7wbcs01" path="res://SIGNS/8-3_signs_01.png" id="5_evipv"]
+[ext_resource type="Material" uid="uid://ca1glnx8rq31q" path="res://models/slate.tres" id="8_bvrdp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jpeau"]
 resource_local_to_scene = true
@@ -139,6 +140,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30.9719, 0)
 collision_layer = 64
 collision_mask = 0
 size = Vector3(64, 62.103, 32)
+material = ExtResource("8_bvrdp")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30.9719, 0)

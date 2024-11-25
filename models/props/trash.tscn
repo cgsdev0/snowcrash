@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://plgnau2ivxna"]
+
+[ext_resource type="PackedScene" uid="uid://5xy5i2y0fftf" path="res://models/Trash Can/Prop_Trashcan.gltf" id="1_y7nga"]
+
+[node name="blockbench_export" instance=ExtResource("1_y7nga")]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://or1dswo8kcl0"]
+[gd_scene load_steps=18 format=3 uid="uid://or1dswo8kcl0"]
 
 [ext_resource type="PackedScene" uid="uid://ykd5q1edueku" path="res://models/Building Science/Building_3_1x1.gltf" id="1_o6ubx"]
 [ext_resource type="Texture2D" uid="uid://c3t5ed7wbcs01" path="res://SIGNS/8-3_signs_01.png" id="2_evw12"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://models/building_prefabs/sign.gd" id="3_bhfbg"]
 [ext_resource type="Texture2D" uid="uid://b6opjyhdxoudx" path="res://SIGNS/2-3_signs_01.png" id="3_s3yq7"]
 [ext_resource type="Texture2D" uid="uid://diul0w5pyesjw" path="res://SIGNS/1-1_signs_01.png" id="5_wq4fw"]
+[ext_resource type="Material" uid="uid://ca1glnx8rq31q" path="res://models/slate.tres" id="9_as1w5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nbqbk"]
 resource_local_to_scene = true
@@ -163,36 +164,42 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30.9721, 0)
 collision_layer = 64
 collision_mask = 0
 size = Vector3(26, 62.1027, 26)
+material = ExtResource("9_as1w5")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="." index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.95021, -54.4309, 13.0219)
 collision_layer = 64
 collision_mask = 0
 size = Vector3(26, 62.1027, 26)
+material = ExtResource("9_as1w5")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.15605, -54.9323, -7.72738)
 collision_layer = 64
 collision_mask = 0
 size = Vector3(26, 62.1027, 26)
+material = ExtResource("9_as1w5")
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="." index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.6598, -60.6006, -15.7375)
 collision_layer = 64
 collision_mask = 0
 size = Vector3(26, 50.7661, 29.8315)
+material = ExtResource("9_as1w5")
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="." index="5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.29465, -45.8044, 4.02492)
 collision_layer = 64
 collision_mask = 0
 size = Vector3(22.6313, 37.4031, 33.7512)
+material = ExtResource("9_as1w5")
 
 [node name="CSGBox3D6" type="CSGBox3D" parent="." index="6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.60934, -69.8591, 10.1228)
 collision_layer = 64
 collision_mask = 0
 size = Vector3(51.801, 34.9032, 43.2291)
+material = ExtResource("9_as1w5")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="7"]
 collision_layer = 64

@@ -130,7 +130,7 @@ func _physics_process(delta: float) -> void:
 	if next_pos != global_position:
 		look_at(next_pos)
 		global_position = next_pos
-	elif test_next != Vector3.ZERO:
+	elif test_next != Vector3.ZERO && test_next != global_position:
 		look_at(test_next)
 		
 	if next_pos == Vector3.ZERO:

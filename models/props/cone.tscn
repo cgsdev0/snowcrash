@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://mam16ljg0jvx"]
+
+[ext_resource type="PackedScene" uid="uid://v0of5ho1rak3" path="res://models/Cone/Prop_Cone.gltf" id="1_566n2"]
+
+[node name="blockbench_export" instance=ExtResource("1_566n2")]
+
+[node name="Node" parent="." index="0"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)

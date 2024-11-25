@@ -3,13 +3,19 @@ extends Node3D
 @onready var state_machine = $AnimationTree["parameters/playback"]
 
 func _ready():
-	state_machine.travel("idle")
+	state_machine.travel("Menu")
 	EventBus.restart.connect(on_reset)
+
+func menu():
+	state_machine.travel("Menu")
+	
+func intro():
+	state_machine.travel("idle")
 
 func on_reset():
 	$Armature/Skeleton3D/PhysicalBoneSimulator3D.physical_bones_stop_simulation()
 	$AnimationTree.active = true
-	state_machine.travel("idle")
+	state_machine.travel("Menu")
 
 func ragdoll(impulse):
 	$AnimationTree.active = false
