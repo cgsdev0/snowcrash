@@ -11,10 +11,6 @@ func on_reset():
 	$AnimationTree.active = true
 	state_machine.travel("idle")
 
-func _process(delta):
-	if Input.is_action_just_pressed("ui_accept"):
-		ragdoll(Vector3.ZERO)
-		
 func ragdoll(impulse):
 	$AnimationTree.active = false
 	$Armature/Skeleton3D/PhysicalBoneSimulator3D.physical_bones_start_simulation()

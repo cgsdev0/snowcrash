@@ -31,6 +31,7 @@ var hook_target = null
 var hook_was = null
 var arrested = false
 var ragdolling = false
+var ramping = false
 
 func get_ragdoll_center():
 	return $Visual/Visual/Center
@@ -48,12 +49,21 @@ var boost_scalar = 0.0
 var hooked_timer = 0.0
 const fully_charged = 1.0
 
-func start_boost():
-	if boosting:
+func start_boost(force = false):
+	if boosting && !force:
 		return
 	boost_scalar = clampf(hooked_timer, 0.0, 1.0)
+	if force:
+		boost_scalar = 1.0
 	$BoostTimer.start()
 	boosting = true
+
+
+func start_ramping():
+	if ramping:
+		return
+	ramping = true
+	$RampTimer.start()
 	
 func break_grapple():
 	if hooked && is_instance_valid(hooked):
@@ -201,6 +211,7 @@ func draw_extended(a, b, l, e, delta):
 	var m: StandardMaterial3D = $LineRenderer3D.material_override
 	m.uv1_offset.x += delta * 3.0
 	m.albedo_color = c
+	$LineRenderer3D.visible = true
 	# DebugDraw3D.draw_line(a, a + d * e, c)
 	
 func _physics_process(delta):
@@ -216,6 +227,7 @@ func _physics_process(delta):
 	if arrested:
 		%WarnRight.hide()
 		%WarnLeft.hide()
+		$LineRenderer3D.hide()
 		velocity = lerp(velocity, Vector3.ZERO, delta * 2.0)
 		global_position += velocity * delta
 		return
@@ -245,18 +257,18 @@ func _physics_process(delta):
 			%WarnRight.show()
 		else:
 			%WarnLeft.show()
+	var drawn = false
 	if extension > 0.0 && hook_was && !dead && !arrested:
 		var hand = $Visual/Visual.get_hand()
 		if is_instance_valid(hand) && is_instance_valid(hook_was):
 			draw_extended(hand.global_position, hook_was.global_position, grapple_len, extension, delta)
+			drawn = true
+	if !drawn:
+		$LineRenderer3D.visible = false
 	if boosting:
 		speed_mod = move_toward(speed_mod, (boost_speed_mod - 1.0) * boost_scalar + 1.0, delta * 5.0)
 	else:
 		speed_mod = move_toward(speed_mod, 1.0, delta * 0.5)
-
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y += JUMP_VELOCITY
 
 	var turn_dir = Input.get_axis("move_left", "move_right")
 	if turn_dir:
@@ -337,13 +349,16 @@ func _physics_process(delta):
 			var how_deep = (gravity.global_position - gravity.get_collision_point()).y
 			how_deep /= scale.x
 			how_deep /= gravity.target_position.length()
-			deepest = max(how_deep, deepest)
+			deepest += how_deep
 			if gravity.get_collider().is_in_group("ramp"):
-				print("starting boost!")
-				start_boost()
+				start_boost(true)
+				start_ramping()
 				normal = gravity.get_collision_normal()
-	
-	if is_colliding:
+	deepest /= $Gravity.get_child_count()
+	if is_colliding || ramping:
+		if ramping:
+			deepest = 0.7
+			print(deepest)
 		velocity.y += (exp(1 - deepest + 1) - 3.0) * delta * 100.0
 		velocity.y -= 10.0 * velocity.y * delta
 
@@ -360,14 +375,20 @@ func _physics_process(delta):
 		
 	if velocity.length() < minimum_speed && !dead:
 		velocity = velocity.normalized() * minimum_speed
-		#velocity = velocity.move_toward(velocity.normalized() * minimum_speed, delta)
+		# velocity = velocity.move_toward(velocity.normalized() * minimum_speed, delta)
 	velocity = velocity.limit_length(maximum_speed)
 	
 	var modded = Vector3(velocity.x * speed_mod, velocity.y, velocity.z * speed_mod)
-	DebugDraw3D.draw_arrow(global_position + Vector3.UP, global_position + modded  + Vector3.UP, Color.RED, 0.1)
-	print("BEFORE: ", velocity.length())
-	var collisions = move_and_collide(modded * delta)
+	# DebugDraw3D.draw_arrow(global_position + Vector3.UP, global_position + modded  + Vector3.UP, Color.RED, 0.1)
+	var collisions = move_and_collide(modded * delta, true)
+	if !collisions:
+		global_position += modded * delta
 	if collisions:
+		global_position += collisions.get_travel()
+		var remaining = collisions.get_remainder().length()
+		var cross = collisions.get_normal().cross(Vector3.UP)
+		var perp = sign(modded.normalized().dot(cross.normalized())) * cross
+		global_position += perp.normalized() * remaining
 		for i in collisions.get_collision_count():
 			var col_ang = collisions.get_angle(i)
 			var col_vel = collisions.get_collider_velocity(i)
@@ -376,10 +397,14 @@ func _physics_process(delta):
 			var dot = velocity.normalized().dot(col_normal)
 			var vel_dot = velocity.normalized().dot(col_vel.normalized())
 			var collider = collisions.get_collider(i)
-			var speed_diff = velocity.length() * speed_mod
-			# print({"ang": col_ang, "vel": col_vel, "diff": diff, "dot": dot, "vel_dot": vel_dot, "speed_diff": speed_diff})
+			var speed_diff = 0.0
+			var threshold = 0.5
+			if col_vel.length() > 0.0:
+				threshold = 0.3
+				speed_diff = velocity.length() * speed_mod
+			print({"ang": col_ang, "vel": col_vel, "diff": diff, "dot": dot, "vel_dot": vel_dot, "speed_diff": speed_diff})
 			var normal_xz = Vector3(col_normal.x, 0.0, col_normal.z).normalized()
-			if abs(dot) > 0.5 && (vel_dot < 0.7 || speed_diff > 30.0):
+			if abs(dot) > threshold && (vel_dot < 0.85 || speed_diff > 30.0):
 				# if collision.get_collider().is_in_group("guard"):
 				var new_v = velocity.slide(col_normal)
 				$Visual/Visual.ragdoll(-col_normal)
@@ -393,14 +418,12 @@ func _physics_process(delta):
 			else:
 				var new_v = Vector3.ZERO
 				if abs(dot) > 0.7:
-					new_v = col_vel
+					velocity = col_vel
+					global_position -= perp.normalized() * remaining * delta
 					speed_mod = 1.0
 					boosting = false
 				else:
-					var speed = velocity.length()
-					new_v = velocity.slide(col_normal).normalized() * speed
-				velocity = new_v
-				print("AFTER: ", velocity.length())
+					velocity = perp.normalized() * velocity.length()
 		# global_position += collisions.get_remainder().length() * velocity * delta
 	# move_and_slide()
 			
@@ -421,4 +444,7 @@ func arrest():
 
 func _on_death_box_body_entered(body):
 	print("damage")
-	pass # Replace with function body.
+
+
+func _on_ramp_timer_timeout():
+	ramping = false

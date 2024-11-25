@@ -131,9 +131,6 @@ func _process(delta):
 		if timer > 0.0 && spawn_car != null:
 			timer = -randf_range(1.5, 3.0)
 			spawn_car.call(false)
-		DebugDraw3D.draw_sphere(spawnpoint, 0.3, Color.GREEN)
-	else:
-		DebugDraw3D.draw_sphere(spawnpoint, 0.3, Color.RED)
 		
 func _instantiate_geom() -> void:
 	if Engine.is_editor_hint():
