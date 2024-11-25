@@ -299,10 +299,11 @@ func _physics_process(delta):
 		right_limit = how_deep
 	
 	var clamped_input = input_faded
-	if input_faded < 0.0:
-		clamped_input = max(left_limit, input_faded)
-	elif input_faded > 0.0:
-		clamped_input = min(right_limit, input_faded)
+	# bumper faders
+	#if input_faded < 0.0:
+		#clamped_input = max(left_limit, input_faded)
+	#elif input_faded > 0.0:
+		#clamped_input = min(right_limit, input_faded)
 		
 	var drag_mult = 0.2
 	var pulled = false
