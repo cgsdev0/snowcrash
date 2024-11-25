@@ -71,12 +71,15 @@ func start_ramping():
 	$Boost.play()
 	$Ramp.play()
 	ramping = true
+	EventBus.add_to_stat("ramps", 1)
+	$Visual/Visual.on_ramp()
 	$RampTimer.start()
 	
 func break_grapple():
 	if hooked && is_instance_valid(hooked):
 		$Buzzing.stop()
 		$GrappleRelease.play()
+		EventBus.shoot.emit()
 		hook_target = null
 		hooked = null
 
@@ -127,6 +130,8 @@ func raycast_from_mouse(m_pos, collision_mask):
 		var attach = Attach.instantiate()
 		hook_target = result.collider
 		hooked = attach
+		EventBus.add_to_stat("grapples", 1)
+		EventBus.shoot.emit()
 		$GrappleShoot.play()
 		$Buzzing.play()
 		hooked_timer = 0.0
@@ -273,6 +278,7 @@ func _physics_process(delta):
 		$LineRenderer3D.hide()
 		velocity = lerp(velocity, Vector3.ZERO, delta * 2.0)
 		global_position += velocity * delta
+		EventBus.add_to_stat("distance", velocity * delta)
 		return
 	
 	if hooked:
@@ -426,16 +432,20 @@ func _physics_process(delta):
 	velocity = velocity.limit_length(maximum_speed)
 	
 	var modded = Vector3(velocity.x * speed_mod, velocity.y, velocity.z * speed_mod)
+	EventBus.top_stat("top_speed", modded.length())
 	# DebugDraw3D.draw_arrow(global_position + Vector3.UP, global_position + modded  + Vector3.UP, Color.RED, 0.1)
 	var collisions = move_and_collide(modded * delta, true)
 	if !collisions:
 		global_position += modded * delta
+		EventBus.add_to_stat("distance", modded * delta)
 	if collisions:
 		global_position += collisions.get_travel()
+		EventBus.add_to_stat("distance", collisions.get_travel())
 		var remaining = collisions.get_remainder().length()
 		var cross = collisions.get_normal().cross(Vector3.UP)
 		var perp = sign(modded.normalized().dot(cross.normalized())) * cross
 		global_position += perp.normalized() * remaining
+		EventBus.add_to_stat("distance", perp.normalized() * remaining)
 		for i in collisions.get_collision_count():
 			var col_ang = collisions.get_angle(i)
 			var col_vel = collisions.get_collider_velocity(i)
@@ -454,6 +464,7 @@ func _physics_process(delta):
 			if abs(dot) > threshold && (vel_dot < 0.85 || speed_diff > 30.0):
 				# if collision.get_collider().is_in_group("guard"):
 				var new_v = velocity.slide(col_normal)
+
 				$Visual/Visual.ragdoll(-col_normal)
 				ragdolling = true
 				velocity = new_v.normalized() * velocity.length() * 0.5
@@ -469,6 +480,7 @@ func _physics_process(delta):
 				if abs(dot) > 0.7:
 					velocity = col_vel
 					global_position -= perp.normalized() * remaining * delta
+					EventBus.add_to_stat("distance", -perp.normalized() * remaining * delta)
 					speed_mod = 1.0
 					boosting = false
 				else:

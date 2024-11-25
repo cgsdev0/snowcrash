@@ -12,6 +12,7 @@ func _ready():
 	EventBus.restart.connect(on_restart)
 	
 func on_jail(show):
+	print(EventBus.stats)
 	$"../char".visible = show
 	$"../dead".visible = !show
 	if !show:

@@ -14,8 +14,22 @@ func on_restart():
 		tween.kill()
 		tween = null
 	hide()
-	
+
+@onready var stats = %StatsLabel
+@onready var text = %StatsLabel.text
+
+var units = {
+	"distance": " meters",
+	"top_speed": " m/sec"
+}
 func on_jail(_stuff):
+	var new_text = text
+	for k: String in EventBus.stats:
+		var v = EventBus.stats[k]
+		new_text += "[color=green]" + k.capitalize() + "[/color]" + ": " + str(floor(v * 10.0) / 10.0)
+		new_text += units.get(k, "")
+		new_text += "\n"
+	stats.text = new_text
 	modulate = Color.TRANSPARENT
 	tween = get_tree().create_tween()
 	tween.tween_interval(4.0)

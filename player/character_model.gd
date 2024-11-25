@@ -5,6 +5,13 @@ extends Node3D
 func _ready():
 	state_machine.travel("Menu")
 	EventBus.restart.connect(on_reset)
+	EventBus.shoot.connect(on_shoot)
+	
+func on_shoot():
+	state_machine.travel("Shoot")
+
+func on_ramp():
+	state_machine.travel("Ramp")
 
 func menu():
 	state_machine.travel("Menu")
@@ -14,7 +21,12 @@ func intro():
 
 func _process(delta):
 	if EventBus.phase == EventBus.GamePhase.MAIN_MENU:
-		state_machine.travel("Menu")
+		if EventBus.easter_egg:
+			state_machine.travel("EasterEgg")
+		elif EventBus.sad:
+			state_machine.travel("Sad")
+		else:
+			state_machine.travel("Menu")
 	elif EventBus.phase == EventBus.GamePhase.CREDITS:
 		state_machine.travel("Dance")
 		

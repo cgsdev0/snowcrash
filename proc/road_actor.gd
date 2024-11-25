@@ -101,6 +101,7 @@ func _physics_process(delta: float) -> void:
 	if $HonkCast.is_colliding() && !honked:
 		honked = true
 		audio.play()
+		EventBus.add_to_stat("honks", 1)
 		
 	if $RayCast3D.is_colliding() || $RayCast3D2.is_colliding():
 		target_velz = move_toward(velocity.z, 0.0, delta * acceleration)
