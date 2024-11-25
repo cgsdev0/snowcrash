@@ -4,9 +4,11 @@ signal jail(visible)
 signal restart
 signal game_over
 signal hide_intro
+signal game_start
 
 enum GamePhase {
 	MAIN_MENU,
+	CREDITS,
 	INTRO,
 	PLAYING
 }

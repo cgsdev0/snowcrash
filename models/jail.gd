@@ -16,6 +16,7 @@ func on_jail(show):
 	$"../dead".visible = !show
 	if !show:
 		$Lose.play()
+		$Flicker.play()
 		$"../dead".flicker()
 	else:
 		$AnimationPlayer.play("slam")

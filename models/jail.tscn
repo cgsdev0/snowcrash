@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dfgnjjbeh7kcm"]
+[gd_scene load_steps=9 format=3 uid="uid://dfgnjjbeh7kcm"]
 
 [ext_resource type="PackedScene" uid="uid://dr450hbpm5rah" path="res://models/Jail.gltf" id="1_i6mx7"]
 [ext_resource type="Script" path="res://models/jail.gd" id="2_orxq3"]
 [ext_resource type="AudioStream" uid="uid://drqs3ase7p8xb" path="res://audio/sfx/lose_jail_altogether.wav" id="3_jwvu7"]
 [ext_resource type="AudioStream" uid="uid://5ohtoq2710y1" path="res://audio/sfx/lose_without_jail.wav" id="4_eswh1"]
+[ext_resource type="AudioStream" uid="uid://bd1q01mkh0rb4" path="res://audio/sfx/gadget_light_flicker.wav" id="5_nsebl"]
 
 [sub_resource type="Animation" id="Animation_pjs8n"]
 length = 0.001
@@ -54,3 +55,7 @@ bus = &"Music"
 [node name="Lose" type="AudioStreamPlayer" parent="." index="4"]
 stream = ExtResource("4_eswh1")
 bus = &"Music"
+
+[node name="Flicker" type="AudioStreamPlayer" parent="." index="5"]
+stream = ExtResource("5_nsebl")
+volume_db = -11.0

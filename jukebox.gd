@@ -31,6 +31,6 @@ func on_jail(f):
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if EventBus.phase != EventBus.GamePhase.MAIN_MENU && $MenuMusic.is_playing():
+	if EventBus.phase == EventBus.GamePhase.INTRO && $MenuMusic.is_playing():
 		$MenuMusic.stop()
 		$ActionMusic.play()

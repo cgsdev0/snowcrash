@@ -12,6 +12,12 @@ func menu():
 func intro():
 	state_machine.travel("idle")
 
+func _process(delta):
+	if EventBus.phase == EventBus.GamePhase.MAIN_MENU:
+		state_machine.travel("Menu")
+	elif EventBus.phase == EventBus.GamePhase.CREDITS:
+		state_machine.travel("Dance")
+		
 func on_reset():
 	$Armature/Skeleton3D/PhysicalBoneSimulator3D.physical_bones_stop_simulation()
 	$AnimationTree.active = true

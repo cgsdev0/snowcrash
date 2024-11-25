@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=4 uid="uid://b268fsoo6n1ue"]
+[gd_scene load_steps=83 format=4 uid="uid://b268fsoo6n1ue"]
 
 [ext_resource type="Environment" uid="uid://c5qeimb53plk0" path="res://environment.tres" id="1_5lfhd"]
 [ext_resource type="Script" path="res://debug_cam.gd" id="2_xewp7"]
@@ -28,9 +28,12 @@
 [ext_resource type="PackedScene" uid="uid://cnql5duopmaxs" path="res://models/deadcrasher.tscn" id="15_lptlu"]
 [ext_resource type="Script" path="res://jukebox.gd" id="21_ikpfe"]
 [ext_resource type="AudioStream" uid="uid://c73kdpwr62615" path="res://audio/sfx/traffic_ambient.wav" id="22_d43d6"]
+[ext_resource type="Texture2D" uid="uid://c2x5nd4sawlba" path="res://ui/panel.png" id="23_huape"]
 [ext_resource type="AudioStream" uid="uid://b341p22e6ij84" path="res://audio/music/cyberfunk1.mp3" id="23_i7df5"]
 [ext_resource type="AudioStream" uid="uid://dm5msom5k4ka" path="res://audio/sfx/hoverboard_engine_loop.wav" id="23_nufdu"]
 [ext_resource type="AudioStream" uid="uid://b6j60ld1vf6o0" path="res://audio/music/cyberfunk3.mp3" id="24_lj6n5"]
+[ext_resource type="Script" path="res://main_menu.gd" id="24_n74wx"]
+[ext_resource type="Script" path="res://credits.gd" id="25_p4cjt"]
 [ext_resource type="AudioStream" uid="uid://kolo46c7ase7" path="res://audio/music/cyberfunk2.mp3" id="31_o64wb"]
 [ext_resource type="PackedScene" uid="uid://ntpmaas1ndco" path="res://models/Cop Normal/copper.tscn" id="32_dc35b"]
 [ext_resource type="Script" path="res://intro.gd" id="32_y2sr7"]
@@ -461,7 +464,7 @@ cull_mode = 2
 shading_mode = 0
 albedo_texture = ExtResource("8_jndwq")
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_w7x04"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_uycaf"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_iv5rv"]
 random_pitch = 1.4
@@ -687,13 +690,13 @@ libraries = {
 [node name="LineRenderer3D" type="MeshInstance3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.49738, 0)
 material_override = SubResource("StandardMaterial3D_e8g7k")
-mesh = SubResource("ImmediateMesh_w7x04")
+mesh = SubResource("ImmediateMesh_uycaf")
 script = ExtResource("8_2afqm")
 points = Array[Vector3]([Vector3(0, 0, 0), Vector3(0, 0, -5)])
 
 [node name="Buzzing" type="AudioStreamPlayer3D" parent="Player"]
 stream = ExtResource("11_ect8o")
-max_db = -6.0
+max_db = -4.0
 pitch_scale = 1.8
 panning_strength = 2.0
 
@@ -738,6 +741,7 @@ mouse_filter = 2
 
 [node name="WarnRight" type="ColorRect" parent="Control"]
 unique_name_in_owner = true
+visible = false
 texture_repeat = 2
 material = SubResource("ShaderMaterial_3v1aa")
 layout_mode = 1
@@ -752,6 +756,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="WarnLeft" type="ColorRect" parent="Control"]
 unique_name_in_owner = true
+visible = false
 texture_repeat = 2
 material = SubResource("ShaderMaterial_7b87q")
 layout_mode = 1
@@ -765,6 +770,7 @@ mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="JailOptions" type="Control" parent="Control"]
+visible = false
 layout_mode = 1
 anchor_left = 0.325521
 anchor_top = 0.83179
@@ -793,6 +799,118 @@ text = "Try Again"
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Quit"
+
+[node name="MainMenu" type="NinePatchRect" parent="Control"]
+visible = false
+modulate = Color(1, 1, 1, 0.784314)
+self_modulate = Color(1, 1, 1, 0.588235)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.09375
+anchor_top = 0.17284
+anchor_right = 0.348521
+anchor_bottom = 0.788988
+offset_right = -0.496002
+offset_bottom = -0.264023
+theme = ExtResource("11_bovvj")
+texture = ExtResource("23_huape")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+script = ExtResource("24_n74wx")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MainMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MainMenu/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Start" type="Button" parent="Control/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Start
+"
+
+[node name="Credits" type="Button" parent="Control/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Credits"
+
+[node name="Quit" type="Button" parent="Control/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="Credits" type="NinePatchRect" parent="Control"]
+modulate = Color(1, 1, 1, 0.784314)
+self_modulate = Color(1, 1, 1, 0.588235)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.216146
+anchor_top = 0.125
+anchor_right = 0.783854
+anchor_bottom = 0.875
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("11_bovvj")
+texture = ExtResource("23_huape")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+script = ExtResource("25_p4cjt")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/Credits"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Credits/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/Credits/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("11_f5oji")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[center][font size=64]Credits[/font][/center]
+
+[url=https://badcop.itch.io]badcop[/url] - programming and design
+[url=https://brainoid.itch.io/]brainoid[/url] - music and sfx
+[url=https://itsboats.itch.io/]itsboats[/url] - 3d modeling
+[url=https://rincs.itch.io/]rincs[/url] - 2d art
+
+special thanks to...
+
+jitspoe, zombiechou, kuviman - physics consultants
+funbasealpha - hosting the F.U.N. jam"
+
+[node name="Back" type="Button" parent="Control/Credits/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back"
 
 [node name="HUD" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -1064,4 +1182,8 @@ transform = Transform3D(-5.24537e-08, -1.2, 0, 1.2, -5.24537e-08, 0, 0, 0, 1.2, 
 [connection signal="body_entered" from="Player/DeathBox" to="Player" method="_on_death_box_body_entered"]
 [connection signal="pressed" from="Control/JailOptions/HBoxContainer/TryAgain" to="Control/JailOptions" method="_on_try_again_pressed"]
 [connection signal="pressed" from="Control/JailOptions/HBoxContainer/Quit" to="Control/JailOptions" method="_on_quit_pressed"]
+[connection signal="pressed" from="Control/MainMenu/MarginContainer/VBoxContainer/Start" to="Control/MainMenu" method="_on_start_pressed"]
+[connection signal="pressed" from="Control/MainMenu/MarginContainer/VBoxContainer/Credits" to="Control/MainMenu" method="_on_credits_pressed"]
+[connection signal="pressed" from="Control/MainMenu/MarginContainer/VBoxContainer/Quit" to="Control/MainMenu" method="_on_quit_pressed"]
+[connection signal="pressed" from="Control/Credits/MarginContainer/VBoxContainer/Back" to="Control/Credits" method="_on_back_pressed"]
 [connection signal="timeout" from="Intro/Node3D/Timer" to="Intro/Node3D" method="_on_timer_timeout"]

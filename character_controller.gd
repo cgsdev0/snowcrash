@@ -171,10 +171,11 @@ func _ready():
 	EventBus.restart.connect(on_restart)
 	velocity = -minimum_speed * global_basis.z.normalized()
 	
-	# TEMP
-	await get_tree().create_timer(3.0).timeout
+	EventBus.game_start.connect(on_start)
+
+func on_start():
 	$AnimationPlayer.play("intro")
-	EventBus.phase = EventBus.GamePhase.INTRO
+
 
 @onready var start_transform = global_transform
 
@@ -448,7 +449,7 @@ func _physics_process(delta):
 			if col_vel.length() > 0.0:
 				threshold = 0.3
 				speed_diff = velocity.length() * speed_mod
-			print({"ang": col_ang, "vel": col_vel, "diff": diff, "dot": dot, "vel_dot": vel_dot, "speed_diff": speed_diff})
+			# print({"ang": col_ang, "vel": col_vel, "diff": diff, "dot": dot, "vel_dot": vel_dot, "speed_diff": speed_diff})
 			var normal_xz = Vector3(col_normal.x, 0.0, col_normal.z).normalized()
 			if abs(dot) > threshold && (vel_dot < 0.85 || speed_diff > 30.0):
 				# if collision.get_collider().is_in_group("guard"):

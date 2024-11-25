@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2x5nd4sawlba"
-path="res://.godot/imported/panel.png-4debde5d1941508c13098c29f52f1bf0.ctex"
+uid="uid://72uffcbvylf7"
+path="res://.godot/imported/button_hover.png-f8a777b32c7459cb5591279fefcf509d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/panel.png"
-dest_files=["res://.godot/imported/panel.png-4debde5d1941508c13098c29f52f1bf0.ctex"]
+source_file="res://ui/button_hover.png"
+dest_files=["res://.godot/imported/button_hover.png-f8a777b32c7459cb5591279fefcf509d.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
