@@ -29,8 +29,8 @@ func on_restart():
 func _ready() -> void:
 	EventBus.jail.connect(on_jail)
 	EventBus.restart.connect(on_restart)
-	var rev = [0, 0, 1, 1, 1, 2, 3].pick_random()
-	var fwd = [2, 2, 2, 3, 3, 4].pick_random()
+	var rev = [0, 0, 1, 1, 1, 2, 2, 3, 5].pick_random() 
+	var fwd = [2, 2, 2, 2, 3, 3, 3, 4, 4, 6].pick_random()
 	var traffic_dir:Array[RoadPoint.LaneDir] = []
 	for i in range(rev):
 		traffic_dir.push_back(RoadPoint.LaneDir.REVERSE)

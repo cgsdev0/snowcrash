@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://b268fsoo6n1ue"]
+[gd_scene load_steps=50 format=3 uid="uid://b268fsoo6n1ue"]
 
 [ext_resource type="Environment" uid="uid://c5qeimb53plk0" path="res://environment.tres" id="1_5lfhd"]
 [ext_resource type="Script" path="res://debug_cam.gd" id="2_xewp7"]
@@ -14,12 +14,21 @@
 [ext_resource type="Texture2D" uid="uid://b6vjksuqyadp1" path="res://ui/right_warning.png" id="9_2jmy1"]
 [ext_resource type="Texture2D" uid="uid://b64433w0ikh8e" path="res://ui/left_warning.png" id="10_lo8ka"]
 [ext_resource type="Theme" uid="uid://c3437c7g4j2cu" path="res://ui/theme.tres" id="11_bovvj"]
+[ext_resource type="AudioStream" uid="uid://djw1cesiu3l4o" path="res://audio/sfx/buzz.wav" id="11_ect8o"]
 [ext_resource type="FontFile" uid="uid://dgwjwldablfit" path="res://ui/m5x7.ttf" id="11_f5oji"]
 [ext_resource type="PackedScene" uid="uid://dfgnjjbeh7kcm" path="res://models/jail.tscn" id="11_j782p"]
 [ext_resource type="Script" path="res://hud.gd" id="11_q51qj"]
+[ext_resource type="AudioStream" uid="uid://caokbhbhofe1g" path="res://audio/sfx/grapple_throw.wav" id="12_0s8m5"]
 [ext_resource type="PackedScene" uid="uid://b5jgylworrq2c" path="res://models/sadcrasher.tscn" id="12_cedjg"]
 [ext_resource type="Script" path="res://ui/jail_options.gd" id="12_v2h51"]
+[ext_resource type="AudioStream" uid="uid://dv2fwg6wbnowf" path="res://audio/sfx/grapple_release.wav" id="13_vgo2o"]
+[ext_resource type="AudioStream" uid="uid://gq4fsnp8jjvt" path="res://audio/sfx/generic_impact.wav" id="13_x4gsh"]
 [ext_resource type="PackedScene" uid="uid://cnql5duopmaxs" path="res://models/deadcrasher.tscn" id="15_lptlu"]
+[ext_resource type="Script" path="res://jukebox.gd" id="21_ikpfe"]
+[ext_resource type="AudioStream" uid="uid://c73kdpwr62615" path="res://audio/sfx/traffic_ambient.wav" id="22_d43d6"]
+[ext_resource type="AudioStream" uid="uid://b341p22e6ij84" path="res://audio/music/cyberfunk1.mp3" id="23_i7df5"]
+[ext_resource type="AudioStream" uid="uid://dm5msom5k4ka" path="res://audio/sfx/hoverboard_engine_loop.wav" id="23_nufdu"]
+[ext_resource type="AudioStream" uid="uid://b6j60ld1vf6o0" path="res://audio/music/cyberfunk3.mp3" id="24_lj6n5"]
 
 [sub_resource type="Gradient" id="Gradient_vmj8o"]
 colors = PackedColorArray(0.959095, 0.911125, 7.70092e-07, 1, 1, 0.254902, 0, 1)
@@ -164,7 +173,22 @@ cull_mode = 2
 shading_mode = 0
 albedo_texture = ExtResource("8_jndwq")
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_p0lnw"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_4vghj"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_iv5rv"]
+random_pitch = 1.4
+streams_count = 1
+stream_0/stream = ExtResource("12_0s8m5")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2fakf"]
+random_pitch = 1.4
+streams_count = 1
+stream_0/stream = ExtResource("13_x4gsh")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_aynqv"]
+random_pitch = 1.4
+streams_count = 1
+stream_0/stream = ExtResource("13_vgo2o")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3v1aa"]
 shader = ExtResource("8_v3con")
@@ -187,6 +211,12 @@ albedo_color = Color(0.49, 0.49, 0.49, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7i35p"]
 emission_enabled = true
 emission = Color(0.52, 0, 0, 1)
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_tgqna"]
+fade_time = 0.0
+stream_count = 2
+stream_0 = ExtResource("23_i7df5")
+stream_1 = ExtResource("24_lj6n5")
 
 [node name="Node3D" type="Node3D"]
 
@@ -235,6 +265,14 @@ shape = SubResource("CapsuleShape3D_v03n4")
 
 [node name="hoverboard" parent="Player/Visual" instance=ExtResource("6_1laoo")]
 transform = Transform3D(-1.2, 0, 1.81195e-07, 0, 1.2, 0, -1.81195e-07, 0, -1.2, 0.0636942, 0.375787, 0.118728)
+
+[node name="Hover" type="AudioStreamPlayer3D" parent="Player/Visual/hoverboard"]
+transform = Transform3D(-0.833333, 0, -1.2583e-07, 0, 0.833333, 0, 1.2583e-07, 0, -0.833333, 0, 0, 0)
+stream = ExtResource("23_nufdu")
+volume_db = -17.0
+unit_size = 7.0
+max_db = -8.0
+autoplay = true
 
 [node name="Visual" parent="Player/Visual" instance=ExtResource("6_lvnrd")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.141608, 0.475341, 0.198464)
@@ -294,9 +332,27 @@ libraries = {
 [node name="LineRenderer3D" type="MeshInstance3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.49738, 0)
 material_override = SubResource("StandardMaterial3D_e8g7k")
-mesh = SubResource("ImmediateMesh_p0lnw")
+mesh = SubResource("ImmediateMesh_4vghj")
 script = ExtResource("8_2afqm")
 points = Array[Vector3]([Vector3(0, 0, 0), Vector3(0, 0, -5)])
+
+[node name="Buzzing" type="AudioStreamPlayer3D" parent="Player"]
+stream = ExtResource("11_ect8o")
+max_db = -6.0
+pitch_scale = 1.8
+panning_strength = 2.0
+
+[node name="GrappleShoot" type="AudioStreamPlayer" parent="Player"]
+stream = SubResource("AudioStreamRandomizer_iv5rv")
+volume_db = -8.0
+
+[node name="Ded" type="AudioStreamPlayer" parent="Player"]
+stream = SubResource("AudioStreamRandomizer_2fakf")
+volume_db = -4.0
+
+[node name="GrappleRelease" type="AudioStreamPlayer" parent="Player"]
+stream = SubResource("AudioStreamRandomizer_aynqv")
+volume_db = -10.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.974004, 0.157894, -0.162439, 0, 0.717069, 0.697002, 0.226532, -0.678883, 0.698428, 0, 0, 0)
@@ -466,6 +522,16 @@ omni_attenuation = 1.284
 transform = Transform3D(-2.876, 0, -8.87567, 0, 9.33, 0, 8.87567, 0, -2.876, -10.8917, -5.49905, -40.6193)
 
 [node name="Jukebox" type="Node" parent="."]
+script = ExtResource("21_ikpfe")
+
+[node name="Ambient" type="AudioStreamPlayer" parent="Jukebox"]
+stream = ExtResource("22_d43d6")
+volume_db = -8.0
+
+[node name="ActionMusic" type="AudioStreamPlayer" parent="Jukebox"]
+stream = SubResource("AudioStreamPlaylist_tgqna")
+volume_db = -12.0
+bus = &"Music"
 
 [connection signal="timeout" from="Player/BoostTimer" to="Player" method="_on_boost_timer_timeout"]
 [connection signal="timeout" from="Player/RampTimer" to="Player" method="_on_ramp_timer_timeout"]

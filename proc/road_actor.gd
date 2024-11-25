@@ -112,14 +112,15 @@ func _physics_process(delta: float) -> void:
 	var next_pos:Vector3 = global_position
 	if move_dist > 0.0:
 		next_pos = agent.move_along_lane(move_dist)
-	else:
-		queue_free()
 	# Get another point a little further in front for orientation seeking,
 	# without actually moving the vehicle (ie don't update the assign lane
 	# if this margin puts us into the next lane in front)
+	var test_next = agent.test_move_along_lane(1.0)
 	if next_pos != global_position:
 		look_at(next_pos)
 		global_position = next_pos
+	elif test_next != Vector3.ZERO:
+		look_at(test_next)
 		
 	if next_pos == Vector3.ZERO:
 		queue_free()

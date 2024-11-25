@@ -49,6 +49,8 @@ libraries = {
 
 [node name="LoseSlam" type="AudioStreamPlayer" parent="." index="3"]
 stream = ExtResource("3_jwvu7")
+bus = &"Music"
 
 [node name="Lose" type="AudioStreamPlayer" parent="." index="4"]
 stream = ExtResource("4_eswh1")
+bus = &"Music"

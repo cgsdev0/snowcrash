@@ -2,6 +2,7 @@ extends Node
 
 signal jail(visible)
 signal restart
+signal game_over
 
 var progress = 0.0
 

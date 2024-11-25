@@ -67,6 +67,8 @@ func start_ramping():
 	
 func break_grapple():
 	if hooked && is_instance_valid(hooked):
+		$Buzzing.stop()
+		$GrappleRelease.play()
 		hook_target = null
 		hooked = null
 
@@ -113,6 +115,8 @@ func raycast_from_mouse(m_pos, collision_mask):
 		var attach = Attach.instantiate()
 		hook_target = result.collider
 		hooked = attach
+		$GrappleShoot.play()
+		$Buzzing.play()
 		hooked_timer = 0.0
 		hook_was = attach
 		result.collider.add_child(attach)
@@ -154,6 +158,7 @@ func _ready():
 var Level = preload("res://proc/level.tscn")
 
 func on_restart():
+	$Buzzing.stop()
 	global_transform = start_transform
 	var new_level = Level.instantiate()
 	get_parent().add_child(new_level)
@@ -205,10 +210,12 @@ func draw_arc(p1, p2, len, ext):
 
 func draw_extended(a, b, l, e, delta):
 	var d = b - a
-	var c = rope_color.gradient.sample(clampf(hooked_timer, 0.0, 1.0))
+	var tim = clampf(hooked_timer, 0.0, 1.0)
+	var c = rope_color.gradient.sample(tim)
 	$LineRenderer3D.points[0] = a
 	$LineRenderer3D.points[1] = a + d * e
 	var m: StandardMaterial3D = $LineRenderer3D.material_override
+	$Buzzing.pitch_scale = 1.0 + tim * 0.5
 	m.uv1_offset.x += delta * 3.0
 	m.albedo_color = c
 	$LineRenderer3D.visible = true
@@ -218,11 +225,13 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("restart"):
 		EventBus.restart.emit()
 		return
+	
 	if global_position.y < EventBus.progress - 8.0:
 		if !dead:
 			$CameraPos2.top_level = true
 			print("going top level")
 			call_deferred("empty_jail")
+			EventBus.game_over.emit()
 			dead = true
 	if arrested:
 		%WarnRight.hide()
@@ -344,6 +353,7 @@ func _physics_process(delta):
 	var is_colliding = false
 	var deepest = 0.0
 	var normal = Vector3.UP
+	var count = 0
 	for gravity in $Gravity.get_children():
 		if gravity.is_colliding():
 			is_colliding = true
@@ -351,15 +361,17 @@ func _physics_process(delta):
 			how_deep /= scale.x
 			how_deep /= gravity.target_position.length()
 			deepest += how_deep
+			count += 1
 			if gravity.get_collider().is_in_group("ramp"):
 				start_boost(true)
 				start_ramping()
 				normal = gravity.get_collision_normal()
-	deepest /= $Gravity.get_child_count()
+	if count:
+		deepest /= count
 	if is_colliding || ramping:
 		if ramping:
 			deepest = 0.7
-			print(deepest)
+			
 		velocity.y += (exp(1 - deepest + 1) - 3.0) * delta * 100.0
 		velocity.y -= 10.0 * velocity.y * delta
 
@@ -414,7 +426,9 @@ func _physics_process(delta):
 				if !dead:
 					call_deferred("empty_jail")
 				dead = true
+				EventBus.game_over.emit()
 				# move_and_collide(collision.get_remainder().length() * velocity * delta)
+				$Ded.play()
 				print("ded")
 			else:
 				var new_v = Vector3.ZERO
@@ -432,6 +446,7 @@ var Attach = preload("res://hook_attach.tscn")
 
 
 func empty_jail():
+	$Buzzing.stop()
 	await get_tree().create_timer(3.0).timeout
 	if dead:
 		EventBus.jail.emit(false)
@@ -440,8 +455,10 @@ func _on_boost_timer_timeout():
 	boosting = false
 
 func arrest():
+	$Buzzing.stop()
 	$AnimationPlayer.play("zoom_out")
 	arrested = true
+	EventBus.game_over.emit()
 
 func _on_death_box_body_entered(body):
 	print("damage")

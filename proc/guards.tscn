@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://8hmxxf5hctq4"]
+[gd_scene load_steps=6 format=3 uid="uid://8hmxxf5hctq4"]
 
 [ext_resource type="Script" path="res://proc/guards.gd" id="1_vah2w"]
 [ext_resource type="PackedScene" uid="uid://du4i0t5r0jr5i" path="res://models/Cop Hover/hover_cop.tscn" id="2_kvctg"]
 [ext_resource type="Script" path="res://models/Cop Hover/lights.gd" id="3_2yobh"]
+[ext_resource type="AudioStream" uid="uid://dib6ipb88amja" path="res://audio/sfx/police_sirens.wav" id="4_22kll"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_35657"]
 size = Vector3(47.7832, 19.1726, 33.2407)
@@ -85,6 +86,15 @@ monitorable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Police/Area3D"]
 transform = Transform3D(0.86979, 0.0292852, 0.492498, -0.166338, 0.957201, 0.236855, -0.464486, -0.287942, 0.837463, -17.185, 2.5645, -24.0103)
 shape = SubResource("BoxShape3D_35657")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Police"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.03691, 3.66387, -3.64076)
+stream = ExtResource("4_22kll")
+attenuation_model = 2
+volume_db = 6.0
+unit_size = 75.0
+autoplay = true
+max_distance = 150.0
 
 [node name="OffRamp" type="CSGBox3D" parent="." groups=["ramp"]]
 transform = Transform3D(0.86982, -0.166336, -0.464483, 0.0292857, 0.9572, -0.287942, 0.492498, 0.236855, 0.837464, 5.77775, 0.239138, 33.539)
