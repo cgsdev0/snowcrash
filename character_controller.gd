@@ -119,10 +119,10 @@ func can_hook():
 func _unhandled_input(event):
 	if event is InputEventMouseButton && event.pressed:
 		if event.button_index == 2:
-			if hooked:
+			if hooked && is_instance_valid(hooked):
 				break_grapple()
 		if event.button_index == 1:
-			if hooked:
+			if hooked && is_instance_valid(hooked):
 				var rope = (hooked.global_position - global_position)
 				break_grapple()
 				if rope.length() > 0.0:
@@ -193,10 +193,15 @@ func draw_arc(p1, p2, len, ext):
 		var end = p(p1, rope, (i + 1) / 10.0, amp)
 		DebugDraw3D.draw_line(start, end, Color.RED)
 
-func draw_extended(a, b, l, e):
+func draw_extended(a, b, l, e, delta):
 	var d = b - a
 	var c = rope_color.gradient.sample(clampf(hooked_timer, 0.0, 1.0))
-	DebugDraw3D.draw_line(a, a + d * e, c)
+	$LineRenderer3D.points[0] = a
+	$LineRenderer3D.points[1] = a + d * e
+	var m: StandardMaterial3D = $LineRenderer3D.material_override
+	m.uv1_offset.x += delta * 3.0
+	m.albedo_color = c
+	# DebugDraw3D.draw_line(a, a + d * e, c)
 	
 func _physics_process(delta):
 	if Input.is_action_just_pressed("restart"):
@@ -243,7 +248,7 @@ func _physics_process(delta):
 	if extension > 0.0 && hook_was && !dead && !arrested:
 		var hand = $Visual/Visual.get_hand()
 		if is_instance_valid(hand) && is_instance_valid(hook_was):
-			draw_extended(hand.global_position, hook_was.global_position, grapple_len, extension)
+			draw_extended(hand.global_position, hook_was.global_position, grapple_len, extension, delta)
 	if boosting:
 		speed_mod = move_toward(speed_mod, (boost_speed_mod - 1.0) * boost_scalar + 1.0, delta * 5.0)
 	else:
@@ -317,7 +322,7 @@ func _physics_process(delta):
 		forces["friction"] = forces["friction"].normalized() * velocity_xz.length()
 	forces["friction"] = Vector3(forces["friction"].x, 0.0, forces["friction"].y)
 	for force in forces:
-		#DebugDraw3D.draw_arrow(global_position, global_position + forces[force], Color.RED, 0.1)
+		# DebugDraw3D.draw_arrow(global_position + Vector3.UP * 2.0, global_position  + Vector3.UP * 2.0 + forces[force], Color.GREEN, 0.1)
 		acceleration += forces[force]
 	acceleration.y = 0.0
 	velocity += acceleration * delta
@@ -355,36 +360,48 @@ func _physics_process(delta):
 		
 	if velocity.length() < minimum_speed && !dead:
 		velocity = velocity.normalized() * minimum_speed
+		#velocity = velocity.move_toward(velocity.normalized() * minimum_speed, delta)
 	velocity = velocity.limit_length(maximum_speed)
 	
-	
 	var modded = Vector3(velocity.x * speed_mod, velocity.y, velocity.z * speed_mod)
-	var collision = move_and_collide(modded * delta)
-	if collision:
-		var col_ang = collision.get_angle()
-		var col_vel = collision.get_collider_velocity()
-		var diff = rad_to_deg(angle_difference(velocity_xz.angle(), col_ang))
-		var col_normal = collision.get_normal()
-		var dot = velocity.normalized().dot(col_normal)
-		print({"ang": col_ang, "vel": col_vel, "diff": diff, "dot": dot})
-		var normal_xz = Vector3(col_normal.x, 0.0, col_normal.z).normalized()
-		if abs(dot) > 0.5:
-			# if collision.get_collider().is_in_group("guard"):
-			var new_v = velocity.slide(col_normal)
-			new_v.y = 0.0
-			$Visual/Visual.ragdoll(-col_normal)
-			ragdolling = true
-			velocity = new_v.normalized() * velocity.length() * 0.5
-			if !dead:
-				call_deferred("empty_jail")
-			dead = true
-			move_and_collide(collision.get_remainder().length() * velocity * delta)
-			print("ded")
-		else:
-			var new_v = velocity.slide(col_normal)
-			new_v.y = 0.0
-			velocity = new_v.normalized() * velocity.length()
-			move_and_collide(collision.get_remainder().length() * velocity * delta)
+	DebugDraw3D.draw_arrow(global_position + Vector3.UP, global_position + modded  + Vector3.UP, Color.RED, 0.1)
+	print("BEFORE: ", velocity.length())
+	var collisions = move_and_collide(modded * delta)
+	if collisions:
+		for i in collisions.get_collision_count():
+			var col_ang = collisions.get_angle(i)
+			var col_vel = collisions.get_collider_velocity(i)
+			var diff = rad_to_deg(angle_difference(velocity_xz.angle(), col_ang))
+			var col_normal = collisions.get_normal(i)
+			var dot = velocity.normalized().dot(col_normal)
+			var vel_dot = velocity.normalized().dot(col_vel.normalized())
+			var collider = collisions.get_collider(i)
+			var speed_diff = velocity.length() * speed_mod
+			# print({"ang": col_ang, "vel": col_vel, "diff": diff, "dot": dot, "vel_dot": vel_dot, "speed_diff": speed_diff})
+			var normal_xz = Vector3(col_normal.x, 0.0, col_normal.z).normalized()
+			if abs(dot) > 0.5 && (vel_dot < 0.7 || speed_diff > 30.0):
+				# if collision.get_collider().is_in_group("guard"):
+				var new_v = velocity.slide(col_normal)
+				$Visual/Visual.ragdoll(-col_normal)
+				ragdolling = true
+				velocity = new_v.normalized() * velocity.length() * 0.5
+				if !dead:
+					call_deferred("empty_jail")
+				dead = true
+				# move_and_collide(collision.get_remainder().length() * velocity * delta)
+				print("ded")
+			else:
+				var new_v = Vector3.ZERO
+				if abs(dot) > 0.7:
+					new_v = col_vel
+					speed_mod = 1.0
+					boosting = false
+				else:
+					var speed = velocity.length()
+					new_v = velocity.slide(col_normal).normalized() * speed
+				velocity = new_v
+				print("AFTER: ", velocity.length())
+		# global_position += collisions.get_remainder().length() * velocity * delta
 	# move_and_slide()
 			
 var Attach = preload("res://hook_attach.tscn")

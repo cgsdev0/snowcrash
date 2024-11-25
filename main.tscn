@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://b268fsoo6n1ue"]
+[gd_scene load_steps=37 format=3 uid="uid://b268fsoo6n1ue"]
 
 [ext_resource type="Environment" uid="uid://c5qeimb53plk0" path="res://environment.tres" id="1_5lfhd"]
 [ext_resource type="Script" path="res://debug_cam.gd" id="2_xewp7"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://cqpojmrvo3ysg" path="res://player/hoverboard.tscn" id="6_1laoo"]
 [ext_resource type="PackedScene" uid="uid://8vih1pju4gtw" path="res://player/character_model.tscn" id="6_lvnrd"]
 [ext_resource type="PackedScene" uid="uid://b4erqpgudrud1" path="res://proc/level.tscn" id="7_2fbom"]
+[ext_resource type="Script" path="res://addons/LineRenderer/line_renderer.gd" id="8_2afqm"]
+[ext_resource type="Texture2D" uid="uid://ld1irdigb57c" path="res://ui/line.png" id="8_jndwq"]
 [ext_resource type="Shader" path="res://ui/ramp_warning.gdshader" id="8_v3con"]
 [ext_resource type="Texture2D" uid="uid://b6vjksuqyadp1" path="res://ui/right_warning.png" id="9_2jmy1"]
 [ext_resource type="Texture2D" uid="uid://b64433w0ikh8e" path="res://ui/left_warning.png" id="10_lo8ka"]
@@ -155,6 +157,14 @@ _data = {
 "zoom_out": SubResource("Animation_nnj1b")
 }
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e8g7k"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_texture = ExtResource("8_jndwq")
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_p0lnw"]
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3v1aa"]
 shader = ExtResource("8_v3con")
 shader_parameter/scale = 0.4
@@ -191,6 +201,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.79491, 0.811146, 14.8302)
 collision_layer = 274
 collision_mask = 272
 motion_mode = 1
+wall_min_slide_angle = 0.0
 platform_on_leave = 2
 script = ExtResource("4_rs3po")
 rope_color = SubResource("GradientTexture1D_tf844")
@@ -269,14 +280,14 @@ target_position = Vector3(0, -2, 0)
 collision_mask = 32
 
 [node name="Left" type="RayCast3D" parent="Player"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.290271, -0.512044, -0.177094)
-target_position = Vector3(-0.5, 0, 0)
-collision_mask = 16
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.290271, 0.44438, -0.177094)
+target_position = Vector3(-1, 0, 0)
+collision_mask = 20
 
 [node name="Right" type="RayCast3D" parent="Player"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.290001, -0.512, -0.178001)
-target_position = Vector3(0.5, 0, 0)
-collision_mask = 16
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.290001, 0.444424, -0.178001)
+target_position = Vector3(1, 0, 0)
+collision_mask = 20
 
 [node name="BoostTimer" type="Timer" parent="Player"]
 wait_time = 1.6
@@ -294,6 +305,13 @@ shape = SubResource("CapsuleShape3D_uaoot")
 libraries = {
 "": SubResource("AnimationLibrary_oxmgl")
 }
+
+[node name="LineRenderer3D" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.49738, 0)
+material_override = SubResource("StandardMaterial3D_e8g7k")
+mesh = SubResource("ImmediateMesh_p0lnw")
+script = ExtResource("8_2afqm")
+points = Array[Vector3]([Vector3(0, 0, 0), Vector3(0, 0, -5)])
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.974004, 0.157894, -0.162439, 0, 0.717069, 0.697002, 0.226532, -0.678883, 0.698428, 0, 0, 0)
