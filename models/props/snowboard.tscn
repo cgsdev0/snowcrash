@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddpfpq4bqbd5n"]
+
+[ext_resource type="PackedScene" uid="uid://cib0qevr5sgq6" path="res://models/Snowboard.glb" id="1_ogh62"]
+
+[node name="Root Scene" instance=ExtResource("1_ogh62")]
+
+[node name="RootNode" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.615, 0, 0, 0)

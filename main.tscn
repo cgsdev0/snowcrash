@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://third_person_camera.gd" id="4_rof53"]
 [ext_resource type="Script" path="res://character_controller.gd" id="4_rs3po"]
 [ext_resource type="Shader" path="res://fog.gdshader" id="5_igo8q"]
-[ext_resource type="PackedScene" uid="uid://cqpojmrvo3ysg" path="res://player/hoverboard.tscn" id="6_1laoo"]
+[ext_resource type="PackedScene" uid="uid://ddpfpq4bqbd5n" path="res://models/props/snowboard.tscn" id="6_hms3u"]
 [ext_resource type="PackedScene" uid="uid://8vih1pju4gtw" path="res://player/character_model.tscn" id="6_lvnrd"]
 [ext_resource type="PackedScene" uid="uid://b4erqpgudrud1" path="res://proc/level.tscn" id="7_2fbom"]
 [ext_resource type="Script" path="res://addons/LineRenderer/line_renderer.gd" id="8_2afqm"]
@@ -461,7 +461,7 @@ cull_mode = 2
 shading_mode = 0
 albedo_texture = ExtResource("8_jndwq")
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_0hfb2"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_w7x04"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_iv5rv"]
 random_pitch = 1.4
@@ -618,11 +618,11 @@ shape = SubResource("CapsuleShape3D_v03n4")
 
 [node name="Visual" type="Node3D" parent="Player"]
 
-[node name="hoverboard" parent="Player/Visual" instance=ExtResource("6_1laoo")]
-transform = Transform3D(-1.2, 0, 1.81195e-07, 0, 1.2, 0, -1.81195e-07, 0, -1.2, 0.0636942, 0.375787, 0.118728)
+[node name="hoverboard" parent="Player/Visual" instance=ExtResource("6_hms3u")]
+transform = Transform3D(0.605, 0, 2.32831e-10, 0, 0.605, 0, -2.32831e-10, 0, 0.605, 0.0725417, 0.394163, 0.0553551)
 
 [node name="Hover" type="AudioStreamPlayer3D" parent="Player/Visual/hoverboard"]
-transform = Transform3D(-0.833333, 0, -1.2583e-07, 0, 0.833333, 0, 1.2583e-07, 0, -0.833333, 0, 0, 0)
+transform = Transform3D(1.65289, 0, -1.39698e-09, 0, 1.65289, 0, 1.39698e-09, 0, 1.65289, -0.014624, -0.0303745, 0.104748)
 stream = ExtResource("23_nufdu")
 volume_db = -17.0
 unit_size = 7.0
@@ -687,7 +687,7 @@ libraries = {
 [node name="LineRenderer3D" type="MeshInstance3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.49738, 0)
 material_override = SubResource("StandardMaterial3D_e8g7k")
-mesh = SubResource("ImmediateMesh_0hfb2")
+mesh = SubResource("ImmediateMesh_w7x04")
 script = ExtResource("8_2afqm")
 points = Array[Vector3]([Vector3(0, 0, 0), Vector3(0, 0, -5)])
 

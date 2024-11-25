@@ -258,6 +258,7 @@ func _physics_process(delta):
 		EventBus.restart.emit()
 		return
 	
+	$Visual.rotation.z = -input_faded / 5.0
 	if global_position.y < EventBus.progress - 8.0:
 		if !dead:
 			$CameraPos2.top_level = true
